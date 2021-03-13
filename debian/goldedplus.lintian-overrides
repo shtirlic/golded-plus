@@ -1,2 +1,0 @@
-# Multiple charset/, colorset/, etc. files are unneccessarily set as executables.
-goldedplus: executable-not-elf-or-script

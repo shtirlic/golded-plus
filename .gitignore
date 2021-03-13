@@ -1,9 +1,11 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
-
-/.vs
+﻿/.vs
 /windows/bin
 /windows/obj
 /golded3/mygolded.h
 *.user
+/obj
+/lib
+*.zip
+*.tb2
+*.bz2
+*.diz
