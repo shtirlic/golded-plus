@@ -27,28 +27,9 @@
 
 #include <gfilutil.h>
 
-#if defined(__OS2__)
-    #define INCL_BASE
-    #define INCL_ERROR_H
-    #include <os2.h>
-#endif
-
 #if defined(__WIN32__)
     #include <windows.h>
 #endif
-
-#if defined(__CYGWIN__)
-    #include <io.h>
-#endif
-
-#if defined(__MINGW32__)
-    #include <sys/locking.h>
-#endif
-
-#if defined(__BEOS__)
-    #include "be_lock.h"
-#endif
-
 
 //  ------------------------------------------------------------------
 
@@ -59,7 +40,7 @@ extern "C" {
 
 //  ------------------------------------------------------------------
 
-#if !defined(__DJGPP__) && ((defined(__BORLANDC__) && defined(__OS2__)) || defined(__UNIX__) || defined(__EMX__))
+#if defined(__UNIX__)
 
 off_t filelength(int handle)
 {
@@ -74,80 +55,15 @@ off_t filelength(int handle)
 #endif
 
 
-//  ------------------------------------------------------------------
-
-#if defined(__OS2__)
-
-int lock(int handle, long ofs, long length)
-{
-    int rc;
-    APIRET apiret;
-    FILELOCK urange, lrange;
-
-    lrange.lOffset = ofs;
-    lrange.lRange = length;
-    urange.lRange = urange.lOffset = 0;
-
-    if((apiret = DosSetFileLocks((HFILE)handle, &urange, &lrange, 0, 0)) != 0)
-    {
-        if(apiret == ERROR_LOCK_VIOLATION)
-        {
-            errno = EACCES;
-            rc = -1;
-        }
-        else
-            rc = (int)apiret;
-    }
-    else
-        rc = 0;
-
-    return rc;
-}
-
-#endif
-
 
 //  ------------------------------------------------------------------
 
-#if defined(__OS2__)
-
-int unlock(int handle, long ofs, long length)
-{
-    int rc;
-    FILELOCK urange, lrange;
-    APIRET apiret;
-
-    urange.lOffset = ofs;
-    urange.lRange = length;
-    lrange.lRange = lrange.lOffset = 0;
-
-    if((apiret = DosSetFileLocks((HFILE)handle, &urange, &lrange, 0, 0)) != 0)
-    {
-        if(apiret == ERROR_LOCK_VIOLATION)
-        {
-            errno = EACCES;
-            rc = -1;
-        }
-        else
-            rc = apiret;
-    }
-    else
-        rc = 0;
-
-    return rc;
-}
-
-#endif
-
-
 //  ------------------------------------------------------------------
 
-#if defined(__UNIX__) || defined(__CYGWIN__)
+#if defined(__UNIX__)
 
 int lock(int handle, long offset, long length)
 {
-
-#ifndef __BEOS__
     struct flock fl;
     fl.l_type = F_WRLCK;
     fl.l_whence = SEEK_SET;
@@ -155,9 +71,6 @@ int lock(int handle, long offset, long length)
     fl.l_len = length;
 
     return fcntl(handle, F_SETLK, &fl);
-#else //__BEOS__
-    return be_lock(handle);
-#endif
 }
 
 #endif
@@ -165,12 +78,11 @@ int lock(int handle, long offset, long length)
 
 //  ------------------------------------------------------------------
 
-#if defined(__UNIX__) || defined(__CYGWIN__)
+#if defined(__UNIX__)
 
 int unlock(int handle, long offset, long length)
 {
 
-#ifndef __BEOS__
     struct flock fl;
     fl.l_type = F_UNLCK;
     fl.l_whence = SEEK_SET;
@@ -178,9 +90,6 @@ int unlock(int handle, long offset, long length)
     fl.l_len = length;
 
     return fcntl(handle, F_SETLK, &fl);
-#else //__BEOS__
-    return be_unlock(handle);
-#endif //__BEOS__
 }
 
 #endif
@@ -188,7 +97,7 @@ int unlock(int handle, long offset, long length)
 
 //  ------------------------------------------------------------------
 
-#if defined(__MINGW32__) || defined(_MSC_VER)
+#if defined(_MSC_VER)
 
 int lock(int fh, long offs, long len)
 {
@@ -202,7 +111,7 @@ int lock(int fh, long offs, long len)
 
 //  ------------------------------------------------------------------
 
-#if defined(__MINGW32__) || defined(_MSC_VER)
+#if defined(_MSC_VER)
 
 int unlock(int fh, long offs, long len)
 {

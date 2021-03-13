@@ -6,14 +6,6 @@
 # $Id$
 # Build library using GNU make and CNU C++ compuler.
 
-ifeq ($(TERM),cygwin)
-MINGW=true
-else
-ifeq ($(OSTYPE),msys)
-MINGW=true
-endif
-endif
-
 TOP=../..
 TARGET=gcui
 INCS=-I$(TOP)/goldlib -I$(TOP)/goldlib/gcui -I$(TOP)/goldlib/gall

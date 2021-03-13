@@ -144,11 +144,6 @@
     #define __GVER_SHORTPLATFORM__ "BSD"
     #define __GVER_SHORTLOGNAME__  "B"
     #define __GVER_CFGEXT__        ".geb"
-#elif defined(__BEOS__)
-    #define __GVER_PLATFORM__      "/BeOS"
-    #define __GVER_SHORTPLATFORM__ "BeOS"
-    #define __GVER_SHORTLOGNAME__  "B"
-    #define __GVER_CFGEXT__        ".gbe"
 #elif defined(__QNXNTO__)
     #define __GVER_PLATFORM__      "/QNX"
     #define __GVER_SHORTPLATFORM__ "QNX"

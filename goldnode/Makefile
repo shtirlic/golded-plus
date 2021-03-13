@@ -1,13 +1,5 @@
 # -*- makefile -*-
 
-ifeq ($(TERM),cygwin)
-MINGW=true
-else
-ifeq ($(OSTYPE),msys)
-MINGW=true
-endif
-endif
-
 TOP=..
 SHORTTARGET=gn
 TARGET=goldnode

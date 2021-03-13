@@ -41,11 +41,6 @@
 #include <gsigunix.h>
 #include <gkbdunix.h>
 
-#ifdef __BEOS__
-    //sz: some undocumented call that behaves in same manner as select ...
-    //used in BEOS_BONE builds ...
-    extern "C" int waiton( int, fd_set *, fd_set *, fd_set *, bigtime_t);
-#endif
 //  ------------------------------------------------------------------
 
 int gkbd_stdin = -1;
@@ -175,8 +170,6 @@ void gkbd_tty_reset()
 
 int gkbd_sys_input_pending(int tsecs)
 {
-
-#if !defined(__BEOS__)
     static fd_set read_fd_set;
     struct timeval wait;
     long usecs, secs;
@@ -200,36 +193,6 @@ int gkbd_sys_input_pending(int tsecs)
     FD_SET(gkbd_stdin, &read_fd_set);
 
     return select(gkbd_stdin+1, &read_fd_set, NULL, NULL, &wait);
-#else // BeOS input handling ...
-#if defined(BEOS_BONE_BUILD)
-    static fd_set read_fd_set;
-
-    FD_ZERO(&read_fd_set);
-    FD_SET(gkbd_stdin, &read_fd_set);
-
-    return waiton(gkbd_stdin+1, &read_fd_set, NULL, NULL, 0);
-#else // not a BEOS_BONE_BUILD - use classical input check scheme ...
-    struct termios term, oterm;
-    // get the terminal settings
-    tcgetattr(gkbd_stdin, &oterm);
-    // get a copy of the settings, which we modify
-    memcpy(&term, &oterm, sizeof(term));
-    // put the terminal in non-canonical mode, any
-    // reads timeout after 0.1 seconds or when a
-    // single character is read
-    term.c_lflag = term.c_lflag & (!ICANON);
-    term.c_cc[VMIN] = 0;
-    term.c_cc[VTIME] = 1;
-    tcsetattr(gkbd_stdin, TCSANOW, &term);
-    //check input
-    int bytes = -1;
-    ioctl(gkbd_stdin, TCWAITEVENT, &bytes);
-    // reset the terminal to original state
-    tcsetattr(gkbd_stdin, TCSANOW, &oterm);
-
-    return bytes;
-#endif //defined(BEOS_BONE_BUILD)
-#endif
 }
 
 //  ------------------------------------------------------------------

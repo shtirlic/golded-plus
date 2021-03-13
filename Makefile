@@ -7,7 +7,6 @@
 #                   "sun" - for SunOS (Solaris)
 #                   "osx" - for OS X
 #                   "djg" - for DJGPP (DOS with DPMI)
-#                   "be"  - for BeOS
 # "BUILD=minimal"   Compile Golded+ with support only most popular formats of
 #                   message bases (OPUS, Jam, Squish).
 # "USE_NCURSES=0"   if you dislike curses library (Linux version requires to

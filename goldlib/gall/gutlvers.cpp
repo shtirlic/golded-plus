@@ -39,11 +39,6 @@
     #include <sys/utsname.h>
 #endif
 
-#if defined(__BEOS__)
-    #include <File.h>
-    #include <AppFileInfo.h>
-#endif
-
 
 //  ------------------------------------------------------------------
 
@@ -583,20 +578,7 @@ char* ggetosstring(void)
             if(!processor[0])
                 strcpy(processor,info.machine);
 
-#if defined(__EMX__)
-            sprintf(osstring, "%s %s.%s %s", info.sysname, info.version, info.release, processor);
-#elif defined(__DJGPP__)
-            sprintf(osstring, "%s %s.%s %s", info.sysname, info.release, info.version, processor);
-#elif defined(__BEOS__)
-            BAppFileInfo appFileInfo;
-            version_info sys_ver = {0};
-            BFile file("/boot/beos/system/lib/libbe.so", B_READ_ONLY);
-            appFileInfo.SetTo(&file);
-            appFileInfo.GetVersionInfo(&sys_ver, B_APP_VERSION_KIND);
-            sprintf(osstring, "%s %s %s", info.sysname, sys_ver.short_info, processor);
-#else
             sprintf(osstring, "%s %s %s", info.sysname, info.release, processor);
-#endif
         }
         else
             strcpy(osstring, "unknown");

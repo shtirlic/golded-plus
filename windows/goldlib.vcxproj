@@ -136,11 +136,6 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\goldlib\gall\be_lock.c">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_Static|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\goldlib\gall\gbmh.cpp" />
     <ClCompile Include="..\goldlib\gall\gcharset.cpp" />
     <ClCompile Include="..\goldlib\gall\gcrc16tb.cpp" />
@@ -211,11 +206,6 @@
     <ClCompile Include="..\goldlib\gall\gusrpcb.cpp" />
     <ClCompile Include="..\goldlib\gall\gusrra2.cpp" />
     <ClCompile Include="..\goldlib\gall\gusrxbbs.cpp" />
-    <ClCompile Include="..\goldlib\gall\gutlbeos.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_Static|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\goldlib\gall\gutlclip.cpp" />
     <ClCompile Include="..\goldlib\gall\gutlcode.cpp" />
     <ClCompile Include="..\goldlib\gall\gutldos.cpp">
@@ -418,7 +408,6 @@
     <ClCompile Include="..\goldlib\uulib\uuutil.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\goldlib\gall\be_lock.h" />
     <ClInclude Include="..\goldlib\gall\gasmamis.h" />
     <ClInclude Include="..\goldlib\gall\gbmh.h" />
     <ClInclude Include="..\goldlib\gall\gcharset.h" />
