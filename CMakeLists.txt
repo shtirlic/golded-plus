@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.11)
+cmake_minimum_required(VERSION 2.8.12)
 project(golded-plus C CXX)
 
 include(CheckFunctionExists)
@@ -103,8 +103,8 @@ else()
   set(CPACK_GENERATOR ${CPACK_GENERATOR} TGZ)
 endif()
 
-set (CPACK_PACKAGE_VERSION_MAJOR "1")
-set (CPACK_PACKAGE_VERSION_MINOR "1")
+set (CPACK_PACKAGE_VERSION_MAJOR "2")
+set (CPACK_PACKAGE_VERSION_MINOR "0")
 file(READ srcdate.h srcdate)
 string(REPLACE "\n" ";" LINES ${srcdate})
 list(GET LINES 1 LINETWO)
