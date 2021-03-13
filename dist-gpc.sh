@@ -1,5 +1,4 @@
-#!/bin/bash
-# $Id$
+#!/bin/env bash
 # Create a archive 'gpc*.zip' with configuration files examples.
 
 srcdatefile=srcdate.h

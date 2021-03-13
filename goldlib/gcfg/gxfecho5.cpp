@@ -48,8 +48,6 @@ void gareafile::ReadFastecho141(int fh)
     //for(int u=0; u<11; u++)
     //CfgUsername(cfg->sysops[u].name);
 
-    // Get Hudson msgbase path
-    CfgHudsonpath(cfg->MsgBase);
 
     // Setup aka list
     SysAddress* aka = (SysAddress*)throw_calloc(cfg->AkaCnt, sizeof(SysAddress));

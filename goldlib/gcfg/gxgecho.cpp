@@ -113,7 +113,6 @@ void gareafile::ReadGEcho(char* tag)
                 //for(n=0; n<USERS; n++)
                 //CfgUsername(gesetup->username[n]);
 
-                CfgHudsonpath(gesetup->hmbpath);
                 CfgJampath(gesetup->jampath);
 
                 const char *_fidomsgtype = fidomsgtype;
@@ -389,14 +388,6 @@ void gareafile::ReadGEcho(char* tag)
 
                                 switch(area->areaformat)
                                 {
-                                case FORMAT_HMB:
-                                    if(area->areanumber and area->areanumber < 201)
-                                    {
-                                        aa.basetype = "HUDSON";
-                                        aa.board = area->areanumber;
-                                        break;
-                                    }
-                                    continue;
                                 case FORMAT_SDM:
                                     if(not strblank(area->path))
                                     {
@@ -421,11 +412,6 @@ void gareafile::ReadGEcho(char* tag)
                                         break;
                                     }
                                     continue;
-                                case FORMAT_PCB:
-                                    aa.basetype = "PCBOARD";
-                                    aa.board = area->areanumber;
-                                    aa.setpath(area->path);
-                                    break;
                                 case FORMAT_WC:
                                     aa.basetype = "WILDCAT";
                                     aa.board = area->areanumber;
@@ -434,12 +420,7 @@ void gareafile::ReadGEcho(char* tag)
                                 default:
                                     if(ge_version >= 102)
                                         continue;
-                                    if(area->areanumber and area->areanumber < 201)
-                                    {
-                                        aa.basetype = "HUDSON";
-                                        aa.board = area->areanumber;
-                                    }
-                                    else if((area->options & SDM) and not strblank(area->path))
+                                    if((area->options & SDM) and not strblank(area->path))
                                     {
                                         aa.basetype = _fidomsgtype;
                                         aa.setpath(area->path);

@@ -1211,32 +1211,11 @@ void Initialize(int argc, char* argv[])
         EzycomInit(CFG->ezycom.msgbasepath, CFG->ezycom.userbasepath, CFG->ezycomuserno);
     }
 #endif
-#ifndef GMB_NOGOLD
-    if(find(AL.basetypes, "GOLDBASE"))
-    {
-        update_statuslinef("%s Goldbase", "", LNG->Checking);
-        GoldInit(CFG->goldbasepath, CFG->goldbasesyspath, CFG->goldbaseuserno);
-    }
-#endif
-#ifndef GMB_NOHUDS
-    if(find(AL.basetypes, "HUDSON"))
-    {
-        update_statuslinef("%s Hudson", "", LNG->Checking);
-        HudsInit(CFG->hudsonpath, CFG->hudsonsyspath, CFG->hudsonuserno, CFG->hudsonsizewarn, CFG->ra2usersbbs);
-    }
-#endif
 #ifndef GMB_NOJAM
     if(find(AL.basetypes, "JAM"))
     {
         update_statuslinef("%s JAM", "", LNG->Checking);
         JamInit(CFG->jampath, CFG->switches.get(jamharddelete), CFG->switches.get(jamsmapihw));
-    }
-#endif
-#ifndef GMB_NOPCB
-    if(find(AL.basetypes, "PCBOARD"))
-    {
-        update_statuslinef("%s PCBoard", "", LNG->Checking);
-        PcbInit(CFG->pcboardpath, CFG->pcboarduserno);
     }
 #endif
 #ifndef GMB_NOSQSH
@@ -1253,13 +1232,6 @@ void Initialize(int argc, char* argv[])
         WCatInit(CFG->wildcatuserno);
     }
 #endif
-#ifndef GMB_NOXBBS
-    if(find(AL.basetypes, "ADEPTXBBS"))
-    {
-        update_statuslinef("%s AdeptXBBS", "", LNG->Checking);
-        XbbsInit(CFG->adeptxbbspath, CFG->adeptxbbsuserno);
-    }
-#endif
 #ifndef GMB_NOSMB
     if(find(AL.basetypes, "SMB"))
     {
@@ -1268,13 +1240,6 @@ void Initialize(int argc, char* argv[])
     }
 #endif
     update_statuslinef("...", "");
-
-    // Delete the D'Bridge "mail waiting" semaphore files
-    if(dbedit)
-    {
-        remove(AddPath(CFG->areapath, "DBRIDGE.NMW"));
-        remove(AddPath(CFG->areapath, "DBRIDGE.EMW"));
-    }
 
     // Unlink windows
     wunlink(W_READ);

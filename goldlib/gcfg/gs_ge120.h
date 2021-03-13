@@ -88,8 +88,6 @@ typedef char GROUPS[GROUPBYTES];
 
 #define LOG_FD       0  /* FrontDoor */
 #define LOG_BINK     1  /* BinkleyTerm */
-#define LOG_QUICK    2  /* QuickBBS */
-#define LOG_DBRIDGE  3  /* D'Bridge */
 
 
 /* --- Setup option bits */
@@ -191,11 +189,6 @@ typedef char GROUPS[GROUPBYTES];
 #define TEAR_CUSTOM   2  /* Replace custom */
 #define TEAR_EMPTY    3  /* Replace empty */
 #define TEAR_REMOVE   4  /* Remove */
-
-
-/* --- PCBoard options */
-
-#define PCB_145COMPAT  0x01  /* PCBoard 14.5 compatibility */
 
 
 /* --- Wildcat! options */
@@ -373,7 +366,6 @@ typedef struct
     byte pktsort;              /* 0 = No, 1 = Area, 2 = Area + Date/Time */
     char wildcatpath[53];      /* Wildcat! home path */
     byte wcoptions;            /* Wildcat! options */
-    byte pcboptions;           /* PCBoard options */
 } SETUP_GE;
 
 #define IMPORTSB  0x0001  /* Import SEEN-BY lines to message base */
@@ -408,10 +400,8 @@ typedef struct
 
 
 #define FORMAT_PT      0  /* Passthru */
-#define FORMAT_HMB     1  /* Hudson Message Base */
 #define FORMAT_SDM     2  /* *.MSG base */
 #define FORMAT_JAM     3  /* Joaquim-Andrew-Mats message base proposal */
-#define FORMAT_PCB     4  /* PCBoard 15.0 */
 #define FORMAT_SQUISH  5  /* Squish 2.0 */
 #define FORMAT_WC      6  /* Wildcat! 4.0 */
 #define NUM_FORMATS    7

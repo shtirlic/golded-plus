@@ -427,10 +427,6 @@ char* GetCurrQuotebuf(char* quotebuf)
             sprintf(quotebuf, "%sgld%05u.qbf", CFG->ezycom.msgbasepath, AA->board());
         else if ((AA->basetype() == "FTS1") || (AA->basetype() == "OPUS"))
             sprintf(quotebuf, "%s%s", AA->path(), "golded.qbf");
-        else if (AA->basetype() == "GOLDBASE")
-            sprintf(quotebuf, "%sgoldg%03u.qbf", CFG->goldbasepath, AA->board());
-        else if (AA->basetype() == "HUDSON")
-            sprintf(quotebuf, "%sgoldh%03u.qbf", CFG->hudsonpath, AA->board());
         else
             sprintf(quotebuf, "%s%s", AA->path(), ".qbf");
     }

@@ -1,7 +1,6 @@
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(gmb3_SOURCES
   gmoarea.cpp
-  gmohuds.cpp
   gmoezyc1.cpp
   gmoezyc2.cpp
   gmoezyc3.cpp
@@ -17,11 +16,6 @@ set(gmb3_SOURCES
   gmojamm3.cpp
   gmojamm4.cpp
   gmojamm5.cpp
-  gmopcbd1.cpp
-  gmopcbd2.cpp
-  gmopcbd3.cpp
-  gmopcbd4.cpp
-  gmopcbd5.cpp
   gmosmb1.cpp
   gmosmb2.cpp
   gmosqsh1.cpp
@@ -34,11 +28,6 @@ set(gmb3_SOURCES
   gmowcat3.cpp
   gmowcat4.cpp
   gmowcat5.cpp
-  gmoxbbs1.cpp
-  gmoxbbs2.cpp
-  gmoxbbs3.cpp
-  gmoxbbs4.cpp
-  gmoxbbs5.cpp
 )
 include_directories(../gall ../gcfg ../gcui ../smblib ../glibc)
 ADD_LIBRARY(gmb3 STATIC ${gmb3_SOURCES})

@@ -52,7 +52,6 @@ void ftn_attr::add(const ftn_attr& b)
     if(b.arq())  arq1();
     if(b.urq())  urq1();
 
-    if(b.grp())  grp1_();
     if(b.imm())  imm1();
     if(b.dir())  dir1();
     if(b.tfs())  tfs1();
@@ -128,7 +127,6 @@ std::string& ftn_attr::make_string(std::string& s) const
     if(let())  s += "Let ";
     if(fax())  s += "Fax ";
     if(rsv())  s += "Rsv ";
-    if(grp())  s += "Grp ";
     if(scn())  s += "Scn ";
     if(prn())  s += "Prn ";
 
@@ -163,7 +161,6 @@ void ftn_attr::get(const std::string& __s)
     if(striinc("ARQ", s))  arq1();
     if(striinc("URQ", s))  urq1();
 
-    if(striinc("GRP", s))  grp1_();
     if(striinc("IMM", s))  imm1();
     if(striinc("DIR", s))  dir1();
     if(striinc("TFS", s))  tfs1();

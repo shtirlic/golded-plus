@@ -297,9 +297,6 @@ void gareafile::ReadSpaceCtl(const char* file)
                 aa.type = GMB_LOCAL;
                 aa.attr = attribslocal;
                 break;
-            case CRC_HUDSONPATH:
-                CfgHudsonpath(val);
-                break;
             case CRC_EXPORTLISTS:
                 CfgJampath(val);
                 break;

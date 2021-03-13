@@ -254,16 +254,6 @@ static void toggle_reserved()
 
 //  ------------------------------------------------------------------
 
-static void toggle_groupmsg()
-{
-
-    MenuMsgPtr->attr.grpX();
-    DispHeadAttrs();
-}
-
-
-//  ------------------------------------------------------------------
-
 static void toggle_arcsent()
 {
 
@@ -485,10 +475,6 @@ bool ProcessAttrs(gkey &key)
     {
     case KK_HeaderToggleScanned:
         toggle_scanned();
-        return true;
-
-    case KK_HeaderToggleGroupmsg:
-        toggle_groupmsg();
         return true;
 
     case KK_HeaderToggleZonegate:

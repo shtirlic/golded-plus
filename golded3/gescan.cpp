@@ -167,16 +167,6 @@ int AreaList::AreaScan(int mode, uint currno, int pmscan, int& pmails, int& pmar
 
     currno = AreaIdToNo(currid);
 
-#ifndef GMB_NOPCB
-    if(find(AL.basetypes, "PCBOARD"))    PcbWideOpen();
-#endif
-#ifndef GMB_NOGOLD
-    if(find(AL.basetypes, "GOLDBASE"))   GoldWideOpen();
-#endif
-#ifndef GMB_NOHUDS
-    if(find(AL.basetypes, "HUDSON"))     HudsWideOpen();
-#endif
-
     for(uint n=0; n<idx.size(); n++)
     {
 
@@ -283,17 +273,6 @@ int AreaList::AreaScan(int mode, uint currno, int pmscan, int& pmails, int& pmar
             }
         }
     }
-
-#ifndef GMB_NOHUDS
-    if(find(AL.basetypes, "HUDSON"))     HudsWideClose();
-#endif
-#ifndef GMB_NOGOLD
-    if(find(AL.basetypes, "GOLDBASE"))   GoldWideClose();
-#endif
-#ifndef GMB_NOPCB
-    if(find(AL.basetypes, "PCBOARD"))    PcbWideClose();
-#endif
-
     return scanned;
 }
 

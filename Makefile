@@ -1,12 +1,8 @@
 # Build Golded+, Goldnode and RDDT using GNU make and CNU C++ compuler.
 # You may use following parameters:
 # "PLATFORM=xxx", where xxx specifies platform, one of:
-#                   "cyg" - for MinGW or Cygwin (MinGW build),
 #                   "lnx" - for GNU/Linux or any BSD,
-#                   "emx" - for OS/2 EMX
-#                   "sun" - for SunOS (Solaris)
 #                   "osx" - for OS X
-#                   "djg" - for DJGPP (DOS with DPMI)
 # "BUILD=minimal"   Compile Golded+ with support only most popular formats of
 #                   message bases (OPUS, Jam, Squish).
 # "USE_NCURSES=0"   if you dislike curses library (Linux version requires to

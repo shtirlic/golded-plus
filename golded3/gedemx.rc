@@ -1,3 +1,0 @@
-#include <os2.h>
-
-ICON 1 PRELOAD ged2.ico

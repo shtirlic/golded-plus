@@ -35,23 +35,14 @@
 #ifndef GMB_NOEZY
     #include <gmoezyc.h>
 #endif
-#if !defined(GMB_NOHUDS) || !defined(GMB_NOGOLD)
-    #include <gmohuds.h>
-#endif
 #ifndef GMB_NOJAM
     #include <gmojamm.h>
 #endif
 #ifndef GMB_NOSQSH
     #include <gmosqsh.h>
 #endif
-#ifndef GMB_NOPCB
-    #include <gmopcbd.h>
-#endif
 #ifndef GMB_NOWCAT
     #include <gmowcat.h>
-#endif
-#ifndef GMB_NOXBBS
-    #include <gmoxbbs.h>
 #endif
 #ifndef GMB_NOSMB
     #include <gmosmb.h>
@@ -120,26 +111,14 @@ Area* AreaList::NewArea(const char *basetype)
 #ifndef GMB_NOEZY
     else if(streql(basetype, "EZYCOM")) ap = new EzycomArea;
 #endif
-#ifndef GMB_NOGOLD
-    else if(streql(basetype, "GOLDBASE")) ap = new GoldArea;
-#endif
-#ifndef GMB_NOHUDS
-    else if(streql(basetype, "HUDSON")) ap = new HudsArea;
-#endif
 #ifndef GMB_NOJAM
     else if(streql(basetype, "JAM")) ap = new JamArea;
-#endif
-#ifndef GMB_NOPCB
-    else if(streql(basetype, "PCBOARD")) ap = new PcbArea;
 #endif
 #ifndef GMB_NOSQSH
     else if(streql(basetype, "SQUISH")) ap = new SquishArea;
 #endif
 #ifndef GMB_NOWCAT
     else if(streql(basetype, "WILDCAT")) ap = new WCatArea;
-#endif
-#ifndef GMB_NOXBBS
-    else if(streql(basetype, "ADEPTXBBS")) ap = new XbbsArea;
 #endif
 #ifndef GMB_NOSMB
     else if(streql(basetype, "SMB")) ap = new SMBArea;
@@ -324,11 +303,6 @@ void AreaList::WriteAreaDef(const char* file)
                 strcpy(type, "Echo ");
             else if((*aa)->islocal())
                 strcpy(type, "Local");
-#ifndef GMB_NOXBBS
-            if ((*aa)->basetype() == "ADEPTXBBS")
-                strcpy(msgbase, "XBBS");
-            else
-#endif
                 strxcpy(msgbase, (*aa)->basetype().c_str(), sizeof(msgbase));
             if (strchr((*aa)->echoid(), ' '))
                 gsprintf(PRINTF_DECLARE_BUFFER(echoid), "\"%s\"", (*aa)->echoid());
@@ -400,32 +374,6 @@ void AreaList::SetAreaDesc(char* echoid, char* desc)
         }
     }
 }
-
-
-//  ------------------------------------------------------------------
-
-#ifndef GMB_NOPCB
-void PcbAdjustArea(uint rec, const char* msgfile)
-{
-    for (uint n=0; n<AL.size(); n++)
-    {
-        Area* a = AL[n];
-        if (a->basetype() == "PCBOARD")
-        {
-            if((a->board() == rec) and (*a->path() == NUL))
-            {
-                a->set_path(msgfile);
-                break;
-            }
-            else if(strieql(a->path(), msgfile))
-            {
-                a->set_board(rec);
-                break;
-            }
-        }
-    }
-}
-#endif
 
 
 //  ------------------------------------------------------------------

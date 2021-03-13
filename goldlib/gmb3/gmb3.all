@@ -23,7 +23,6 @@
 
 ## Msgbase source for GoldED 3.xx
 gmoarea  cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gmohuds  cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gmoezyc1 cpp     all nov     bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gmoezyc2 cpp     all nov     bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gmoezyc3 cpp     all nov     bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
@@ -39,11 +38,6 @@ gmojamm2 cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gmojamm3 cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gmojamm4 cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gmojamm5 cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gmopcbd1 cpp     all nov     bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gmopcbd2 cpp     all nov     bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gmopcbd3 cpp     all nov     bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gmopcbd4 cpp     all nov     bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gmopcbd5 cpp     all nov     bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gmosmb1  cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gmosmb2  cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gmosqsh1 cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
@@ -56,11 +50,5 @@ gmowcat2 cpp     all nov     bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gmowcat3 cpp     all nov     bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gmowcat4 cpp     all nov     bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gmowcat5 cpp     all nov     bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gmoxbbs1 cpp     all nov     bco         wco     lnx emx djg     cyg be sun osx
-gmoxbbs2 cpp     all nov     bco         wco     lnx emx djg     cyg be sun osx
-gmoxbbs3 cpp     all nov     bco         wco     lnx emx djg     cyg be sun osx
-gmoxbbs4 cpp     all nov     bco         wco     lnx emx djg     cyg be sun osx
-gmoxbbs5 cpp     all nov     bco         wco     lnx emx djg     cyg be sun osx
-
 ##  ------------------------------------------------------------------
 

@@ -37,9 +37,7 @@
 //  Supported multitaskers
 
 const int GMTSK_NONE     = 0;
-const int GMTSK_OS2      = 1;
 const int GMTSK_WINDOWS  = 2;
-const int GMTSK_DESQVIEW = 3;
 const int GMTSK_DOS      = 4;
 const int GMTSK_W32      = 5;
 const int GMTSK_LINUX    = 6;
@@ -56,10 +54,8 @@ public:
     int detected;
     const char* name;
 
-    int os2();
     int win32();
     int windows();
-    int desqview();
     int dosint28();
 
     void timeslice();

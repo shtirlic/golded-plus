@@ -64,7 +64,7 @@ public:
     int      areaid;          // Unique internal area number
     int      groupid;         // Group id (A-Z)
     int      originno;        // Origin number
-    uint     board;           // Board number (Hudson/Goldbase/Ezycom/PCBoard fmts)
+    uint     board;           // Board number (Ezycom/PCBoard fmts)
     uint     type;            // Type of msgarea (GMB_xxx)
     std::string basetype;     // Type of msgbase
     ftn_addr aka;             // The AKA to use in the area
@@ -221,14 +221,7 @@ protected:
     bool jbstrcpy(char *dest, char *src, size_t maxlen, size_t *jbc);
     void ReadCrashmailCfg(const char* file);
 #endif
-#ifndef GCFG_NOTIMED
-    // Timed parser function
-    void nullastbackslash(char* val);
-#endif
-#ifndef GCFG_NOWATERGATE
-    // Watergate parser function
-    const char *gettype(const char *msgtype, const byte wtrtype);
-#endif
+
 #ifndef GCFG_NOXMAIL
     // XMail parser function
     char* ClipDosFilename(char* __file);
@@ -236,12 +229,6 @@ protected:
 
     void adjustpath(char* path);
 
-#ifndef GCFG_NODB
-    void ReadDB130(char* tag, char* dbpath);
-    void ReadDB1046(char* file, char* tag);
-    void ReadDB1047A22(char* file, int reclen, char* tag);
-    void ReadDB2011(char* file, int reclen, char* tag);
-#endif
 #ifndef GCFG_NOEZY
     void ReadEzycom102(gfile &fp, char* path, char* file, char* options);
     void ReadEzycom110(gfile &fp, char* path, char* file, char* options);
@@ -251,27 +238,13 @@ protected:
     void ReadFastecho141(int fh);
     void ReadFastecho142(int fh);
 #endif
-#ifndef GCFG_NOFMAIL
-    void ReadFMail092(gfile &fp, char* path, char* file, char* options);
-    void ReadFMail098(gfile &fp, char* path, char* file, char* options);
-    void ReadFMail116(gfile &fp, char* path, char* file, char* options);
-#endif
 #ifndef GCFG_NOFIDOCONF
     AreaCfg echoareadefaults;
     bool ReadHPTLine(gfile &f, std::string& str);
     void ReadHPTFile(char* path, char* file, char* origin, int group);
 #endif
-#ifndef GCFG_NOIMAIL
-    void ReadIMail160(char* options, char* file, char* impath);
-    void ReadIMail170(char* options, char* file, char* impath);
-    void ReadIMail185(char* options, char* file, char* impath);
-#endif
 #ifndef GCFG_NOMAXIMUS
     void ReadMaximus3(char* mxpath, char* areafile, char* options);
-#endif
-#ifndef GCFG_NOQBBS
-    void ReadQ260(char* qbpath, char* origin, char* options);
-    void ReadQ276(char* qbpath, char* origin, char* options);
 #endif
 #ifndef GCFG_NOQECHO
     void ReadQEchoFile(char* file, char* options, char* origin);
@@ -294,12 +267,6 @@ protected:
 #ifndef GCFG_NOWATERGATE
     void ReadWtrGteFile(char* options, gfile &fp);
 #endif
-#ifndef GCFG_NOXBBS
-    void ReadAdeptXbbsFile(char* path, char* file, char* options);
-#endif
-#ifndef GCFG_NOXMAIL
-    void ReadxMailFile(char* file, char* options);
-#endif
 
 public:
 
@@ -315,8 +282,7 @@ public:
     int squishuserno;
 
     const char *areapath;
-    const char *pcboardpath;
-
+    
     ftn_addr primary_aka;
 
     ftn_attr attribsnet;
@@ -328,29 +294,14 @@ public:
     void GetAreasBBS(char* name, char* origin, char* options);
 
     void ReadAreasBBS(char* tag);
-#ifndef GCFG_NOXBBS
-    void ReadAdeptXBBS(char* tag);
-#endif
 #if !defined(GCFG_NOCMAIL) || !defined(GCFG_NOCECHO)
     void ReadCrashmail(char* tag);
-#endif
-#ifndef GCFG_NODB
-    void ReadDBridge(char* tag);
-#endif
-#ifndef GCFG_NODUTCHIE
-    void ReadDutchie(char* tag);
 #endif
 #ifndef GCFG_NOEZY
     void ReadEzycom(char* tag);
 #endif
 #ifndef GCFG_NOFE
     void ReadFastecho(char* tag);
-#endif
-#ifndef GCFG_NOFIDOPCB
-    void ReadFidoPCB(char* tag);
-#endif
-#ifndef GCFG_NOFMAIL
-    void ReadFMail(char* tag);
 #endif
 #ifndef GCFG_NOFD
     void ReadFrontDoor(char* tag);
@@ -360,12 +311,6 @@ public:
 #endif
 #ifndef GCFG_NOFIDOCONF
     void ReadHPT(char* tag);
-#endif
-#ifndef GCFG_NOIMAIL
-    void ReadIMail(char* tag);
-#endif
-#ifndef GCFG_NOINTERMAIL
-    void ReadInterMail(char* tag);
 #endif
 #ifndef GCFG_NOLORA
     void ReadLoraBBS(char* tag);
@@ -379,29 +324,11 @@ public:
 #ifndef GCFG_NOOPUS
     void ReadOpus(char* tag);
 #endif
-#ifndef GCFG_NOPCB
-    void ReadPCBoard(char* tag);
-#endif
-#ifndef GCFG_NOPORTAL
-    void ReadPortal(char* tag);
-#endif
-#ifndef GCFG_NOPROBOARD
-    void ReadProBoard(char* tag);
-#endif
 #ifndef GCFG_NOQECHO
     void ReadQEcho(char* tag);
 #endif
 #ifndef GCFG_NOQFRONT
     void ReadQFront(char* tag);
-#endif
-#ifndef GCFG_NOQBBS
-    void ReadQuickBBS(char* tag);
-#endif
-#ifndef GCFG_NORAECHO
-    void ReadRaEcho(char* tag);
-#endif
-#ifndef GCFG_NORA
-    void ReadRemoteAccess(char* tag);
 #endif
 #if !defined(GCFG_NOSQSH) || !defined(GCFG_NOPARTOSS)
     void ReadSquish(char* tag);
@@ -409,26 +336,8 @@ public:
 #ifndef GCFG_NOSPCT
     void ReadSpaceToss(char *tag);
 #endif
-#ifndef GCFG_NOSBBS
-    void ReadSuperBBS(char* tag);
-#endif
-#ifndef GCFG_NOTIMED
-    void ReadTimed(char* tag);
-#endif
 #ifndef GCFG_NOTERMAIL
     void ReadTmail(char* tag);
-#endif
-#ifndef GCFG_NOTOSSCAN
-    void ReadTosScan(char* tag);
-#endif
-#ifndef GCFG_NOWMAIL
-    void ReadWMail(char* tag);
-#endif
-#ifndef GCFG_NOWATERGATE
-    void ReadWtrGte(char* tag);
-#endif
-#ifndef GCFG_NOXMAIL
-    void ReadXMail(char* tag);
 #endif
 #ifndef GCFG_NOSYNCHRONET
     void ReadSynchronet(char* tag);
@@ -448,13 +357,9 @@ void CfgJAMSMAPIHighwater(bool value);
 void ReadEcholist(char* value);
 void SetAreaDesc(char* echoid, char* desc);
 
-void CfgAdeptxbbspath(const char *path, bool force = false);
 void CfgEzycommsgbase(const char *path, bool force = false);
 void CfgEzycomuserbase(const char *path, bool force = false);
-void CfgGoldbasepath(const char *path, bool force = false);
-void CfgHudsonpath(const char *path, bool force = false);
 void CfgJampath(const char *path, bool force = false);
-void CfgPcboardpath(const char *path, bool force = false);
 void CfgSquishuserpath(const char *path, bool force = false);
 void CfgFidolastread(const char *path);
 

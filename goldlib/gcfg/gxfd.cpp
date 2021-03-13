@@ -104,7 +104,6 @@ void gareafile::ReadFrontDoor(char* tag)
             fread(editor, sizeof(FD_Editor), 1, fp);
             fread(shared, sizeof(FD_Shared), 1, fp);
             //CfgUsername(shared->user[0].name);
-            CfgHudsonpath(editor->qbase);
             aa.reset();
             aa.aka = shared->aka[0];
             aa.type = GMB_NET;
@@ -145,12 +144,7 @@ void gareafile::ReadFrontDoor(char* tag)
                 aa.type = (behave & FOLDER_ECHOMAIL) ? GMB_ECHO : GMB_LOCAL;
                 aa.attr = (behave & FOLDER_ECHOMAIL) ? attribsecho : attribslocal;
                 aa.attr.r_o(behave & FOLDER_READONLY);
-                if(behave & FOLDER_HMB)
-                {
-                    aa.basetype = "HUDSON";
-                    aa.board = folder->board;
-                }
-                else if(behave & FOLDER_JAM)
+                if(behave & FOLDER_JAM)
                 {
                     aa.basetype = "JAM";
                     aa.setpath(folder->path);

@@ -114,12 +114,7 @@ gtxtpara cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 ## BBS userbase access.
 gusrbase cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gusrezyc cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gusrgold cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gusrhuds cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gusrmax  cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gusrpcb  cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gusrra2  cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gusrxbbs cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 
 ## Miscellaneous utility.
 gutlclip cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
@@ -132,9 +127,6 @@ gutlvers cpp     all nov bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gcharset cpp     all nov bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 
 ## OS specific utilities
-gutldos  cpp     all                                     djg
-gutlos2  cpp     all         bco         wco         emx
-gutlos2m cpp     all         bco         wco         emx
 gutlwin  cpp     all             bcx                             cyg
 gutlwinm cpp     all             bcx                             cyg
 gutlunix cpp     all                             lnx                    sun osx

@@ -90,13 +90,7 @@ bool ReadGoldedCfg(int& force)
             }
         }
 
-        CfgHudsonpath(CFG->goldpath);
-        if(*CFG->hudsonsyspath == NUL)
-            strcpy(CFG->hudsonsyspath, CFG->hudsonpath);
-        CfgGoldbasepath(CFG->hudsonpath);
-        if(*CFG->goldbasesyspath == NUL)
-            strcpy(CFG->goldbasesyspath, CFG->goldbasepath);
-        CfgJampath(CFG->hudsonpath);
+        CfgJampath(CFG->jampath);
 
         MakePathname(CFG->goldcfg, CFG->goldpath, CFG->goldcfg);
         MakePathname(CFG->helpcfg.fn, CFG->goldpath, CFG->helpcfg.fn);
@@ -316,23 +310,10 @@ struct AF_entry
 
 struct AF_entry idetect[] =
 {
-    {    "DUTCHIE",  "dutchie.are", "Dutchie"      },
     {        "EZY", "constant.ezy", "Ezycom"       },
     {   "FASTECHO", "fastecho.cfg", "Fastecho"     },
-    {    "FIDOPCB",  "fidopcb.cfg", "FidoPCB"      },
-    {      "FMAIL",    "fmail.cfg", "FMail"        },
-    {      "IMAIL",     "imail.cf", "IMAIL"        },
-    {    "PCBOARD",  "pcboard.dat", "PCBoard"      },
-    { "POPCMDLINE",   "portal.are", "Portal"       },
-    {         "RA",   "config.pro", "ProBoard"     },
     {     "QFRONT",   "qechos.dat", "QFront"       },
-    {     "RAECHO",    "areas.rae", "RA-ECHO"      },
-    {         "RA",    "config.ra", "RemoteAccess" },
-    {      "TIMED",    "timed.cfg", "timEd"        },
     {         "TM",       "tm.cfg", "Termail"      },
-    {      "WMAIL",    "wmail.prm", "WMail"        },
-    {         "XM",    "xmail.cfg", "XMail"        },
-    {         "FD",  "areafile.fd", "TosScan"      },
     {         "GE",     "setup.ge", "GEcho"        },
     {         "FD",     "setup.fd", "FrontDoor"    },
     {         "FD",       "fd.sys", "FrontDoor"    },
@@ -340,14 +321,6 @@ struct AF_entry idetect[] =
     {       "LORA",   "sysmsg.dat", "LoraBBS"      },
     {    "LORABBS",   "sysmsg.dat", "LoraBBS"      },
     { "FIDOCONFIG",             "", "Fidoconfig"   },
-    {         "DB",  "dbridge.prm", "D\'Bridge"    },
-    {    "DBRIDGE",  "dbridge.prm", "D\'Bridge"    },
-    {   "SUPERBBS",  "sconfig.bbs", "SuperBBS"     },
-    {       "SBBS",  "sconfig.bbs", "SuperBBS"     },
-    {   "QUICKBBS", "quickcfg.dat", "QuickBBS"     },
-    {       "QBBS", "quickcfg.dat", "QuickBBS"     },
-    {   "QUICKBBS",   "config.bbs", "QuickBBS"     },
-    {       "QBBS",   "config.bbs", "QuickBBS"     },
     {     "SQUISH",   "squish.cfg", "Squish"       }
 };
 
@@ -513,24 +486,6 @@ int InstallFinish()
             strcat(buf2, buf);
             AL.GetAreafile(buf2);
         }
-#ifndef GMB_NOHUDS
-        if (find(AL.basetypes, "HUDSON") and (*CFG->hudsonpath == NUL))
-        {
-            if (EnterString("Please enter the path to your Hudson msgbase files:", buf, sizeof(buf)))
-                return -1;
-            fp.Printf("HUDSONPATH %s\n", buf);
-            PathCopy(CFG->hudsonpath, buf);
-        }
-#endif
-#ifndef GMB_NOGOLD
-        if (find(AL.basetypes, "GOLDBASE") and (*CFG->goldbasepath == NUL))
-        {
-            if (EnterString("Please enter the path to your Goldbase msgbase files:", buf, sizeof(buf)))
-                return -1;
-            fp.Printf("GOLDBASEPATH %s\n", buf);
-            PathCopy(CFG->goldbasepath, buf);
-        }
-#endif
 #ifndef GMB_NOJAM
         if (find(AL.basetypes, "JAM") and (*CFG->jampath == NUL))
         {
@@ -540,16 +495,6 @@ int InstallFinish()
             PathCopy(CFG->jampath, buf);
         }
 #endif
-#ifndef GMB_NOPCB
-        if (find(AL.basetypes, "PCBOARD") and (*CFG->pcboardpath == NUL))
-        {
-            if (EnterString("Please enter the path to PCBoard:", buf, sizeof(buf)))
-                return -1;
-            fp.Printf("PCBOARDPATH %s\n", buf);
-            PathCopy(CFG->pcboardpath, buf);
-        }
-#endif
-
         return 0;
     }
     return 0;
@@ -616,18 +561,13 @@ CfgGed::CfgGed()
     strcpy(logfile, GOLDED_LOG);
     strcpy(namesfile, NAMES_FD);
     strcpy(userlistfile, GOLDED_LST);
-    *adeptxbbspath = 0;
     *areapath = 0;
     *attachpath = 0;
     *cookiepath = 0;
     *ezycom.msgbasepath = 0;
     *ezycom.userbasepath = 0;
     *fidouserlist = 0;
-    *goldbasepath = 0;
-    *goldbasesyspath = 0;
     *goldpath = 0;
-    *hudsonpath = 0;
-    *hudsonsyspath = 0;
     *inboundpath = 0;
     *inputfile = 0;
     *jampath = 0;
@@ -638,7 +578,6 @@ CfgGed::CfgGed()
     *outboundpath = 0;
     *outputfile = 0;
     *pathreportfile = 0;
-    *pcboardpath = 0;
     *quotebuffile = 0;
     *seqdir = 0;
     *soundpath = 0;
@@ -736,7 +675,6 @@ CfgGed::CfgGed()
     strcpy(xlatimport, get_dos_charset(xlatlocalset));
     strcpy(xlatexport, xlatimport);
     // variables & switches
-    adeptxbbsuserno = 0;
     addressbookadd = YES;
     addresslookupfirst = false;
     akamatchfromto = NO;
@@ -782,11 +720,8 @@ CfgGed::CfgGed()
     frqoptions = FREQ_FROMTOP;
     peekurloptions = PEEK_FROMTOP;
     gedhandshake = true;
-    goldbaseuserno = 0;
     hidestylies = false;
     highlighturls = true;
-    hudsonsizewarn = 16000000L;
-    hudsonuserno = 0;
     ignorecharset = false;
     intensecolors = false;
     transparentcolors = false;
@@ -805,7 +740,6 @@ CfgGed::CfgGed()
     msglistheader = false;
     msglistwidesubj = false;
     originno = 0;
-    pcboarduserno = 0;
     personalmail = 0;
     printlength = 60;
     printmargin = 80;

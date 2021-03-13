@@ -157,31 +157,6 @@ void CfgAddressmacro()
     }
 }
 
-//  ------------------------------------------------------------------
-
-void CfgAdeptxbbspath(const char *path, bool force)
-{
-
-    if (force or strblank(CFG->adeptxbbspath))
-        MapPath(PathCopy(CFG->adeptxbbspath, path));
-}
-
-void CfgAdeptxbbspath()
-{
-
-    CfgAdeptxbbspath(val, true);
-}
-
-//  ------------------------------------------------------------------
-
-void CfgAdeptxbbsuserno()
-{
-
-    CFG->adeptxbbsuserno = atoi(val);
-}
-
-//  ------------------------------------------------------------------
-
 void CfgAkamatch()
 {
 

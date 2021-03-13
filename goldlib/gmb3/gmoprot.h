@@ -56,30 +56,9 @@ void GoldWideClose();
 
 //  ------------------------------------------------------------------
 
-void HudsInit(const char* path, const char* syspath, int userno, int32_t sizewarn, int ra2usersbbs);
-void HudsExit();
-void HudsSizewarn();
-
-void HudsWideOpen();
-void HudsWideClose();
-
-void HGWarnRebuild();
-
-
-//  ------------------------------------------------------------------
 
 void JamInit(const char* jampath, int harddelete, int smapihw);
 void JamExit();
-
-
-//  ------------------------------------------------------------------
-
-void PcbInit(const char* path, int userno);
-void PcbExit();
-void PcbAdjustArea(uint rec, const char* msgfile);
-
-void PcbWideOpen();
-void PcbWideClose();
 
 
 //  ------------------------------------------------------------------
@@ -98,12 +77,6 @@ void SMBExit();
 
 void WCatInit(int userno);
 void WCatExit();
-
-
-//  ------------------------------------------------------------------
-
-void XbbsInit(const char* path, int userno);
-void XbbsExit();
 
 
 //  ------------------------------------------------------------------

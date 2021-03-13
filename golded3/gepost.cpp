@@ -1349,7 +1349,6 @@ void MakeMsg(int mode, GMsg* omsg, bool ignore_replyto)
                         }
                         if(ok2save)
                         {
-                            reply->pcboard.reply_written = msg->written;
                             AA->SaveHdr(GMSG_UPDATE, reply);
                         }
                     }

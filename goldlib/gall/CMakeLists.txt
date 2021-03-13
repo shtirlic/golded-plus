@@ -49,12 +49,7 @@ set(gall_SOURCES
   gtxtpara.cpp
   gusrbase.cpp
   gusrezyc.cpp
-  gusrgold.cpp
-  gusrhuds.cpp
   gusrmax.cpp
-  gusrpcb.cpp
-  gusrra2.cpp
-  gusrxbbs.cpp
   gutlclip.cpp
   gutlcode.cpp
   gutlgrp.cpp

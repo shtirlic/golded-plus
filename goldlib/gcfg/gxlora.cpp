@@ -82,10 +82,6 @@ void gareafile::ReadLoraBBS(char* tag)
         fp.Fclose();
 
         //CfgUsername(cfg->sysop);
-
-        CfgHudsonpath(cfg->quick_msgpath);
-        CfgGoldbasepath(cfg->quick_msgpath);
-
         AreaCfg aa;
 
         // Netmail *.MSG
@@ -157,18 +153,8 @@ void gareafile::ReadLoraBBS(char* tag)
                     continue;
 
                 aa.reset();
-
-                if(sysmsg->gold_board)
-                {
-                    aa.basetype = "GOLDBASE";
-                    aa.board = sysmsg->gold_board;
-                }
-                else if(sysmsg->quick_board)
-                {
-                    aa.basetype = "HUDSON";
-                    aa.board = sysmsg->quick_board;
-                }
-                else if(sysmsg->pip_board)
+               
+                if(sysmsg->pip_board)
                 {
                     // Not supported (yet)
                     continue;

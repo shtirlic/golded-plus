@@ -363,27 +363,6 @@ void Area::SaveMsg(int mode, GMsg* msg)
 
 //  ------------------------------------------------------------------
 
-void HudsSizewarn()
-{
-
-    whelpcat(H_EWarnMsgtxt);
-    call_help();
-    whelpcat(H_General);
-}
-
-
-//  ------------------------------------------------------------------
-
-void HGWarnRebuild()
-{
-
-    whelpcat(H_EQbaseRebuild);
-    call_help();
-}
-
-
-//  ------------------------------------------------------------------
-
 void FidoRenumberProgress(const char* s)
 {
 

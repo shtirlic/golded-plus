@@ -81,7 +81,5 @@ geview   cpp all ovl bcd bco bcx djg emx lnx rsx wcn wco wcx cyg be sun osx
 gmarea   cpp all ovl bcd bco bcx djg emx lnx rsx wcn wco wcx cyg be sun osx
 gehtml   cpp all nov bcd bco bcx djg emx lnx rsx wcn wco wcx cyg be sun osx
 golded3  cpp all nov bcd bco bcx djg emx lnx rsx wcn wco wcx cyg be sun osx
-gedcyg   rc                                                  cyg
-gedemx   rc                          emx
 
 ##  ------------------------------------------------------------------

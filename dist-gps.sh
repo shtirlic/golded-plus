@@ -1,5 +1,4 @@
-#!/bin/bash
-# $Id$
+#!/bin/env bash
 # Create a archives 'gps*.tar.bz2' and 'gps*.tb2' with all source tree
 
 srcdatefile=srcdate.h

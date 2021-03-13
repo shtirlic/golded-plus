@@ -34,11 +34,11 @@
 #undef __GVER_PRENAME__
 #define __GVER_PRENAME__       ""
 #undef __GVER_POSTNAME__
-#define __GVER_POSTNAME__      "+"
+#define __GVER_POSTNAME__      "+ NG"
 #undef __GVER_PRESHORTNAME__
 #define __GVER_PRESHORTNAME__  ""
 #undef __GVER_POSTSHORTNAME__
-#define __GVER_POSTSHORTNAME__ "+"
+#define __GVER_POSTSHORTNAME__ "+ NG"
 
 
 //  ------------------------------------------------------------------
@@ -48,6 +48,6 @@
 #define __GVER_PREVERSION__    ""
 #undef __GVER_POSTVERSION__
 #define __GVER_POSTVERSION__   ""
-__GVER__(1,1,5)
+__GVER__(2,0,0)
 
 //  ------------------------------------------------------------------

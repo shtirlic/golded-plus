@@ -59,7 +59,6 @@ const uint32_t GATTR_RRC = 0x00002000UL;  // return receipt
 const uint32_t GATTR_ARQ = 0x00004000UL;  // audit request
 const uint32_t GATTR_URQ = 0x00008000UL;  // file update request
 
-const uint32_t GATTR_GRP = 0x00010000UL;  // group msg (hudson)
 const uint32_t GATTR_IMM = 0x00020000UL;  // immediate
 const uint32_t GATTR_DIR = 0x00040000UL;  // direct
 const uint32_t GATTR_TFS = 0x00080000UL;  // truncate file when sent
@@ -249,10 +248,6 @@ public:
         return (attr1 & GATTR_URQ) != 0;
     }
 
-    int grp() const
-    {
-        return (attr1 & GATTR_GRP) != 0;
-    }
     int imm() const
     {
         return (attr1 & GATTR_IMM) != 0;
@@ -527,11 +522,6 @@ public:
         else attr1 &= ~GATTR_URQ;
     }
 
-    void grp(uint32_t x)
-    {
-        if(x) attr1 |= GATTR_GRP;
-        else attr1 &= ~GATTR_GRP;
-    }
     void imm(uint32_t x)
     {
         if(x) attr1 |= GATTR_IMM;
@@ -834,10 +824,6 @@ public:
         attr1 &= ~GATTR_URQ;
     }
 
-    void grp0()
-    {
-        attr1 &= ~GATTR_GRP;
-    }
     void imm0()
     {
         attr1 &= ~GATTR_IMM;
@@ -1028,10 +1014,6 @@ public:
         attr1 |= GATTR_URQ;
     }
 
-    void grp1_()
-    {
-        attr1 |= GATTR_GRP;
-    }
     void imm1()
     {
         attr1 |= GATTR_IMM;
@@ -1225,11 +1207,6 @@ public:
     void urqX()
     {
         attr1 ^= GATTR_URQ;
-    }
-
-    void grpX()
-    {
-        attr1 ^= GATTR_GRP;
     }
     void immX()
     {

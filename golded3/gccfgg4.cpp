@@ -328,37 +328,6 @@ void CfgGermankeyboard()
 
 //  ------------------------------------------------------------------
 
-void CfgGoldbasepath(const char *path, bool force)
-{
-
-    if(force or strblank(CFG->goldbasepath))
-        MapPath(PathCopy(CFG->goldbasepath, path));
-}
-
-void CfgGoldbasepath()
-{
-
-    CfgGoldbasepath(val, true);
-}
-
-//  ------------------------------------------------------------------
-
-void CfgGoldbasesyspath()
-{
-
-    PathCopy(CFG->goldbasesyspath, val);
-}
-
-//  ------------------------------------------------------------------
-
-void CfgGoldbaseuserno()
-{
-
-    CFG->goldbaseuserno = atoi(val);
-}
-
-//  ------------------------------------------------------------------
-
 void CfgGoldhelp()
 {
 

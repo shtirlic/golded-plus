@@ -200,32 +200,12 @@
     <ClCompile Include="..\goldlib\gall\gtxtpara.cpp" />
     <ClCompile Include="..\goldlib\gall\gusrbase.cpp" />
     <ClCompile Include="..\goldlib\gall\gusrezyc.cpp" />
-    <ClCompile Include="..\goldlib\gall\gusrgold.cpp" />
-    <ClCompile Include="..\goldlib\gall\gusrhuds.cpp" />
     <ClCompile Include="..\goldlib\gall\gusrmax.cpp" />
-    <ClCompile Include="..\goldlib\gall\gusrpcb.cpp" />
-    <ClCompile Include="..\goldlib\gall\gusrra2.cpp" />
-    <ClCompile Include="..\goldlib\gall\gusrxbbs.cpp" />
     <ClCompile Include="..\goldlib\gall\gutlclip.cpp" />
     <ClCompile Include="..\goldlib\gall\gutlcode.cpp" />
-    <ClCompile Include="..\goldlib\gall\gutldos.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_Static|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\goldlib\gall\gutlgrp.cpp" />
     <ClCompile Include="..\goldlib\gall\gutlmisc.cpp" />
     <ClCompile Include="..\goldlib\gall\gutlmtsk.cpp" />
-    <ClCompile Include="..\goldlib\gall\gutlos2.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_Static|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\goldlib\gall\gutlos2m.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_Static|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\goldlib\gall\gutltag.cpp" />
     <ClCompile Include="..\goldlib\gall\gutlunix.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -244,47 +224,24 @@
     <ClCompile Include="..\goldlib\gcfg\gedacfg.cpp" />
     <ClCompile Include="..\goldlib\gcfg\gxareas.cpp" />
     <ClCompile Include="..\goldlib\gcfg\gxcrash.cpp" />
-    <ClCompile Include="..\goldlib\gcfg\gxdb.cpp" />
-    <ClCompile Include="..\goldlib\gcfg\gxdutch.cpp" />
     <ClCompile Include="..\goldlib\gcfg\gxezy102.cpp" />
     <ClCompile Include="..\goldlib\gcfg\gxezy110.cpp" />
     <ClCompile Include="..\goldlib\gcfg\gxfd.cpp" />
     <ClCompile Include="..\goldlib\gcfg\gxfecho4.cpp" />
     <ClCompile Include="..\goldlib\gcfg\gxfecho5.cpp" />
     <ClCompile Include="..\goldlib\gcfg\gxfecho6.cpp" />
-    <ClCompile Include="..\goldlib\gcfg\gxfidpcb.cpp" />
-    <ClCompile Include="..\goldlib\gcfg\gxfm092.cpp" />
-    <ClCompile Include="..\goldlib\gcfg\gxfm100.cpp" />
-    <ClCompile Include="..\goldlib\gcfg\gxfm116.cpp" />
     <ClCompile Include="..\goldlib\gcfg\gxgecho.cpp" />
     <ClCompile Include="..\goldlib\gcfg\gxhpt.cpp" />
-    <ClCompile Include="..\goldlib\gcfg\gximail4.cpp" />
-    <ClCompile Include="..\goldlib\gcfg\gximail5.cpp" />
-    <ClCompile Include="..\goldlib\gcfg\gximail6.cpp" />
-    <ClCompile Include="..\goldlib\gcfg\gxinter.cpp" />
     <ClCompile Include="..\goldlib\gcfg\gxlora.cpp" />
     <ClCompile Include="..\goldlib\gcfg\gxmax3.cpp" />
     <ClCompile Include="..\goldlib\gcfg\gxme2.cpp" />
     <ClCompile Include="..\goldlib\gcfg\gxopus.cpp" />
-    <ClCompile Include="..\goldlib\gcfg\gxpcb.cpp" />
-    <ClCompile Include="..\goldlib\gcfg\gxportal.cpp" />
-    <ClCompile Include="..\goldlib\gcfg\gxprobrd.cpp" />
     <ClCompile Include="..\goldlib\gcfg\gxqecho.cpp" />
     <ClCompile Include="..\goldlib\gcfg\gxqfront.cpp" />
-    <ClCompile Include="..\goldlib\gcfg\gxquick.cpp" />
-    <ClCompile Include="..\goldlib\gcfg\gxra.cpp" />
-    <ClCompile Include="..\goldlib\gcfg\gxraecho.cpp" />
     <ClCompile Include="..\goldlib\gcfg\gxspace.cpp" />
     <ClCompile Include="..\goldlib\gcfg\gxsquish.cpp" />
-    <ClCompile Include="..\goldlib\gcfg\gxsuper.cpp" />
     <ClCompile Include="..\goldlib\gcfg\gxsync.cpp" />
-    <ClCompile Include="..\goldlib\gcfg\gxtimed.cpp" />
     <ClCompile Include="..\goldlib\gcfg\gxtmail.cpp" />
-    <ClCompile Include="..\goldlib\gcfg\gxts.cpp" />
-    <ClCompile Include="..\goldlib\gcfg\gxwmail.cpp" />
-    <ClCompile Include="..\goldlib\gcfg\gxwtr.cpp" />
-    <ClCompile Include="..\goldlib\gcfg\gxxbbs.cpp" />
-    <ClCompile Include="..\goldlib\gcfg\gxxmail.cpp" />
     <ClCompile Include="..\goldlib\gcui\gkbdbase.cpp" />
     <ClCompile Include="..\goldlib\gcui\gkbdgetm.cpp" />
     <ClCompile Include="..\goldlib\gcui\gkbdwait.cpp" />
@@ -331,42 +288,11 @@
     <ClCompile Include="..\goldlib\gmb3\gmofido3.cpp" />
     <ClCompile Include="..\goldlib\gmb3\gmofido4.cpp" />
     <ClCompile Include="..\goldlib\gmb3\gmofido5.cpp" />
-    <ClCompile Include="..\goldlib\gmb3\gmohuds.cpp" />
-    <ClCompile Include="..\goldlib\gmb3\gmohuds1.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_Static|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\goldlib\gmb3\gmohuds2.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_Static|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\goldlib\gmb3\gmohuds3.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_Static|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\goldlib\gmb3\gmohuds4.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_Static|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\goldlib\gmb3\gmohuds5.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_Static|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\goldlib\gmb3\gmojamm1.cpp" />
     <ClCompile Include="..\goldlib\gmb3\gmojamm2.cpp" />
     <ClCompile Include="..\goldlib\gmb3\gmojamm3.cpp" />
     <ClCompile Include="..\goldlib\gmb3\gmojamm4.cpp" />
     <ClCompile Include="..\goldlib\gmb3\gmojamm5.cpp" />
-    <ClCompile Include="..\goldlib\gmb3\gmopcbd1.cpp" />
-    <ClCompile Include="..\goldlib\gmb3\gmopcbd2.cpp" />
-    <ClCompile Include="..\goldlib\gmb3\gmopcbd3.cpp" />
-    <ClCompile Include="..\goldlib\gmb3\gmopcbd4.cpp" />
-    <ClCompile Include="..\goldlib\gmb3\gmopcbd5.cpp" />
     <ClCompile Include="..\goldlib\gmb3\gmosmb1.cpp" />
     <ClCompile Include="..\goldlib\gmb3\gmosmb2.cpp" />
     <ClCompile Include="..\goldlib\gmb3\gmosqsh1.cpp" />
@@ -379,11 +305,6 @@
     <ClCompile Include="..\goldlib\gmb3\gmowcat3.cpp" />
     <ClCompile Include="..\goldlib\gmb3\gmowcat4.cpp" />
     <ClCompile Include="..\goldlib\gmb3\gmowcat5.cpp" />
-    <ClCompile Include="..\goldlib\gmb3\gmoxbbs1.cpp" />
-    <ClCompile Include="..\goldlib\gmb3\gmoxbbs2.cpp" />
-    <ClCompile Include="..\goldlib\gmb3\gmoxbbs3.cpp" />
-    <ClCompile Include="..\goldlib\gmb3\gmoxbbs4.cpp" />
-    <ClCompile Include="..\goldlib\gmb3\gmoxbbs5.cpp" />
     <ClCompile Include="..\goldlib\hunspell\affentry.cxx" />
     <ClCompile Include="..\goldlib\hunspell\affixmgr.cxx" />
     <ClCompile Include="..\goldlib\hunspell\csutil.cxx" />
@@ -454,13 +375,8 @@
     <ClInclude Include="..\goldlib\gall\gtxtpara.h" />
     <ClInclude Include="..\goldlib\gall\gusrbase.h" />
     <ClInclude Include="..\goldlib\gall\gusrezyc.h" />
-    <ClInclude Include="..\goldlib\gall\gusrgold.h" />
-    <ClInclude Include="..\goldlib\gall\gusrhuds.h" />
     <ClInclude Include="..\goldlib\gall\gusrmax.h" />
-    <ClInclude Include="..\goldlib\gall\gusrpcb.h" />
-    <ClInclude Include="..\goldlib\gall\gusrra2.h" />
     <ClInclude Include="..\goldlib\gall\gusrwcat.h" />
-    <ClInclude Include="..\goldlib\gall\gusrxbbs.h" />
     <ClInclude Include="..\goldlib\gall\gutlclip.h" />
     <ClInclude Include="..\goldlib\gall\gutlcode.h" />
     <ClInclude Include="..\goldlib\gall\gutlgrp.h" />
@@ -472,39 +388,19 @@
     <ClInclude Include="..\goldlib\gall\gwildmat.h" />
     <ClInclude Include="..\goldlib\gall\memleak.h" />
     <ClInclude Include="..\goldlib\gcfg\gedacfg.h" />
-    <ClInclude Include="..\goldlib\gcfg\gs_db.h" />
     <ClInclude Include="..\goldlib\gcfg\gs_ez102.h" />
     <ClInclude Include="..\goldlib\gcfg\gs_ez110.h" />
     <ClInclude Include="..\goldlib\gcfg\gs_fd.h" />
     <ClInclude Include="..\goldlib\gcfg\gs_fech4.h" />
     <ClInclude Include="..\goldlib\gcfg\gs_fech5.h" />
     <ClInclude Include="..\goldlib\gcfg\gs_fech6.h" />
-    <ClInclude Include="..\goldlib\gcfg\gs_fm092.h" />
-    <ClInclude Include="..\goldlib\gcfg\gs_fm10g.h" />
-    <ClInclude Include="..\goldlib\gcfg\gs_fm116.h" />
     <ClInclude Include="..\goldlib\gcfg\gs_ge120.h" />
-    <ClInclude Include="..\goldlib\gcfg\gs_im160.h" />
-    <ClInclude Include="..\goldlib\gcfg\gs_im175.h" />
-    <ClInclude Include="..\goldlib\gcfg\gs_inter.h" />
     <ClInclude Include="..\goldlib\gcfg\gs_lo240.h" />
     <ClInclude Include="..\goldlib\gcfg\gs_max3.h" />
     <ClInclude Include="..\goldlib\gcfg\gs_opus.h" />
-    <ClInclude Include="..\goldlib\gcfg\gs_pb200.h" />
-    <ClInclude Include="..\goldlib\gcfg\gs_pcb.h" />
-    <ClInclude Include="..\goldlib\gcfg\gs_pop.h" />
-    <ClInclude Include="..\goldlib\gcfg\gs_qbbs.h" />
     <ClInclude Include="..\goldlib\gcfg\gs_qfrnt.h" />
     <ClInclude Include="..\goldlib\gcfg\gs_qwk.h" />
-    <ClInclude Include="..\goldlib\gcfg\gs_ra.h" />
-    <ClInclude Include="..\goldlib\gcfg\gs_ra2.h" />
-    <ClInclude Include="..\goldlib\gcfg\gs_recho.h" />
-    <ClInclude Include="..\goldlib\gcfg\gs_sbbs.h" />
     <ClInclude Include="..\goldlib\gcfg\gs_sync.h" />
-    <ClInclude Include="..\goldlib\gcfg\gs_ts.h" />
-    <ClInclude Include="..\goldlib\gcfg\gs_wmail.h" />
-    <ClInclude Include="..\goldlib\gcfg\gs_wtr.h" />
-    <ClInclude Include="..\goldlib\gcfg\gs_xbbs.h" />
-    <ClInclude Include="..\goldlib\gcfg\gs_xmail.h" />
     <ClInclude Include="..\goldlib\gcui\gcurses.h" />
     <ClInclude Include="..\goldlib\gcui\gkbdbase.h" />
     <ClInclude Include="..\goldlib\gcui\gkbdcode.h" />
@@ -524,14 +420,11 @@
     <ClInclude Include="..\goldlib\gmb3\gmoarea.h" />
     <ClInclude Include="..\goldlib\gmb3\gmoezyc.h" />
     <ClInclude Include="..\goldlib\gmb3\gmofido.h" />
-    <ClInclude Include="..\goldlib\gmb3\gmohuds.h" />
     <ClInclude Include="..\goldlib\gmb3\gmojamm.h" />
-    <ClInclude Include="..\goldlib\gmb3\gmopcbd.h" />
     <ClInclude Include="..\goldlib\gmb3\gmoprot.h" />
     <ClInclude Include="..\goldlib\gmb3\gmosmb.h" />
     <ClInclude Include="..\goldlib\gmb3\gmosqsh.h" />
     <ClInclude Include="..\goldlib\gmb3\gmowcat.h" />
-    <ClInclude Include="..\goldlib\gmb3\gmoxbbs.h" />
     <ClInclude Include="..\goldlib\gmb3\gmo_msg.h" />
     <ClInclude Include="..\goldlib\hunspell\affentry.hxx" />
     <ClInclude Include="..\goldlib\hunspell\affixmgr.hxx" />

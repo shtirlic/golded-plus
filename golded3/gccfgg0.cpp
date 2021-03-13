@@ -252,12 +252,6 @@ SwitchA:
     case CRC_ADDRESSMACRO     :
         CfgAddressmacro     ();
         break;
-    case CRC_ADEPTXBBSPATH    :
-        CfgAdeptxbbspath    ();
-        break;
-    case CRC_ADEPTXBBSUSERNO  :
-        CfgAdeptxbbsuserno  ();
-        break;
     case CRC_AKA              :
         CfgAddress          ();
         break;
@@ -696,15 +690,6 @@ SwitchG:
     case CRC_GERMANKEYBOARD   :
         CfgGermankeyboard   ();
         break;
-    case CRC_GOLDBASEPATH     :
-        CfgGoldbasepath     ();
-        break;
-    case CRC_GOLDBASESYSPATH  :
-        CfgGoldbasesyspath  ();
-        break;
-    case CRC_GOLDBASEUSERNO   :
-        CfgGoldbaseuserno   ();
-        break;
     case CRC_GOLDPATH         :
         CfgGoldpath         ();
         break;
@@ -719,18 +704,6 @@ SwitchG:
 SwitchH:
     switch(crc)
     {
-    case CRC_HUDSONPATH       :
-        CfgHudsonpath       ();
-        break;
-    case CRC_HUDSONSIZEWARN   :
-        CfgHudsonsizewarn   ();
-        break;
-    case CRC_HUDSONSYSPATH    :
-        CfgHudsonsyspath    ();
-        break;
-    case CRC_HUDSONUSERNO     :
-        CfgHudsonuserno     ();
-        break;
     case CRC_HIGHLIGHTURLS    :
         CfgHighlighturls    ();
         break;
@@ -950,12 +923,6 @@ SwitchP:
     {
     case CRC_PATHREPORTFILE   :
         CfgPathreportfile   ();
-        break;
-    case CRC_PCBOARDPATH      :
-        CfgPcboardpath      ();
-        break;
-    case CRC_PCBOARDUSERNO    :
-        CfgPcboarduserno    ();
         break;
     case CRC_PEEKURLOPTIONS   :
         CfgPeekurloptions   ();
@@ -1410,25 +1377,10 @@ static int do_if(char* val)
         PointerErrorExit();
         return 0;
     }
-    if(strieql(val, "OS/2") or strieql(val, "OS2"))
-    {
-#ifdef __OS2__
-        return true;
-#else
-        return false;
-#endif
-    }
-    else if(strieql(val, "NT") or strieql(val, "W32") or strieql(val, "WIN32"))
+
+    if(strieql(val, "NT") or strieql(val, "W32") or strieql(val, "WIN32"))
     {
 #ifdef __WIN32__
-        return true;
-#else
-        return false;
-#endif
-    }
-    else if(strieql(val, "386") or strieql(val, "DOS") or strieql(val, "DPMI32"))
-    {
-#ifdef __MSDOS__
         return true;
 #else
         return false;

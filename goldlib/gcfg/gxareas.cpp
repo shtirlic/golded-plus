@@ -63,11 +63,7 @@ void gareafile::ReadAreasBBS(char* tag)
                 aa.type = GMB_ECHO;
                 aa.attr = attribsecho;
                 aa.board = atoi(path);
-                if(aa.board and (aa.board < 201))
-                    aa.basetype = "HUDSON";
-                else if((aa.board > 200) and (aa.board < 501))
-                    aa.basetype = "GOLDBASE";
-                else if(*path == '$')
+                if(*path == '$')
                 {
                     aa.basetype = "SQUISH";
                     adjustpath(path+1);

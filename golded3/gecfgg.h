@@ -252,8 +252,6 @@ public:
     int         addressbookadd;
     int         addresslookupfirst;
     std::vector<AddrMacro> addressmacro;
-    Path        adeptxbbspath;
-    int         adeptxbbsuserno;
     std::vector<gaka> aka;
     std::vector<AkaMatchG> akamatch;
     int         akamatchfromto;
@@ -346,16 +344,9 @@ public:
     std::vector<FrqNodeMap> frqnodemap;
     int         frqoptions;
     bool        gedhandshake;
-    Path        goldbasepath;
-    Path        goldbasesyspath;
-    int         goldbaseuserno;
     Path        goldpath;
     bool        hidestylies;
     bool        highlighturls;
-    Path        hudsonpath;
-    long        hudsonsizewarn;
-    Path        hudsonsyspath;
-    int         hudsonuserno;
     bool        ignorecharset;
     char        importbegin[80];
     char        importend[80];
@@ -403,8 +394,6 @@ public:
     Path        outboundpath;
     Path        outputfile;
     Path        pathreportfile;
-    Path        pcboardpath;
-    int         pcboarduserno;
     int         peekurloptions;
     int         personalmail;
     GPlay       play;

@@ -392,7 +392,6 @@ const gkey KK_HeaderLookup         = 0xFFC1;
 const gkey KK_HeaderToggleAttrWin  = 0xFFC2;
 const gkey KK_HeaderClearAttrib    = 0xFFC3;
 const gkey KK_HeaderToggleReserved = 0xFFC4;
-const gkey KK_HeaderToggleGroupmsg = 0xFFC5;
 const gkey KK_HeaderToggleScanned  = 0xFFC6;
 const gkey KK_HeaderToggleFile     = 0xFFC7;
 const gkey KK_HeaderToggleArcsent  = 0xFFC8;

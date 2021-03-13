@@ -208,22 +208,6 @@ void AreaList::AddNewArea(AreaCfg* aa)
         AddBackslash(aa->path);
         strschg_environ(aa->path, sizeof(aa->path));
     }
-#ifndef GMB_NOHUDS
-    else if (aa->basetype == "HUDSON")
-    {
-        if ((aa->board < 1) or (aa->board > 200))  // Ignore areas with invalid numbers
-            return;
-        gsprintf(PRINTF_DECLARE_BUFFER(aa->path), "%u", aa->board);
-    }
-#endif
-#ifndef GMB_NOGOLD
-    else if (aa->basetype == "GOLDBASE")
-    {
-        if ((aa->board < 1) or (aa->board > 500))  // Ignore areas with invalid numbers
-            return;
-        gsprintf(PRINTF_DECLARE_BUFFER(aa->path), "%u", aa->board);
-    }
-#endif
 #ifndef GMB_NOEZY
     else if (aa->basetype == "EZYCOM")
     {
@@ -235,16 +219,6 @@ void AreaList::AddNewArea(AreaCfg* aa)
 #endif
 #ifndef GMB_NOWCAT
     else if (aa->basetype == "WILDCAT")
-    {
-        if(*aa->path == NUL)
-            return;
-        MapPath(aa->path);
-        StripBackslash(aa->path);
-        strschg_environ(aa->path, sizeof(aa->path));
-    }
-#endif
-#ifndef GMB_NOXBBS
-    else if (aa->basetype == "ADEPTXBBS")
     {
         if(*aa->path == NUL)
             return;
@@ -268,14 +242,6 @@ void AreaList::AddNewArea(AreaCfg* aa)
     {
         if(*aa->path == NUL)
             return;
-        MapPath(aa->path);
-        StripBackslash(aa->path);
-        strschg_environ(aa->path, sizeof(aa->path));
-    }
-#endif
-#ifndef GMB_NOPCB
-    else if (aa->basetype == "PCBOARD")
-    {
         MapPath(aa->path);
         StripBackslash(aa->path);
         strschg_environ(aa->path, sizeof(aa->path));
@@ -464,10 +430,8 @@ void AreaList::GetAreafile(char* value)
         AFILE->quiet = quiet;
         AFILE->sharemode = CFG->sharemode;
         AFILE->fidomsgtype = CFG->fidomsgtype;
-        AFILE->ra2usersbbs = CFG->ra2usersbbs;
         AFILE->squishuserno = CFG->squishuserno;
         AFILE->areapath = CFG->areapath;
-        AFILE->pcboardpath = CFG->pcboardpath;
 
         if(not CFG->aka.empty())
             AFILE->primary_aka = CFG->aka[0].addr;
@@ -482,7 +446,6 @@ void AreaList::GetAreafile(char* value)
 
         AFILE->ReadAreafile(crcval, value);
 
-        CFG->ra2usersbbs = AFILE->ra2usersbbs;
         CFG->squishuserno = AFILE->squishuserno;
     }
 
@@ -568,16 +531,6 @@ void AreaList::GetArea(char* def)
 
         case 'H':
         case 'R':
-        case 'Q':
-            aa.basetype = "HUDSON";
-            aa.board = (uint) atoi(loc);
-            break;
-
-        case 'G':
-            aa.basetype = "GOLDBASE";
-            aa.board = (uint) atoi(loc);
-            break;
-
         case 'E':
             aa.basetype = "EZYCOM";
             aa.board = (uint) atoi(loc);
@@ -588,18 +541,8 @@ void AreaList::GetArea(char* def)
             aa.setpath(loc);
             break;
 
-        case 'P':
-            aa.basetype = "PCBOARD";
-            aa.setpath(loc);
-            break;
-
         case 'W':
             aa.basetype = "WILDCAT";
-            aa.setpath(loc);
-            break;
-
-        case 'X':
-            aa.basetype = "ADEPTXBBS";
             aa.setpath(loc);
             break;
 
@@ -664,7 +607,6 @@ void AreaList::GetArea(char* def)
 //  Examples:
 //
 //    AREADEF NET.ALL  "Netmail, Line 1" N Net   Opus   R:\NETMAIL\             2:231/77 (PVT K/S)
-//    AREADEF TEST     "Testing..."      D Echo  Hudson 67                      .        ()
 //    AREADEF 1LOCAL   "Sysop <-> Users" L Local Squish R:\MAX\MSG\LOC\1LOCAL   .        (PVT)     "Your Sysop * The Goldware BBS Line 1"
 //    AREADEF DANEINFO "DaneNet Info"    D Echo  Squish R:\MAX\MSG\231\DANEINFO .        (R/O)
 
@@ -757,18 +699,11 @@ void AreaList::GetAreaDef(char* val)
     const word CRC_SDMSG    = 0xAEC0;
     const word CRC_FTS1     = 0xEE2A;
     const word CRC_FTSC     = 0xEE58;
-    const word CRC_QBBS     = 0x175B;
-    const word CRC_HUDSON   = 0xBAB1;
     const word CRC_SQUISH   = 0xFCF6;
     const word CRC_EZYCOM   = 0xC81B;
     const word CRC_JAM      = 0xA8C3;
-    const word CRC_GOLD     = 0x6134;
-    const word CRC_GOLDBASE = 0x560D;
-    const word CRC_PCB      = 0x19B7;
-    const word CRC_PCBOARD  = 0x84EC;
     const word CRC_WCAT     = 0xAEDB;
     const word CRC_WILDCAT  = 0x7F3A;
-    const word CRC_XBBS     = 0xADC3;
     const word CRC_SMB      = 0x27D4;
 
     char* key;
@@ -797,25 +732,7 @@ void AreaList::GetAreaDef(char* val)
     case CRC_FTSC:
         aa.basetype = "FTS1";
         aa.setpath(key);
-        break;
-    case CRC_QBBS:
-    case CRC_HUDSON:
-        aa.basetype = "HUDSON";
-        aa.board = (uint) atoi(key);
-        if((aa.board < 1) or (aa.board > 200))
-        {
-            return;
-        }
-        break;
-    case CRC_GOLD:
-    case CRC_GOLDBASE:
-        aa.basetype = "GOLDBASE";
-        aa.board = atoi(key);
-        if((aa.board < 1) or (aa.board > 500))
-        {
-            return;
-        }
-        break;
+        break;   
     case CRC_SQUISH:
         aa.basetype = "SQUISH";
         aa.setpath(key);
@@ -832,18 +749,9 @@ void AreaList::GetAreaDef(char* val)
         aa.basetype = "JAM";
         aa.setpath(key);
         break;
-    case CRC_PCB:
-    case CRC_PCBOARD:
-        aa.basetype = "PCBOARD";
-        aa.setpath(key);
-        break;
     case CRC_WCAT:
     case CRC_WILDCAT:
         aa.basetype = "WILDCAT";
-        aa.setpath(key);
-        break;
-    case CRC_XBBS:
-        aa.basetype = "ADEPTXBBS";
         aa.setpath(key);
         break;
     default:

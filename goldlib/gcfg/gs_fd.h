@@ -334,7 +334,6 @@ typedef struct
 #define FOLDER_JAM          0x01000000L  // JAM Message Base folder
 #define FOLDER_NOCHECK      0x02000000L  // Exclude from new mail check (C)
 #define FOLDER_NETMAIL      0x08000000L  // Netmail-type folder (C)
-#define FOLDER_HMB          0x10000000L  // Hudson Message Base folder
 #define FOLDER_DELETED      0x20000000L  // Never written to disk
 #define FOLDER_LOCAL        0x40000000L  // Local-type folder
 #define FOLDER_ECHOMAIL     0x80000000L  // Conference-type folder

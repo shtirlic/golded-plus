@@ -44,45 +44,6 @@ void CfgHighlighturls()
 
 //  ------------------------------------------------------------------
 
-void CfgHudsonpath(const char *path, bool force)
-{
-
-    if(force or strblank(CFG->hudsonpath))
-        MapPath(PathCopy(CFG->hudsonpath, path));
-}
-
-void CfgHudsonpath()
-{
-
-    CfgHudsonpath(val, true);
-}
-
-//  ------------------------------------------------------------------
-
-void CfgHudsonsizewarn()
-{
-
-    CFG->hudsonsizewarn = atol(val);
-}
-
-//  ------------------------------------------------------------------
-
-void CfgHudsonsyspath()
-{
-
-    PathCopy(CFG->hudsonsyspath, val);
-}
-
-//  ------------------------------------------------------------------
-
-void CfgHudsonuserno()
-{
-
-    CFG->hudsonuserno = atoi(val);
-}
-
-//  ------------------------------------------------------------------
-
 void CfgIgnorecharset()
 {
 

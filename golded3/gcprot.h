@@ -35,8 +35,6 @@
     void CfgAddressbookadd   ();
     void CfgAddresslookupfirst();
     void CfgAddressmacro     ();
-    void CfgAdeptxbbspath    ();
-    void CfgAdeptxbbsuserno  ();
     void CfgAkamatch         ();
     void CfgAkamatchecho     ();
     void CfgAkamatchfromto   ();
@@ -193,17 +191,10 @@
     void CfgFrqwazoo         ();
     void CfgGedhandshake     ();
     void CfgGermankeyboard   ();
-    void CfgGoldbasepath     ();
-    void CfgGoldbasesyspath  ();
-    void CfgGoldbaseuserno   ();
     void CfgGoldpath         ();
     void CfgGroup            ();
     void CfgHighlightunread  ();
     void CfgHighlighturls    ();
-    void CfgHudsonpath       ();
-    void CfgHudsonsizewarn   ();
-    void CfgHudsonsyspath    ();
-    void CfgHudsonuserno     ();
     void CfgIgnorecharset    ();
     void CfgImportbegin      ();
     void CfgImportend        ();
@@ -271,8 +262,6 @@
     void CfgOutboundpath     ();
     void CfgOutputfile       ();
     void CfgPathreportfile   ();
-    void CfgPcboardpath      ();
-    void CfgPcboarduserno    ();
     void CfgPeekurloptions   ();
     void CfgPersonalmail     ();
     void CfgPlay             ();

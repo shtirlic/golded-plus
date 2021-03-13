@@ -1,5 +1,4 @@
-#!/bin/bash
-# $Id$
+#!/bin/env bash
 # Create a archive 'gpl-*.zip' (gplYMMDD.zip) with binary linux build
 # of the Golded+.
 
@@ -36,7 +35,7 @@ files="${files} docs/tokencfg.txt docs/tokentpl.txt"
 files="${files} docs/notework.rus docs/notework.utf8"
 
 compilerver=`gcc --version | grep ^gcc | sed 's/^.* //g'`
-printf "Golded NG $build ($build_flavor) \\r\\n"  >${dizfile}
+printf "GoldEd+ NG $build ($build_flavor) \\r\\n"  >${dizfile}
 printf '%-5s binaries compiled using ' "`uname`" >>${dizfile}
 printf "GCC:$compilerver" >>${dizfile}
 

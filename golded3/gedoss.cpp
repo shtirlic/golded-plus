@@ -67,31 +67,15 @@ void Cleanup(void)
         // Free area data
         AL.Reset();
 
-#ifndef GMB_NOXBBS
-        if(find(AL.basetypes, "ADEPTXBBS"))
-            XbbsExit();
-#endif
 #ifndef GMB_NOEZY
         if(find(AL.basetypes, "EZYCOM"))
             EzycomExit();
 #endif
         if(find(AL.basetypes, "OPUS") or find(AL.basetypes, "FTS1"))
             FidoExit();
-#ifndef GMB_NOGOLD
-        if(find(AL.basetypes, "GOLDBASE"))
-            GoldExit();
-#endif
-#ifndef GMB_NOHUDS
-        if(find(AL.basetypes, "HUDSON"))
-            HudsExit();
-#endif
 #ifndef GMB_NOJAM
         if(find(AL.basetypes, "JAM"))
             JamExit();
-#endif
-#ifndef GMB_NOPCB
-        if(find(AL.basetypes, "PCBOARD"))
-            PcbExit();
 #endif
 #ifndef GMB_NOSQSH
         if(find(AL.basetypes, "SQUISH"))

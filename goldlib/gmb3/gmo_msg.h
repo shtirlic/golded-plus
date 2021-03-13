@@ -317,18 +317,6 @@ struct gmsg_jam_fields
 
 //  ------------------------------------------------------------------
 
-struct gmsg_pcboard_fields
-{
-
-    char status;          // Msg header status byte
-    byte exthdrflags;     // Msg extended header flags
-    char password[13];    // Password needed to read the message
-    time32_t reply_written;   // Timestamp of the original
-};
-
-
-//  ------------------------------------------------------------------
-
 struct gmsg_wildcat_fields
 {
 
@@ -342,16 +330,6 @@ struct gmsg_wildcat_fields
     uint32_t next_unread;
     uint32_t prev_unread;
     char  reserved[20];
-};
-
-
-//  ------------------------------------------------------------------
-
-struct gmsg_adeptxbbs_fields
-{
-
-    uint32_t iflags;       // Internet related flags
-    uint32_t oflags;       // Other network related flags
 };
 
 
@@ -410,9 +388,7 @@ public:
     char*       txt;              // Message text
 
     gmsg_jam_fields       jam;
-    gmsg_pcboard_fields   pcboard;
     gmsg_wildcat_fields   wildcat;
-    gmsg_adeptxbbs_fields adeptxbbs;
     gmsg_ezycom_fields    ezycom;
 
 };

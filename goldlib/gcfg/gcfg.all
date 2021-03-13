@@ -28,53 +28,28 @@ gedacfg  cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 // AREAFILE readers.
 gxareas  cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gxcrash  cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gxdb     cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gxdutch  cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gxezy102 cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gxezy110 cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gxfd     cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gxfecho4 cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gxfecho5 cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gxfecho6 cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gxfidpcb cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gxfm092  cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gxfm100  cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gxfm116  cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gxgecho  cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gxhpt    cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gximail4 cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gximail5 cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gximail6 cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gxinter  cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gxlora   cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gxmax3   cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gxme2    cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gxopus   cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gxpcb    cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gxportal cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gxprobrd cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gxqfront cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gxqecho  cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gxquick  cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gxra     cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gxraecho cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gxspace  cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gxsquish cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gxsuper  cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 gxsync   cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gxtimed  cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gxtmail  cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gxts     cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gxwmail  cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gxwtr    cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gxxbbs   cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
-gxxmail  cpp     all ovl bcd bco bcx wcn wco wcx lnx emx djg rsx cyg be sun osx
 
 // Msgbase area configuration.
 gedacfg    h     all
 
 // AREAFILE structures.
-gs_db      h     all
 gs_ez102   h     all
 gs_ez110   h     all
 gs_fd      h     all
@@ -83,46 +58,17 @@ gs_fech2   h     all
 gs_fech4   h     all
 gs_fech5   h     all
 gs_fech6   h     all
-gs_fm092   h     all
-gs_fm098   h     all
-gs_fm10g   h     all
-gs_fm116   h     all
 gs_ge100   h     all
 gs_ge102   h     all
 gs_ge110   h     all
 gs_ge120   h     all
-gs_im100   h     all
-gs_im120   h     all
-gs_im130   h     all
-gs_im140   h     all
-gs_im143   h     all
-gs_im150   h     all
-gs_im160   h     all
-gs_im171   h     all
-gs_im175   h     all
-gs_im185   h     all
-gs_im187   h     all
-gs_inter   h     all
 gs_lo233   h     all
 gs_lo240   h     all
 gs_max     h     all
 gs_max3    h     all
 gs_opus    h     all
-gs_pb200   h     all
-gs_pcb     h     all
-gs_pop     h     all
-gs_qbbs    h     all
 gs_qfrnt   h     all
 gs_qwk     h     all
-gs_ra      h     all
-gs_ra2     h     all
-gs_recho   h     all
-gs_sbbs    h     all
-gs_ts      h     all
-gs_wmail   h     all
-gs_wtr     h     all
-gs_xbbs    h     all
-gs_xmail   h     all
 
 // Makefiles etc.
 Makefile   .     all

@@ -103,13 +103,6 @@ void MakeFlags(GMsg* msg, Line** line, char* buf)
     if (CFG->switches.get(useflags))
     {
         sprintf(buf, "\001FLAGS ");
-        if (AA->basetype() == "HUDSON")
-        {
-            if(msg->attr.hld())
-                strcat(buf, "HLD ");
-            if(msg->attr.frq())
-                strcat(buf, "FRQ ");
-        }
         if(msg->attr.imm())
             strcat(buf, "IMM ");
         if(msg->attr.dir())

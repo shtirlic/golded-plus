@@ -332,7 +332,6 @@ CmdKey DefaultKeyset[] =
     { Key_A_P, KK_AddressbookPack, KT_B },
 
     { Key_A_4, KK_HeaderToggleScanned, KT_H },
-    { Key_A_2, KK_HeaderToggleGroupmsg, KT_H },
     { Key_A_G, KK_HeaderToggleZonegate, KT_H },
     { Key_A_V, KK_HeaderToggleHubhost, KT_H },
     { Key_A_M, KK_HeaderToggleRetrecreq, KT_H },
@@ -396,7 +395,6 @@ tglobalkey globalkeys[] =
     { CRC_READFILEREQUEST, KK_ReadFileRequest, KT_R },               // 0x0A07
     { CRC_AREASELECTMARKS, KK_AreaSelectMarks, KT_A },               // 0x0AC3
     { CRC_K_ALEFT, Key_A_Lft,    0 },                                // 0x0B39
-    { CRC_HEADERTOGGLEGROUPMSG, KK_HeaderToggleGroupmsg, KT_H },     // 0x0C51
     { CRC_K_AF4, Key_A_F4,    0 },                                   // 0x0EF0
     { CRC_K_AF5, Key_A_F5,    0 },                                   // 0x0EF1
     { CRC_K_AF6, Key_A_F6,    0 },                                   // 0x0EF2
