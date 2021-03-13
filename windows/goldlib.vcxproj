@@ -30,40 +30,41 @@
     <ProjectGuid>{0AB7C044-50C5-4339-9C5D-7474969B6A3C}</ProjectGuid>
     <RootNamespace>goldlib</RootNamespace>
     <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Static|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>NotSet</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>NotSet</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Static|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>NotSet</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>NotSet</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -120,7 +121,6 @@
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..\goldlib;..\goldlib\gall;..\goldlib\gcui;..\goldlib\gcfg;..\goldlib\glibc;..\goldlib\gmb3;..\goldlib\smblib;..\goldlib\uulib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_NONSTDC_NO_DEPRECATE;HAVE_SNPRINTF;HAVE_VSNPRINTF;_CRT_SECURE_NO_WARNINGS;_ALLOW_RTCc_IN_STL;WIN32;_DEBUG;_LIB;HAVE_STDARG_H;HAVE_CONFIG_H;__INCLUDE_NEW_KEYWORDS__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MinimalRebuild>true</MinimalRebuild>
       <ExceptionHandling>Async</ExceptionHandling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <SmallerTypeCheck>true</SmallerTypeCheck>
@@ -142,7 +142,6 @@
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..\goldlib;..\goldlib\gall;..\goldlib\gcui;..\goldlib\gcfg;..\goldlib\glibc;..\goldlib\gmb3;..\goldlib\smblib;..\goldlib\uulib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_NONSTDC_NO_DEPRECATE;HAVE_SNPRINTF;HAVE_VSNPRINTF;_CRT_SECURE_NO_WARNINGS;_ALLOW_RTCc_IN_STL;WIN64;_DEBUG;_LIB;HAVE_STDARG_H;HAVE_CONFIG_H;__INCLUDE_NEW_KEYWORDS__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MinimalRebuild>true</MinimalRebuild>
       <ExceptionHandling>Async</ExceptionHandling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <SmallerTypeCheck>true</SmallerTypeCheck>
@@ -166,7 +165,6 @@
       <AdditionalIncludeDirectories>..\goldlib;..\goldlib\gall;..\goldlib\gcui;..\goldlib\gcfg;..\goldlib\glibc;..\goldlib\gmb3;..\goldlib\smblib;..\goldlib\uulib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_NONSTDC_NO_DEPRECATE;HAVE_SNPRINTF;HAVE_VSNPRINTF;_CRT_SECURE_NO_WARNINGS;_ALLOW_RTCc_IN_STL;WIN32;NDEBUG;_LIB;HAVE_STDARG_H;HAVE_CONFIG_H;__INCLUDE_NEW_KEYWORDS__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
-      <MinimalRebuild>true</MinimalRebuild>
       <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
@@ -191,7 +189,6 @@
       <AdditionalIncludeDirectories>..\goldlib;..\goldlib\gall;..\goldlib\gcui;..\goldlib\gcfg;..\goldlib\glibc;..\goldlib\gmb3;..\goldlib\smblib;..\goldlib\uulib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_NONSTDC_NO_DEPRECATE;HAVE_SNPRINTF;HAVE_VSNPRINTF;_CRT_SECURE_NO_WARNINGS;_ALLOW_RTCc_IN_STL;WIN64;NDEBUG;_LIB;HAVE_STDARG_H;HAVE_CONFIG_H;__INCLUDE_NEW_KEYWORDS__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
-      <MinimalRebuild>true</MinimalRebuild>
       <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
@@ -213,7 +210,6 @@
       <AdditionalIncludeDirectories>..\goldlib;..\goldlib\gall;..\goldlib\gcui;..\goldlib\gcfg;..\goldlib\glibc;..\goldlib\gmb3;..\goldlib\smblib;..\goldlib\uulib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_NONSTDC_NO_DEPRECATE;HAVE_SNPRINTF;HAVE_VSNPRINTF;_CRT_SECURE_NO_WARNINGS;_ALLOW_RTCc_IN_STL;WIN32;NDEBUG;_LIB;HAVE_STDARG_H;HAVE_CONFIG_H;__INCLUDE_NEW_KEYWORDS__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
-      <MinimalRebuild>true</MinimalRebuild>
       <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
@@ -238,7 +234,6 @@
       <AdditionalIncludeDirectories>..\goldlib;..\goldlib\gall;..\goldlib\gcui;..\goldlib\gcfg;..\goldlib\glibc;..\goldlib\gmb3;..\goldlib\smblib;..\goldlib\uulib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_NONSTDC_NO_DEPRECATE;HAVE_SNPRINTF;HAVE_VSNPRINTF;_CRT_SECURE_NO_WARNINGS;_ALLOW_RTCc_IN_STL;WIN64;NDEBUG;_LIB;HAVE_STDARG_H;HAVE_CONFIG_H;__INCLUDE_NEW_KEYWORDS__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
-      <MinimalRebuild>true</MinimalRebuild>
       <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>

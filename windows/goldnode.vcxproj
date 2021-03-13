@@ -29,39 +29,40 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B80E3728-98E5-4A9A-B883-9C064F1FFFA7}</ProjectGuid>
     <RootNamespace>goldnode</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Static|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <UseOfMfc>false</UseOfMfc>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <UseOfMfc>false</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <UseOfMfc>false</UseOfMfc>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Static|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <UseOfMfc>false</UseOfMfc>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <UseOfMfc>false</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <UseOfMfc>false</UseOfMfc>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
@@ -138,7 +139,6 @@
       <AdditionalIncludeDirectories>..\golded3;..\goldlib;..\goldlib\gall;..\goldlib\gcfg;..\goldlib\glibc;..\goldlib\gmb3;..\goldlib\smblib;..\goldlib\uulib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_NONSTDC_NO_DEPRECATE;HAVE_SNPRINTF;HAVE_VSNPRINTF;_CRT_SECURE_NO_WARNINGS;_ALLOW_RTCc_IN_STL;NDEBUG;WIN32;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
-      <MinimalRebuild>true</MinimalRebuild>
       <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
@@ -184,7 +184,6 @@
       <AdditionalIncludeDirectories>..\golded3;..\goldlib;..\goldlib\gall;..\goldlib\gcfg;..\goldlib\glibc;..\goldlib\gmb3;..\goldlib\smblib;..\goldlib\uulib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_NONSTDC_NO_DEPRECATE;HAVE_SNPRINTF;HAVE_VSNPRINTF;_CRT_SECURE_NO_WARNINGS;_ALLOW_RTCc_IN_STL;NDEBUG;WIN64;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
-      <MinimalRebuild>true</MinimalRebuild>
       <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
@@ -223,7 +222,6 @@
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..\golded3;..\goldlib;..\goldlib\gall;..\goldlib\gcfg;..\goldlib\glibc;..\goldlib\gmb3;..\goldlib\smblib;..\goldlib\uulib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_NONSTDC_NO_DEPRECATE;HAVE_SNPRINTF;HAVE_VSNPRINTF;_CRT_SECURE_NO_WARNINGS;_ALLOW_RTCc_IN_STL;_DEBUG;WIN32;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MinimalRebuild>true</MinimalRebuild>
       <ExceptionHandling>Async</ExceptionHandling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <SmallerTypeCheck>true</SmallerTypeCheck>
@@ -262,7 +260,6 @@
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..\golded3;..\goldlib;..\goldlib\gall;..\goldlib\gcfg;..\goldlib\glibc;..\goldlib\gmb3;..\goldlib\smblib;..\goldlib\uulib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_NONSTDC_NO_DEPRECATE;HAVE_SNPRINTF;HAVE_VSNPRINTF;_CRT_SECURE_NO_WARNINGS;_ALLOW_RTCc_IN_STL;_DEBUG;WIN64;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MinimalRebuild>true</MinimalRebuild>
       <ExceptionHandling>Async</ExceptionHandling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <SmallerTypeCheck>true</SmallerTypeCheck>
@@ -306,7 +303,6 @@
       <AdditionalIncludeDirectories>..\golded3;..\goldlib;..\goldlib\gall;..\goldlib\gcfg;..\goldlib\glibc;..\goldlib\gmb3;..\goldlib\smblib;..\goldlib\uulib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_NONSTDC_NO_DEPRECATE;HAVE_SNPRINTF;HAVE_VSNPRINTF;_CRT_SECURE_NO_WARNINGS;_ALLOW_RTCc_IN_STL;NDEBUG;WIN32;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
-      <MinimalRebuild>true</MinimalRebuild>
       <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
@@ -352,7 +348,6 @@
       <AdditionalIncludeDirectories>..\golded3;..\goldlib;..\goldlib\gall;..\goldlib\gcfg;..\goldlib\glibc;..\goldlib\gmb3;..\goldlib\smblib;..\goldlib\uulib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_NONSTDC_NO_DEPRECATE;HAVE_SNPRINTF;HAVE_VSNPRINTF;_CRT_SECURE_NO_WARNINGS;_ALLOW_RTCc_IN_STL;NDEBUG;WIN64;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
-      <MinimalRebuild>true</MinimalRebuild>
       <ExceptionHandling>Async</ExceptionHandling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
