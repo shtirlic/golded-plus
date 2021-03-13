@@ -1,4 +1,3 @@
-# $Id$
 # Build Golded+, Goldnode and RDDT using GNU make and CNU C++ compuler.
 # You may use following parameters:
 # "PLATFORM=xxx", where xxx specifies platform, one of:

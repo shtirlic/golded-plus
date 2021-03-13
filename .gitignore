@@ -9,3 +9,9 @@
 *.tb2
 *.bz2
 *.diz
+/goldlib/*/*inc
+/golded3/*inc
+/goldnode/*inc
+/rddt/*inc
+/bin/*lnx
+/bin/*txt

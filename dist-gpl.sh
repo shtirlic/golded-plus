@@ -40,7 +40,6 @@ printf "Golded NG $build ($build_flavor) \\r\\n"  >${dizfile}
 printf '%-5s binaries compiled using ' "`uname`" >>${dizfile}
 printf "GCC:$compilerver" >>${dizfile}
 
-exit 0
 for f in ${bines}; do rm $f; done
 make PLATFORM=${platform} BUILD=${build_flavor} clean all strip docs || (echo "Error $?" ; exit)
 

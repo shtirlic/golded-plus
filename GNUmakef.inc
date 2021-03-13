@@ -1,5 +1,3 @@
-# -*- makefile -*-
-# $Id$
 # Include file for GNU C++ build
 
 .PHONY: all clean sourcelist
@@ -51,32 +49,13 @@ $(FOBJPATH)/%$(OBJEXT): %.c
 		$(CAT) $(patsubst %.c,%.d,$<)>>$(FDEPPATH)/$(patsubst %.c,%.d,$<) &&	\
 		rm $(patsubst %.c,%.d,$<) || true"
 
-ifeq ($(PLATFORM),cyg)
-$(FOBJPATH)/%$(OBJEXT): %.rc
-	@echo creating resources
-	@$(WINDRES) --use-temp-file -o $@ $<
-endif
-
-ifeq ($(PLATFORM),emx)
-$(FOBJPATH)/%.res: %.rc
-	@echo creating resources
-	@rc $(subst -I,-i ,$(INCS)) -x1 -r $<
-endif
 
 SOURCES=
 ifeq ($(wildcard $(TOP)/$(OBJPATH)/$(PLATFORM)/source.ls?),$(TOP)/$(OBJPATH)/$(PLATFORM)/source.lst)
 include bld$(PLATFORM).inc
 endif
 
-ifeq ($(PLATFORM),cyg)
-OBJS=$(addprefix $(FOBJPATH)/,$(patsubst %.rc,%$(OBJEXT),$(patsubst %.c,%$(OBJEXT),$(patsubst %.cpp,%$(OBJEXT),$(patsubst %.cxx,%$(OBJEXT),$(filter %.c %.cpp %.cxx %.rc,$(SOURCES)))))))
-else
-ifeq ($(PLATFORM),emx)
-OBJS=$(addprefix $(FOBJPATH)/,$(patsubst %.rc,%.res,$(patsubst %.c,%$(OBJEXT),$(patsubst %.cpp,%$(OBJEXT),$(patsubst %.cxx,%$(OBJEXT),$(filter %.c %.cpp %.cxx %.rc,$(SOURCES)))))))
-else
 OBJS=$(addprefix $(FOBJPATH)/,$(patsubst %.c,%$(OBJEXT),$(patsubst %.cpp,%$(OBJEXT),$(patsubst %.cxx,%$(OBJEXT),$(filter %.c %.cpp %.cxx %.rc,$(SOURCES))))))
-endif
-endif
 DEPS = $(wildcard $(FDEPPATH)/*.d)
 ALLOBJS = $(wildcard $(FOBJPATH)/*.o)
 
