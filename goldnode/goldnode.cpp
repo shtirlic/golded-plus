@@ -144,7 +144,7 @@ const word _TEST  = 777;
 
 static std::string nodepath;                // Path to the nodelist files
 
-static time32_t runtime = 0;
+static time_t runtime = 0;
 static int    sh_mod = SH_DENYWR;
 static bool   fidouser = false;
 static Path   fidouserlst;
@@ -547,10 +547,8 @@ static char* CvtName(char* inp)
 //  ------------------------------------------------------------------
 
 #ifdef GOLDNODE_STATS
-void calc_statistic(std::ofstream &ofp, int* observation, float N)
+void calc_statistic(std::ofstream &ofp, int* observation, size_t N)
 {
-
-    int i;
     float mean = 0.0;
     float sumfrekvens = 0.0;
     float varians = 0.0;
@@ -560,24 +558,24 @@ void calc_statistic(std::ofstream &ofp, int* observation, float N)
         << "|   x |  h(x) |  f(x) | x*f(x) | (x-m)^2*f(x) |" << std::endl
         << "|-----+-------+-------+--------+--------------|" << std::endl;
 
-    for(i=0; i<100; i++)
+    for(auto i=0; i<100; i++)
     {
-        float x = i;
+        float x = (float) i;
         if(observation[i])
         {
-            float hyppighed = observation[i];
+            float hyppighed = (float) observation[i];
             float frekvens = hyppighed / N;
             mean += x * frekvens;
             sumfrekvens += frekvens;
         }
     }
 
-    for(i=0; i<100; i++)
+    for(auto i=0; i<100; i++)
     {
-        float x = i;
+        float x = (float)i;
         if(observation[i])
         {
-            float hyppighed = observation[i];
+            float hyppighed = (float) observation[i];
             float frekvens = hyppighed / N;
             float vartmp =  (x-mean)*(x-mean)*frekvens;
             varians += vartmp;
@@ -684,20 +682,20 @@ static void read_nodelists()
                     nlst.pos = pos;
 
                     // Get line length and fix possible errors
-                    uint llen = strlen(buf);
+                    auto llen = strlen(buf);
                     ptr = buf+llen-1;
                     while(llen and not (*ptr == '\r' or *ptr == '\n' or *ptr == '\x1A'))
                     {
                         buf[llen] = ' ';
                         if(not quiet)
                         {
-                            int len = 16-strlen(name);
+                            auto len = 16-strlen(name);
                             std::cout << "\r* |--" << name << std::setw((len > 0) ? len : 1) << " " << "Warning line " << line << " - Invalid NUL char encountered." << std::endl;
                         }
                         llen = strlen(buf);
                         ptr = buf+llen-1;
                     }
-                    pos += llen;
+                    pos += (long)llen;
 
                     // Skip whitespace
                     ptr = buf;
@@ -791,7 +789,7 @@ static void read_nodelists()
 
                         if(ISTWIRLY(no))
                         {
-                            int len = 16-strlen(name);
+                            auto len = 16-strlen(name);
                             std::cout << "\r* \\--" << name << std::setw((len > 0) ? len : 1) << " " << "Zone " << nlst.addr.zone << "   \tNet " << nlst.addr.net << "   \tNodes " << (uint32_t)no << "        " << std::flush;
                         }
 
@@ -845,7 +843,7 @@ static void read_nodelists()
 
                 if(not quiet)
                 {
-                    int len = 16-strlen(name);
+                    auto len = 16-strlen(name);
                     std::cout << "\r* " << ((fno == nodelist.end()-1) ? '\\' : '|') << "--" << name << std::setw((len > 0) ? len : 1) << " " << "Nodes read: " << (uint32_t)no << "\tTotal read: " << (uint32_t)nodes << ((nodes >= maxnodes) ? " (Limit reached)" : "                ") << std::endl;
                 }
 
@@ -941,7 +939,7 @@ static void read_nodelists()
 
                         if(ISTWIRLY(nodes))
                         {
-                            int len = 16-strlen(name);
+                            auto len = 16-strlen(name);
                             std::cout << "\r* \\--" << name << std::setw((len > 0) ? len : 1) << " " << "Nodes: " << (uint32_t)nodes << "        " << std::flush;
                         }
 
@@ -964,7 +962,7 @@ static void read_nodelists()
 
             if(not quiet)
             {
-                int len = 16-strlen(name);
+                auto len = 16 - strlen(name);
                 std::cout << "\r* " << ((fno == userlist.end()-1) ? '\\' : '|') << "--" << name << std::setw((len > 0) ? len : 1) << " " << "Nodes read: " << (uint32_t)no << "\tTotal read: " << (uint32_t)nodes << ((nodes >= maxnodes) ? " (Limit reached)" : "                ") << std::endl;
             }
 
@@ -1064,8 +1062,8 @@ static void read_nodelists()
                 namepos[curr->pos] = nodenum++;
                 if (fidouser)
                 {
-                    char buf[256];
-                    fido.Printf("%-36.36s%24.24s\n", curr->name, make_addr_str(buf, &curr->addr, ""));
+                    char bufA[256];
+                    fido.Printf("%-36.36s%24.24s\n", curr->name, make_addr_str(bufA, &curr->addr, ""));
                 }
             }
 
@@ -1146,11 +1144,11 @@ static void check_nodelists(bool force)
         if(ext and ((atoi(ext+1) == 999) or (ext[1] == '*')))
         {
             extractdirname(newpath, nodelist[n].fn);
-            int extpos = ext-buf+1;
+            auto extpos = ext-buf+1;
             strcpy(ext, ".*");
             gposixdir f(newpath);
             const gdirentry *de;
-            time32_t listtime = 0;
+            time_t listtime = 0;
             bool listdefined = false;
             while((de = f.nextentry(buf)) != NULL)
                 if(atoi(de->name.c_str()+extpos))
@@ -1263,16 +1261,7 @@ static void fatal_error(const char* what)
 
 static int do_if(char* val)
 {
-
-    if(strieql(val, "OS/2") or strieql(val, "OS2"))
-    {
-#ifdef __OS2__
-        return true;
-#else
-        return false;
-#endif
-    }
-    else if(strieql(val, "NT") or strieql(val, "W32") or strieql(val, "WIN32"))
+    if(strieql(val, "NT") or strieql(val, "W32") or strieql(val, "WIN32"))
     {
 #ifdef __WIN32__
         return true;
@@ -1330,7 +1319,7 @@ char* _MapPath(char* fmap, bool reverse)
     {
         const char* p = reverse ? i->second.c_str() : i->first.c_str();
         const char* q = reverse ? i->first.c_str() : i->second.c_str();
-        if(strnieql(cmap, p, strlen(p)))
+        if(strnieql(cmap, p, (int)strlen(p)))
         {
             strxcpy(buf, fmap, sizeof(Path));
             strxmerge(fmap, sizeof(Path), q, buf+strlen(p), NULL);

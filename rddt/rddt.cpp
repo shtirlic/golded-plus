@@ -348,7 +348,7 @@ void nodetree::print()
 
         n->display += n->address.make_string(buf);
 
-        maxdisp = maximum_of_two((size_t)maxdisp, n->display.length());
+        maxdisp = (int)maximum_of_two((size_t)maxdisp, n->display.length());
     }
 
     for(n=nodes.begin(); n != nodes.end(); n++)
@@ -363,7 +363,7 @@ void nodetree::print()
 #endif
             if(p)
             {
-                int len = p - n->display.c_str();
+                auto len = p - n->display.c_str();
 #ifdef KOI8
                 if((x->display[len] == '') or (x->display[len] == '„'))
                     n->display[len] = '†';
@@ -484,7 +484,7 @@ int main(int argc, char** argv)
                     anode.links.resize(0);
                     strchg(&links[0][0], '_', ' ');
                     anode.name = links[0];
-                    atree.maxname = maximum_of_two(anode.name.length(), (size_t)atree.maxname);
+                    atree.maxname = (int)maximum_of_two(anode.name.length(), (size_t)atree.maxname);
                     anode.address = links[1];
                     if(links.size() > 2)
                     {
@@ -498,9 +498,9 @@ int main(int argc, char** argv)
                                 anode.add(address);
                             for(n=3; n<links.size(); n++)
                             {
-                                char buf[50];
+                                char buf_a[50];
                                 address.set(links[n]);
-                                links[n] = address.make_string(buf);
+                                links[n] = address.make_string(buf_a);
                             }
                             atree.add(anode);
                             for(n=2; n<links.size(); n++)
@@ -579,11 +579,11 @@ int main(int argc, char** argv)
 
             if(debug)
             {
-                char buf[50];
+                char buf_a[50];
                 for(list_node::iterator n=atree.nodes.begin(); n != atree.nodes.end(); n++)
                 {
                     xnode = *n;
-                    cout << xnode.address.make_string(buf) << endl;
+                    cout << xnode.address.make_string(buf_a) << endl;
                     for(int l=0; l<xnode.links.size(); l++)
                         cout << "  " << xnode.links[l].make_string(buf) << endl;
                 }
