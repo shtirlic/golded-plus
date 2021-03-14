@@ -208,24 +208,19 @@ public:
         Fread(&i, sizeof(uint32_t));
         return *this;
     }
-#if !defined(__CYGWIN__)
     gfile& operator>> (unsigned long& i)
     {
         Fread(&i, sizeof(unsigned long));
         return *this;
     }
-#endif
-
     gfile& operator>> (char& i)
     {
         return operator>>((uint8_t&)i);
     }
-#if !defined(__SUNOS__)
     gfile& operator>> (int8_t& i)
     {
         return operator>>((uint8_t&)i);
     }
-#endif
     gfile& operator>> (int16_t& i)
     {
         return operator>>((uint16_t&)i);
@@ -234,12 +229,10 @@ public:
     {
         return operator>>((uint32_t&)i);
     }
-#if !defined(__CYGWIN__)
     gfile& operator>> (long& i)
     {
         return operator>>((unsigned long&)i);
     }
-#endif
 
 #ifdef __GOLDWARE_HAS_BOOL
     gfile& operator<< (bool o)
@@ -263,24 +256,19 @@ public:
         Fwrite(&o, sizeof(o));
         return *this;
     }
-#if !defined(__CYGWIN__)
     gfile& operator<< (unsigned long o)
     {
         Fwrite(&o, sizeof(o));
         return *this;
     }
-#endif
-
     gfile& operator<< (char o)
     {
         return operator<<((uint8_t )o);
     }
-#if !defined(__SUNOS__)
     gfile& operator<< (int8_t  o)
     {
         return operator<<((uint8_t )o);
     }
-#endif
     gfile& operator<< (int16_t  o)
     {
         return operator<<((uint16_t)o);
@@ -289,12 +277,10 @@ public:
     {
         return operator<<((uint32_t)o);
     }
-#if !defined(__CYGWIN__)
     gfile& operator<< (long o)
     {
         return operator<<((unsigned long)o);
     }
-#endif
 };
 
 
@@ -375,7 +361,6 @@ class gnfile: gfile
                                          return *this;
                                        }
     */
-#if !defined(__CYGWIN__)
     gnfile& operator>> (unsigned long& i)   // FreadItem(&i, sizeof(unsigned long)); return *this; }
     {
         switch(sizeof(unsigned long))
@@ -390,18 +375,15 @@ class gnfile: gfile
         }
         return *this;
     }
-#endif
 
     gnfile& operator>> (char& i)
     {
         return operator>>((uint8_t&)i);
     }
-#if !defined(__SUNOS__)
     gnfile& operator>> (int8_t& i)
     {
         return operator>>((uint8_t&)i);
     }
-#endif
     gnfile& operator>> (int16_t& i)
     {
         return operator>>((uint16_t&)i);
@@ -410,13 +392,10 @@ class gnfile: gfile
     {
         return operator>>((uint32_t&)i);
     }
-#if !defined(__CYGWIN__)
     gnfile& operator>> (long& i)
     {
         return operator>>((unsigned long&)i);
     }
-#endif
-
     gnfile& operator<< (uint8_t o)
     {
         Fwrite(&o, sizeof(o));
@@ -457,7 +436,6 @@ class gnfile: gfile
                                          return *this;
                                        }
     */
-#if !defined(__CYGWIN__)
     gnfile& operator<< (unsigned long o)
     {
         switch (sizeof(o))
@@ -475,7 +453,6 @@ class gnfile: gfile
         }
         return *this;
     }
-#endif
 #ifdef __GOLDWARE_HAS_BOOL
     gnfile& operator<< (bool o)
     {
@@ -500,12 +477,10 @@ class gnfile: gfile
     {
         return operator<<((uint8_t )o);
     }
-#if !defined(__SUNOS__)
     gnfile& operator<< (int8_t  o)
     {
         return operator<<((uint8_t )o);
     }
-#endif
     gnfile& operator<< (int16_t  o)
     {
         return operator<<((uint16_t)o);
@@ -514,13 +489,10 @@ class gnfile: gfile
     {
         return operator<<((uint32_t)o);
     }
-#if !defined(__CYGWIN__)
     gnfile& operator<< (long o)
     {
         return operator<<((unsigned long)o);
     }
-#endif
-
 };
 
 #endif

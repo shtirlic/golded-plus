@@ -102,8 +102,6 @@
 #endif
 #ifdef _MSC_VER
     #include <windows.h>
-#elif defined(__MINGW32__) || defined(__CYGWIN__)
-    #include <stdint.h>
 #endif
 
 #if !defined(ARRAYSIZE)
@@ -210,15 +208,13 @@
     #endif
 #endif  /*#ifdef _MSC_VER */
 
-#if defined(__GNUC__) && !defined(__MINGW32__) && !defined(__CYGWIN__)
+#if defined(__GNUC__)
     typedef unsigned char  uint8_t;
     typedef unsigned short uint16_t;
     typedef unsigned int   uint32_t;
 
     #if !defined(__APPLE__)
-        #if !defined(__SUNOS__)
             typedef   signed char   int8_t;
-        #endif
         typedef   signed short  int16_t;
         typedef   signed int    int32_t;
     #endif

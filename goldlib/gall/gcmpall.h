@@ -45,13 +45,6 @@
     #endif
 #endif
 
-#if !defined(__OS2__)
-    #if defined(OS2)
-        #define __OS2__ OS2
-    #elif defined(__EMX__) && !defined(__WIN32__)
-        #define __OS2__ __EMX__
-    #endif
-#endif
 
 #if !defined(__WIN32__)
     #if defined(_WIN32)
@@ -81,17 +74,11 @@
     #if defined(__DragonFly__)
         #define __UNIX__ __DragonFly__
     #endif
-    #if defined(__QNXNTO__)
-        #define __UNIX__ __QNXNTO__
-    #endif
     #if defined(__APPLE__)
         #define __UNIX__ __APPLE__
     #endif
 #endif
 
-#if defined(__DJGPP__)
-    #undef __UNIX__
-#endif
 
 #ifdef __GNUC__
     #if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 8)
@@ -114,7 +101,7 @@
     #define __HAVE_DRIVES__
 #endif
 
-#if defined(_MSC_VER) || defined(__MINGW32__)
+#if defined(_MSC_VER)
     #define __USE_ALLOCA__
 #endif
 

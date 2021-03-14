@@ -2,11 +2,7 @@
 
 $(TARGET): $(TOP)/$(BIN)/$(SHORTTARGET)$(PLATFORM)$(EXEEXT)
 
-ifeq ($(PLATFORM),emx)
-LIBS=$(addprefix -llib,$(GLIBS))
-else
 LIBS=$(addprefix -l,$(GLIBS))
-endif
 LIBS+=$(STDLIBS)
 FGLIBS=$(addprefix $(FLIBPATH)/lib, $(addsuffix $(LIBEXT), $(GLIBS)))
 

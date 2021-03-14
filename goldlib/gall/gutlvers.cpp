@@ -567,7 +567,7 @@ char* ggetosstring(void)
 
         char processor[_MAX_MNAME_LEN] = "";
 
-#if defined(__UNIX__) || defined(__DJGPP__) || defined(__EMX__)
+#if defined(__UNIX__)
 
         struct utsname info;
 

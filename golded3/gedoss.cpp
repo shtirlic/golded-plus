@@ -349,33 +349,7 @@ int ShellToDos(const char* command, char* message, vattr cls, int cursor, int pa
     int status = -1;
 
     // Shell using the regular RTL function
-#ifndef __CYGWIN__
     status = system(command);
-#else
-    // Get executable and parameters
-    char* _arg_v[3];
-
-    char* _pars = "";
-    char _xfn[256] = ""; // Call command interpreter
-    if(strnieql(command, "/c", 2))
-        _pars = strskip_wht(command+2);
-    else
-    {
-        _pars = strpbrk(command, " \t");
-        if(_pars)
-        {
-            ++_pars++;
-            strxcpy(_xfn, command, _pars-command);
-            _pars = strskip_wht(_pars);
-        }
-        else
-            _xfn = command;
-    }
-    _arg_v[0] = _xfn;
-    _arg_v[1] = _pars;
-    _arg_v[2] = NULL;
-    status = spawnvpe(P_WAIT, _xfn, _arg_v, environ);
-#endif
 
     if(status == -1)
         error = errno;

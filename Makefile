@@ -51,7 +51,7 @@ clean:
 	@-rm -f $(OBJPATH)/$(PLATFORM)/source.lst
 
 distclean:
-	@-cd $(BIN); rm -f $(EXECUTABLES)
+	@-cd $(BIN); rm -f $(EXECUTABLES); rm -f gedlnx gnlnx rddtlnx
 
 dirs:
 	@mkdir -p $(BIN) $(LIBPATH)/$(PLATFORM)

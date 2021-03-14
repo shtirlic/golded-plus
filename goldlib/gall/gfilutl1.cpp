@@ -31,7 +31,7 @@
 #include <gfile.h>
 #include <stdlib.h>
 
-#if defined(__MINGW32__) || defined(_MSC_VER)
+#if defined(_MSC_VER)
     #include <sys/utime.h>
 #else
     #include <utime.h>
@@ -115,13 +115,8 @@ long GetFilesize(const char* file)
 
 time32_t gfixstattime(time32_t st_time)
 {
-#if (defined(__MINGW32__) && !defined(__MSVCRT__)) || defined(__CYGWIN__)
-    struct tm f;
-    ggmtime(&f, &st_time);
-#else
     struct tm f;
     glocaltime(&f, &st_time);
-#endif
     FFTime t;
     t.ft_year  = f.tm_year - 80;
     t.ft_month = f.tm_mon + 1;
@@ -129,29 +124,6 @@ time32_t gfixstattime(time32_t st_time)
     t.ft_hour  = f.tm_hour;
     t.ft_min   = f.tm_min;
     t.ft_tsec  = f.tm_sec / 2;
-#if (defined(__MINGW32__) && !defined(__MSVCRT__)) || defined(__CYGWIN__)
-    union
-    {
-        DWORD t;
-        struct
-        {
-            WORD wFatTime;
-            WORD wFatDate;
-        } d;
-    } ft;
-    ft.t = (DWORD)t.number();
-    FILETIME FileTime, LocalFileTime;
-    DosDateTimeToFileTime(ft.d.wFatDate, ft.d.wFatTime, &FileTime);
-    FileTimeToLocalFileTime(&FileTime, &LocalFileTime);
-    SYSTEMTIME SystemTime;
-    FileTimeToSystemTime(&LocalFileTime, &SystemTime);
-    t.ft_year = SystemTime.wYear - 1980;
-    t.ft_month = SystemTime.wMonth;
-    t.ft_day = SystemTime.wDay;
-    t.ft_hour = SystemTime.wHour;
-    t.ft_min = SystemTime.wMinute;
-    t.ft_tsec = SystemTime.wSecond / 2;
-#endif
     return t.number();
 }
 
@@ -168,10 +140,6 @@ time32_t GetFiletime(const char* file)
 
     if(stat(file, &st) == 0)
     {
-#if defined(__MINGW32__)
-        if(st.st_mode & S_IFDIR)
-            return 0;
-#endif
         return gfixstattime(st.st_mtime);
     }
     return 0;
@@ -508,12 +476,8 @@ int gchdir(const char* dir)
 #if defined(__HAVE_DRIVES__)
     if(dir[1] == ':')
     {
-#if defined(__EMX__)
-        _chdrive(*dir);
-#else
         uint drives;
         _dos_setdrive(g_toupper(*dir)-'@', &drives);
-#endif
     }
 #endif
     int e = chdir(dir);

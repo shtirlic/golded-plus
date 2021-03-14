@@ -148,14 +148,10 @@ struct Stamp
 //  ------------------------------------------------------------------
 //  Prototypes
 
-#if !defined(__GNUC__) || defined(__MINGW32__)
+#if !defined(__GNUC__)
     #define mkdir(path,unused) mkdir(path)
 #endif
 
-#ifdef __EMX__
-    #define getcwd _getcwd2
-    #define chdir _chdir2
-#endif
 
 //  Shareable fopen() for compilers that need it
 FILE* fsopen(const char* path, const char* type, int shflag);
@@ -290,7 +286,7 @@ extern "C" {
 
 //  ------------------------------------------------------------------
 
-#if !defined(__DJGPP__) && ((defined(__BORLANDC__) && defined(__OS2__)) || defined(__UNIX__) || defined(__EMX__))
+#if (defined(__UNIX__))
 off_t filelength(int fh);
 #endif
 
@@ -313,22 +309,16 @@ int unlock(int handle, long offset, long length);
 
 //  ------------------------------------------------------------------
 
-#if defined(__DJGPP__)
-#undef sopen
-#endif
-
-#if !defined(__DJGPP__) && defined(__GNUC__)
+#if defined(__GNUC__)
 int lock(int handle, long offset, long length);
 int unlock(int handle, long offset, long length);
-#if !defined(__QNXNTO__) && !defined(__MINGW32__)
 inline off_t tell(int fh)
 {
     return lseek(fh, 0, SEEK_CUR);
 }
 #endif
-#endif
 
-#if !defined(sopen) && !defined(__MINGW32__) && !defined(__EMX__) && !defined(__QNXNTO__) && defined(__GNUC__)
+#if !defined(sopen) && defined(__GNUC__)
 inline int sopen(const char* path, int access, int shflag, int mode)
 {
 #ifdef __UNIX__
@@ -338,7 +328,7 @@ inline int sopen(const char* path, int access, int shflag, int mode)
 }
 #endif
 
-#if defined(__UNIX__) || defined(__CYGWIN__)
+#if defined(__UNIX__)
 inline int chsize(int handle, long size)
 {
     return ftruncate(handle, size);

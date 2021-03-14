@@ -551,67 +551,6 @@ void GVid::detectinfo(GVidInfo* _info)
 
     }
 
-#elif defined(__OS2__)
-
-    // Get video mode and number of rows and columns
-    {
-        VIOMODEINFO viomodeinfo;
-        memset(&viomodeinfo, 0, sizeof(VIOMODEINFO));
-        viomodeinfo.cb = sizeof(VIOMODEINFO);
-        VioGetMode(&viomodeinfo, 0);
-        _info->screen.mode = viomodeinfo.fbType;
-        _info->screen.rows = viomodeinfo.row;
-        _info->screen.columns = viomodeinfo.col;
-        _info->screen.cheight = viomodeinfo.vres / viomodeinfo.row;
-        _info->screen.cwidth = viomodeinfo.hres / viomodeinfo.col;
-    }
-
-    // Get cursor position and character attribute under the cursor
-    {
-        USHORT usRow, usColumn;
-        VioGetCurPos(&usRow, &usColumn, 0);
-        _info->cursor.row = usRow;
-        _info->cursor.column = usColumn;
-        BYTE chat[2];
-        USHORT len = 2;
-#if defined(__EMX__)
-        VioReadCellStr((PCH)chat, &len, usRow, usColumn, 0);
-#else
-        VioReadCellStr((CHAR*)chat, &len, usRow, usColumn, 0);
-#endif
-        _info->color.textattr = chat[1];
-    }
-
-    // Get cursor form
-    {
-        VIOCURSORINFO viocursorinfo;
-        memset(&viocursorinfo, 0, sizeof(VIOCURSORINFO));
-        VioGetCurType(&viocursorinfo, 0);
-        _info->cursor.start = viocursorinfo.yStart;
-        _info->cursor.end = viocursorinfo.cEnd;
-        _info->cursor.attr = viocursorinfo.attr;
-    }
-
-    // Get intensity state
-    {
-        VIOINTENSITY viointensity;
-        memset(&viointensity, 0, sizeof(VIOINTENSITY));
-        viointensity.cb = sizeof(VIOINTENSITY);
-        viointensity.type = 0x0002;
-        VioGetState(&viointensity, 0);
-        _info->color.intensity = viointensity.fs ? 1 : 0;
-    }
-
-    // Get overscan color
-    {
-        VIOOVERSCAN viooverscan;
-        memset(&viooverscan, 0, sizeof(VIOOVERSCAN));
-        viooverscan.cb = sizeof(VIOOVERSCAN);
-        viooverscan.type = 0x0001;
-        VioGetState(&viooverscan, 0);
-        _info->color.overscan = (int)viooverscan.color;
-    }
-
 #elif defined(__WIN32__)
 
     // Get video mode and number of rows and columns

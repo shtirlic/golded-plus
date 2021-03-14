@@ -35,13 +35,6 @@
 #include <gstrall.h>
 #include <gvidall.h>
 
-#if defined(__OS2__)
-    #define INCL_BASE
-    #include <os2.h>
-    #ifndef __EMX__
-        #define PCCH CHAR*
-    #endif
-#endif
 
 #ifdef __WIN32__
     #include <windows.h>
@@ -50,32 +43,6 @@
 #ifdef __GNUC__
     #include <unistd.h>
 #endif
-
-#if defined(__DJGPP__)
-    #include <sys/farptr.h>
-#endif
-
-
-//  ------------------------------------------------------------------
-//  Check if Borland C++ for OS/2 1.0 header has been fixed
-
-#if defined(__OS2__) && defined(__BORLANDC__)
-    #if __BORLANDC__ <= 0x400
-        #ifndef BCOS2_BSESUB_FIXED
-            #error There is a bug in the BSESUB.H header. Please fix it.
-            //
-            // Add/change the following in BSESUB.H:
-            //
-            // #define BCOS2_BSESUB_FIXED
-            // APIRET16  APIENTRY16    VioGetState (PVOID16 pState, HVIO hvio);
-            // APIRET16  APIENTRY16    VioSetState (PVOID16 pState, HVIO hvio);
-            //
-            // Borland forgot this (was only PVOID)      ^^
-            //
-        #endif
-    #endif
-#endif
-
 
 //  ------------------------------------------------------------------
 

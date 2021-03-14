@@ -34,12 +34,7 @@
 
     //  ------------------------------------------------------------------
 
-    #if !defined(__GNUC__) || defined(__DJGPP__) || defined(__EMX__) || defined(__MINGW32__)
-        #include <share.h>
-        #if defined(__MINGW32__)        // SH_COMPAT doesn't work in Mingw32
-            #undef SH_COMPAT
-        #endif
-    #elif !defined(SH_DENYNO)
+    #if !defined(SH_DENYNO)
         #define SH_DENYRW   0x10    // Deny read/write
         #define SH_DENYWR   0x20    // Deny write
         #define SH_DENYRD   0x30    // Deny read

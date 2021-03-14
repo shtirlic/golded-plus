@@ -26,7 +26,7 @@
 
 #include <sys/types.h>
 #include <sys/stat.h>
-#if defined(__WATCOMC__) || defined(__MINGW32__) || defined(_MSC_VER)
+#if defined(_MSC_VER)
     #include <sys/utime.h>
 #else
     #include <utime.h>
