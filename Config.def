@@ -1,3 +1,4 @@
+# -*- makefile -*-
 #
 # Defines to exclude some code from Golded+ binary.
 #

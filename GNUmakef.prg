@@ -1,3 +1,4 @@
+# -*- makefile -*-
 .PHONY: $(TARGET) $(GLIBS)
 
 $(TARGET): $(TOP)/$(BIN)/$(SHORTTARGET)$(PLATFORM)$(EXEEXT)

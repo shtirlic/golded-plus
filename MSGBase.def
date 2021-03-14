@@ -1,3 +1,4 @@
+# -*- makefile -*-
 # Include file for GNU C++ build
 
 # Uncomment to disable Ezycom messagebase format:

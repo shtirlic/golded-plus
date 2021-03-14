@@ -1,3 +1,4 @@
+# -*- makefile -*-
 # Include file for GNU C++ build
 
 .PHONY: $(TARGET)
