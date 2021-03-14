@@ -822,7 +822,7 @@ static int browse_nodelist(GMsg* msg, char* title, int topline)
     browser->xpos = 0;
     browser->ylen = MAXROW-browser->ypos-1;
     browser->xlen = MAXCOL;
-    browser->listwrap = CFG->switches.get(displistwrap);
+    browser->listwrap = CFG->switches.get(en_gswitches::displistwrap);
     browser->firstkey = YES;
     browser->newmaybe = NO;
     browser->aborted = NO;
@@ -1088,11 +1088,11 @@ void Lookup(GMsg* msg, Addr* addr, char* name, int topline, char* status)
     if(topline >= 0)
     {
         dolookup = false;
-        if(AA->isnet() and CFG->switches.get(lookupnet))
+        if(AA->isnet() and CFG->switches.get(en_gswitches::lookupnet))
             dolookup = true;
-        else if(AA->isecho() and CFG->switches.get(lookupecho))
+        else if(AA->isecho() and CFG->switches.get(en_gswitches::lookupecho))
             dolookup = true;
-        else if(AA->islocal() and CFG->switches.get(lookuplocal))
+        else if(AA->islocal() and CFG->switches.get(en_gswitches::lookuplocal))
             dolookup = true;
     }
 
@@ -1167,7 +1167,7 @@ void Lookup(GMsg* msg, Addr* addr, char* name, int topline, char* status)
 
     if(topline >= 0)
     {
-        if(CFG->switches.get(internetlookup))
+        if(CFG->switches.get(en_gswitches::internetlookup))
         {
             if(*entry.system and strchr(entry.system, '@') and AA->Internetgate().addr.valid())
             {
@@ -1397,7 +1397,7 @@ void CheckNodelists()
             fp.Fclose();
 
             // Check the files
-            if(CFG->switches.get(nodelistwarn))
+            if(CFG->switches.get(en_gswitches::nodelistwarn))
             {
                 for(int n=0; n<NODE->nodelists; n++)
                 {

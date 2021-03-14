@@ -2239,7 +2239,7 @@ void IEclass::QuitNow()
 {
     GFTRK("EditQuitNow");
 
-    if (CFG->switches.get(timeoutsavemsg))
+    if (CFG->switches.get(en_gswitches::timeoutsavemsg))
     {
         quitnow = NO;
         done = MODE_SAVE;

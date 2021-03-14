@@ -136,7 +136,7 @@ void GPickArealist::do_delayed()
     strsetsz(strcpy(tmp, buf), MAXCOL);
     wwprintstr(tempwin, 0, 0, wattr, tmp);
 
-    if(CFG->switches.get(arealistpagebar))
+    if(CFG->switches.get(en_gswitches::arealistpagebar))
         wscrollbar(W_VERT, maximum_index+1, maximum_index, index);
 
     if (buf[buflen] || buf[buflen+1]!='\xFF' || buf[buflen+2])
@@ -183,7 +183,7 @@ void GPickArealist::dispbuf(char* buf, int areano)
     buf[MAXCOL-2] = NUL;
 
     char areabuf[33];
-    gsprintf(PRINTF_DECLARE_BUFFER(areabuf), "%u", CFG->switches.get(arealistnos) ? area->board() : areanumbers[areano]);
+    gsprintf(PRINTF_DECLARE_BUFFER(areabuf), "%u", CFG->switches.get(en_gswitches::arealistnos) ? area->board() : areanumbers[areano]);
     int areawidth = strlen(areabuf);
 
     char markedbuf[2] = { " " };
@@ -441,7 +441,7 @@ void GPickArealist::open()
         }
 
     }
-    if(CFG->switches.get(areaautonext) and ypos == 0 and index >= minimum_index and not AL[index]->ismarked())
+    if(CFG->switches.get(en_gswitches::areaautonext) and ypos == 0 and index >= minimum_index and not AL[index]->ismarked())
     {
         jump_to();
     }
@@ -542,7 +542,7 @@ void GPickArealist::AreaCatchUp(uint n)
                 AA = (*AL.item);
                 AA->Open();
 
-                if(CFG->switches.get(highlightunread) and CFG->switches.get(areacatchupread))
+                if(CFG->switches.get(en_gswitches::highlightunread) and CFG->switches.get(en_gswitches::areacatchupread))
                 {
                     w_info(LNG->Wait);
                     for(uint i=AA->lastread()+1; i <= AA->Msgn.Count(); i++)
@@ -692,7 +692,7 @@ bool GPickArealist::handle_key()
         break;
 
     case KK_AreaBoardnos:
-        CFG->switches.set(arealistnos, not CFG->switches.get(arealistnos));
+        CFG->switches.set(en_gswitches::arealistnos, not CFG->switches.get(en_gswitches::arealistnos));
         update();
         break;
 
@@ -881,7 +881,7 @@ bool GPickArealist::handle_key()
                         x = atoi(area_maybe);
                         if(x)
                         {
-                            if(CFG->switches.get(arealistnos) and (isdigit(area_maybe[1]) or (area_maybe[1] == NUL)))
+                            if(CFG->switches.get(en_gswitches::arealistnos) and (isdigit(area_maybe[1]) or (area_maybe[1] == NUL)))
                             {
                                 for(n=0; n<AL.size(); n++)
                                 {
@@ -1018,7 +1018,7 @@ int GPickArealist::Run(const char* _title, int wpos, int& idx)
     maximum_index    = AL.size() - 1;             // List Entries - 1
     maximum_position = MinV((size_t)ylen-1, AL.size()-1); // Display Pos
     index            = AL.AreaIdToNo(idx);        // List Index
-    listwrap         = CFG->switches.get(displistwrap);  // True if wrap-around is supported
+    listwrap         = CFG->switches.get(en_gswitches::displistwrap);  // True if wrap-around is supported
     esc_abort        = (wpos!=0);
     area_maxfuz      = MinV(sizeof(Echo), MAXCOL-strlen(title)-1);
 

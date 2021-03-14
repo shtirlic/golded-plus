@@ -146,7 +146,7 @@ void gfileselect::do_delayed()
     gsprintf(PRINTF_DECLARE_BUFFER(buf), "%s %10s", LNG->TotalBytes, longdotstr(tmp, totbytes));
     wprints(ylen-1, MAXCOL-34, wattr, buf);
 
-    if(CFG->switches.get(filelistpagebar))
+    if(CFG->switches.get(en_gswitches::filelistpagebar))
         wscrollbar(W_VERT, maximum_index+1, maximum_index, index);
 
 }
@@ -400,7 +400,7 @@ void gfileselect::run(GMsg* cmsg)
     index = 0;                                  // List Index
     position = 0;                               // Display Pos
     aborted = false;                            // True if aborted
-    listwrap = CFG->switches.get(displistwrap); // True if wrap-around is supported
+    listwrap = CFG->switches.get(en_gswitches::displistwrap); // True if wrap-around is supported
 
     run_picker();
 
@@ -1179,7 +1179,7 @@ void FileRequest(GMsg* msg)
             QuitNow();
     }
 
-    LoadMessage(msg, CFG->dispmargin-(int)CFG->switches.get(disppagebar));
+    LoadMessage(msg, CFG->dispmargin-(int)CFG->switches.get(en_gswitches::disppagebar));
     reader_topline = oldtopline;
     reader_keyok = YES;
 

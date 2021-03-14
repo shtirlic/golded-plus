@@ -320,7 +320,7 @@ bool set_to_address(GMsg* msg, gsetaddr* toname, gsetaddr* toaddr, gsetaddr* fro
         {
             if(strpbrk(buf, "*?"))
             {
-                if(CFG->switches.get(lookupuserbase))
+                if(CFG->switches.get(en_gswitches::lookupuserbase))
                 {
                     if(AA->UserLookup(buf))
                     {
@@ -440,11 +440,11 @@ int EditHeaderinfo(int mode, GMsgHeaderView &view, bool doedithdr)
     {
 
         if(AA->isnet())
-            hedit.lookup = CFG->switches.get(lookupnet);
+            hedit.lookup = CFG->switches.get(en_gswitches::lookupnet);
         else if(AA->isecho())
-            hedit.lookup = CFG->switches.get(lookupecho);
+            hedit.lookup = CFG->switches.get(en_gswitches::lookupecho);
         else
-            hedit.lookup = CFG->switches.get(lookuplocal);
+            hedit.lookup = CFG->switches.get(en_gswitches::lookuplocal);
 
         int from_name_pos = EDIT->HdrNamePos();
         int from_name_len = EDIT->HdrNameLen();
@@ -580,7 +580,7 @@ int EditHeaderinfo(int mode, GMsgHeaderView &view, bool doedithdr)
             else
                 strcpy(msg->to, to_name.c_str());
 
-            if(AA->isnet() and not CFG->switches.get(internetreply))
+            if(AA->isnet() and not CFG->switches.get(en_gswitches::internetreply))
             {
                 if(*msg->iaddr and (strlen(msg->iaddr) < sizeof(Name)))
                 {

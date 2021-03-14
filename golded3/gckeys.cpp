@@ -933,7 +933,7 @@ void KeyCmdAdd(gkey keycmd, gkey keyval, int keytype)
         keyval |= (gkey)(scancode(keyval) << 8);
 
     std::list<CmdKey>::iterator tmp = CFG->cmdkey.begin();
-    if(CFG->switches.get(keybdefaults))
+    if(CFG->switches.get(en_gswitches::keybdefaults))
     {
         while(tmp != CFG->cmdkey.end())
         {
@@ -1039,7 +1039,7 @@ int ReadKeysCfg(int force)
 
         CFG->macro.clear();
         CFG->cmdkey.clear();
-        if(CFG->switches.get(keybdefaults))
+        if(CFG->switches.get(en_gswitches::keybdefaults))
             SetKeybDefaults();
 
         while (ifp.Fgets(buf, sizeof(buf)))

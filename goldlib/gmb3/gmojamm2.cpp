@@ -335,7 +335,7 @@ void JamArea::raw_scan(int __keep_index, int __scanpm)
     {
         INam uname;
         int umax = (WidePersonalmail & PM_ALLNAMES) ? WideUsernames : 1;
-        dword* ucrc = (dword*)throw_calloc(umax, sizeof(dword));
+        uint32_t* ucrc = (uint32_t*)throw_calloc(umax, sizeof(uint32_t));
         for(int uc=0; uc<umax; uc++)
         {
             jamstrlwr(strcpy(uname, WideUsername[uc]));

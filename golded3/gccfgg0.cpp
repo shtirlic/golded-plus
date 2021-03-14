@@ -45,7 +45,7 @@ struct tglobalbool
 //  globalbool[] array elements shoulds be complemented with
 //  en_gswitches{} enumeration elements (see gecfgg.h).
 //  globalbool[] array must be sorted by value
-tglobalbool globalbool[gswitches_last] =
+tglobalbool globalbool[(uint16_t)en_gswitches::gswitches_last] =
 {
     { CRC_INTERNETLOOKUP           }, // 0x0E22;
     { CRC_KLUDGECHRS               }, // 0x0EEF;
@@ -127,7 +127,7 @@ bool gswitches::handle(word crc, const char* value)
     }
 
     left = 0;
-    right = gswitches_last - 1;
+    right = (uint16_t)en_gswitches::gswitches_last - 1;
 
     if((crc < globalbool[left].crc_token) or (crc > globalbool[right].crc_token))
         return false;

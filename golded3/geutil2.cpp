@@ -39,7 +39,7 @@ int edit_string(char* buf, int buf_size, char* title, int helpcat)
 
     window.openxy(inforow,((MAXCOL-63)/2)-1,3,63,W_BASK,C_ASKB,C_ASKW);
     window.title(title, C_ASKT);
-    if(CFG->switches.get(screenshadows))
+    if(CFG->switches.get(en_gswitches::screenshadows))
         window.shadow(C_SHADOW);
 
     gwinput2 iform(window);

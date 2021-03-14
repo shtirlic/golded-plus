@@ -202,7 +202,7 @@ void GMsgList::ReadMlst(int n)
     }
     else
     {
-        AA->LoadMsg(&msg, ml->msgno, CFG->dispmargin-(int)CFG->switches.get(disppagebar));
+        AA->LoadMsg(&msg, ml->msgno, CFG->dispmargin-(int)CFG->switches.get(en_gswitches::disppagebar));
     }
     ml->goldmark = goldmark;
 
@@ -226,11 +226,11 @@ void GMsgList::ReadMlst(int n)
     }
 
     // Highlight FROM if local
-    if(CFG->switches.get(displocalhigh) and msg.attr.loc())
+    if(CFG->switches.get(en_gswitches::displocalhigh) and msg.attr.loc())
         ml->high |= MLST_HIGH_FROM;
 
     // Highlight if unread
-    if((msg.timesread == 0) and CFG->switches.get(highlightunread))
+    if((msg.timesread == 0) and CFG->switches.get(en_gswitches::highlightunread))
         ml->high |= MLST_HIGH_UNREAD;
 
     // Highlight if unsent
@@ -266,7 +266,7 @@ void GMsgList::do_delayed()
             CFG->disphdrlocation = NO;
 
         ReadMlst(index);
-        AA->LoadMsg(&msg, mlst[index]->msgno, CFG->dispmargin-(int)CFG->switches.get(disppagebar));
+        AA->LoadMsg(&msg, mlst[index]->msgno, CFG->dispmargin-(int)CFG->switches.get(en_gswitches::disppagebar));
         mlst[index]->goldmark = goldmark;
         if(mlst[index]->high & MLST_HIGH_FROM)
             msg.attr.fmu1();
@@ -280,13 +280,13 @@ void GMsgList::do_delayed()
         CFG->disphdrlocation = disphdrlocation;
     }
 
-    if(CFG->switches.get(msglistviewsubj))
+    if(CFG->switches.get(en_gswitches::msglistviewsubj))
     {
         ReadMlst(index);
         wtitle(mlst[index]->re, TCENTER|TBOTTOM, tattr);
     }
 
-    if(CFG->switches.get(msglistpagebar))
+    if(CFG->switches.get(en_gswitches::msglistpagebar))
         wscrollbar(W_VERT, maximum_index+1, maximum_index, index);
 
     update_statuslinef(LNG->MsgLister, "ST_MSGLISTER", index+1, maximum_index+1, maximum_index-index);
@@ -306,7 +306,7 @@ void GMsgList::update_title()
         recol = tocol;
 
     window.title(NULL, tattr, TCENTER);
-    window.message(CFG->switches.get(disprealmsgno) ? LNG->MsgReal : LNG->Msg, TP_BORD, 3, tattr);
+    window.message(CFG->switches.get(en_gswitches::disprealmsgno) ? LNG->MsgReal : LNG->Msg, TP_BORD, 3, tattr);
     window.message(LNG->FromL, TP_BORD, bycol, tattr);
     if(not AA->Msglistwidesubj())
         window.message(LNG->ToL, TP_BORD, tocol, tattr);
@@ -405,7 +405,7 @@ void GMsgList::print_line(uint idx, uint pos, bool isbar)
     else
         *dbuf = NUL;
 
-    gsprintf(PRINTF_DECLARE_BUFFER(nbuf), "%5u", (CFG->switches.get(disprealmsgno) ? ml->msgno : AA->Msgn.ToReln(ml->msgno)));
+    gsprintf(PRINTF_DECLARE_BUFFER(nbuf), "%5u", (CFG->switches.get(en_gswitches::disprealmsgno) ? ml->msgno : AA->Msgn.ToReln(ml->msgno)));
     gsprintf(PRINTF_DECLARE_BUFFER(buf), "%-5.5s%s%-*.*s %-*.*s%s%-*.*s %s",
              nbuf, ml->marks,
              bysiz, bysiz, ml->by,
@@ -725,7 +725,7 @@ void GMsgList::Run()
     sbattr  = C_MENUPB;                         // Window Scrollbar Color
     title   = LNG->ThreadlistTitle;             // Window Title
     helpcat = H_MessageBrowser;                 // Window Help Category
-    listwrap  = CFG->switches.get(displistwrap);
+    listwrap  = CFG->switches.get(en_gswitches::displistwrap);
 
     if((AA->Msglistdate() == MSGLISTDATE_RECEIVED) and not AA->havereceivedstamp())
         AA->SetMsglistdate(MSGLISTDATE_WRITTEN);
@@ -797,7 +797,7 @@ void GThreadlist::update_title()
 {
 
     window.title(title, tattr);
-    window.message(CFG->switches.get(disprealmsgno) ? LNG->MsgReal : LNG->Msg, TP_BORD, 3, tattr);
+    window.message(CFG->switches.get(en_gswitches::disprealmsgno) ? LNG->MsgReal : LNG->Msg, TP_BORD, 3, tattr);
 
     switch(AA->Msglistdate())
     {
@@ -826,7 +826,7 @@ void GThreadlist::do_delayed()
         if ((CFG->disphdrlocation & 0xFFFF) == YES)
             CFG->disphdrlocation = NO;
 
-        AA->LoadMsg(&msg, treeEntryList[index].msgno, CFG->dispmargin-(int)CFG->switches.get(disppagebar));
+        AA->LoadMsg(&msg, treeEntryList[index].msgno, CFG->dispmargin-(int)CFG->switches.get(en_gswitches::disppagebar));
         for(std::vector<Node>::iterator x = CFG->username.begin(); x != CFG->username.end(); x++)
         {
             if(strieql(msg.By(), x->name))
@@ -850,7 +850,7 @@ void GThreadlist::do_delayed()
         CFG->disphdrlocation = disphdrlocation;
     }
 
-    if(CFG->switches.get(msglistviewsubj))
+    if(CFG->switches.get(en_gswitches::msglistviewsubj))
     {
         // Reload message if not sure that just reread
         if(not AA->Msglistheader())
@@ -861,13 +861,13 @@ void GThreadlist::do_delayed()
             }
             else
             {
-                AA->LoadMsg(&msg, treeEntryList[index].msgno, CFG->dispmargin - (int)CFG->switches.get(disppagebar));
+                AA->LoadMsg(&msg, treeEntryList[index].msgno, CFG->dispmargin - (int)CFG->switches.get(en_gswitches::disppagebar));
             }
         }
         wtitle(msg.re, TCENTER|TBOTTOM, tattr);
     }
 
-    if(CFG->switches.get(msglistpagebar))
+    if(CFG->switches.get(en_gswitches::msglistpagebar))
         wscrollbar(W_VERT, maximum_index+1, maximum_index, index);
 
     update_statuslinef(LNG->MsgLister, "ST_MSGLISTER", index+1, maximum_index+1, maximum_index-index);
@@ -960,7 +960,7 @@ void GThreadlist::print_line(uint idx, uint pos, bool isbar)
     }
     else
     {
-        AA->LoadMsg(&msg, t.msgno, CFG->dispmargin-(int)CFG->switches.get(disppagebar));
+        AA->LoadMsg(&msg, t.msgno, CFG->dispmargin-(int)CFG->switches.get(en_gswitches::disppagebar));
     }
 
     vattr attrh, attrw;
@@ -969,7 +969,7 @@ void GThreadlist::print_line(uint idx, uint pos, bool isbar)
         attrw = C_MENUW_UNSENT;
         attrh = C_MENUQ_UNSENTHIGH;
     }
-    else if(CFG->switches.get(highlightunread) and (msg.timesread == 0))
+    else if(CFG->switches.get(en_gswitches::highlightunread) and (msg.timesread == 0))
     {
         attrh = C_MENUQ_UNREADHIGH;
         attrw = C_MENUW_UNREAD;
@@ -991,7 +991,7 @@ void GThreadlist::print_line(uint idx, uint pos, bool isbar)
             marks[1] = MMRK_MARK;
     }
 
-    gsprintf(PRINTF_DECLARE_BUFFER(buf), "%6u  %*c", (CFG->switches.get(disprealmsgno) ? t.msgno : AA->Msgn.ToReln(t.msgno)), tdlen, ' ');
+    gsprintf(PRINTF_DECLARE_BUFFER(buf), "%6u  %*c", (CFG->switches.get(en_gswitches::disprealmsgno) ? t.msgno : AA->Msgn.ToReln(t.msgno)), tdlen, ' ');
 
     if(AA->Msglistdate() != MSGLISTDATE_NONE)
     {
@@ -1375,7 +1375,7 @@ void GThreadlist::Run()
     sbattr  = C_MENUPB;                         // Window Scrollbar Color
     title   = LNG->ThreadlistTitle;             // Window Title
     helpcat = H_ReplyThread;                    // Window Help Category
-    listwrap  = CFG->switches.get(displistwrap);
+    listwrap  = CFG->switches.get(en_gswitches::displistwrap);
 
     BuildThreadIndex(reader_msg->msgno);
 

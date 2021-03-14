@@ -567,7 +567,7 @@ static void MakeMsg2(int& mode, int& status, int& forwstat, int& topline, GMsg* 
         w_info(LNG->Wait);
         if(mode != MODE_CHANGE)
         {
-            if(not CFG->switches.get(emptytearline))
+            if(not CFG->switches.get(en_gswitches::emptytearline))
                 strcpy(msg->tearline, AA->Tearline());
 
             if(AA->Taglinesupport())
@@ -1209,7 +1209,7 @@ void MakeMsg(int mode, GMsg* omsg, bool ignore_replyto)
                         strcpy(msg->iorig, AA->Internetaddress());
                     if(not strblank(AA->Username().name))
                         strcpy(msg->by, AA->Username().name);
-                    if(CFG->switches.get(emptytearline))
+                    if(CFG->switches.get(en_gswitches::emptytearline))
                         *msg->tearline = NUL;
                 }
                 break;
@@ -1356,7 +1356,7 @@ void MakeMsg(int mode, GMsg* omsg, bool ignore_replyto)
             }
 
             // Ask if the original msg should be deleted while we're at it
-            if(CurrArea == OrigArea and CFG->switches.get(askdelorig) and not confirm)
+            if(CurrArea == OrigArea and CFG->switches.get(en_gswitches::askdelorig) and not confirm)
             {
                 switch(mode)
                 {

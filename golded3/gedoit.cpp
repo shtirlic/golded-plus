@@ -133,7 +133,7 @@ void SaveLines(int mode, const char* savefile, GMsg* msg, int margin, bool clip)
                     if (prn)
                     {
                         lines++;
-                        if (lines%CFG->printlength == 0 and CFG->switches.get(printformfeed))
+                        if (lines%CFG->printlength == 0 and CFG->switches.get(en_gswitches::printformfeed))
                             prnfp.Fwrite("\f", 1);
                     }
                 }
@@ -145,8 +145,8 @@ void SaveLines(int mode, const char* savefile, GMsg* msg, int margin, bool clip)
             prnfp.Fwrite(prn ? NL : "\n", prn ? sizeof(NL) : 1);
 
         // Add formfeed if requested
-        if ((prn and CFG->switches.get(printformfeed)) or
-                (not prn and not clip and CFG->switches.get(formfeedseparator)))
+        if ((prn and CFG->switches.get(en_gswitches::printformfeed)) or
+                (not prn and not clip and CFG->switches.get(en_gswitches::formfeedseparator)))
         {
             prnfp.Fwrite("\f", 1);
         }

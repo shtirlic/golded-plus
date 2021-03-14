@@ -717,7 +717,7 @@ bool guserbase::run(GMsg* msg, bool selectonly)
     hattr   = C_MENUQ;
     sbattr  = C_MENUPB;
     helpcat = H_Userbase;
-    listwrap  = CFG->switches.get(displistwrap);
+    listwrap  = CFG->switches.get(en_gswitches::displistwrap);
     maximum_position = MinV(maximum_index, ylen - 1);
 
     if(not select_list)

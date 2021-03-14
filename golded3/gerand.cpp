@@ -124,9 +124,9 @@ void Area::InitData()
 
     // Set defaults
     adat->aka = CFG->aka[GetAkaNo(aka())];
-    adat->akamatching = (CFG->switches.get(akamatchnet) and isnet()) or
-                        (CFG->switches.get(akamatchecho) and isecho()) or
-                        (CFG->switches.get(akamatchlocal) and islocal());
+    adat->akamatching = (CFG->switches.get(en_gswitches::akamatchnet) and isnet()) or
+                        (CFG->switches.get(en_gswitches::akamatchecho) and isecho()) or
+                        (CFG->switches.get(en_gswitches::akamatchlocal) and islocal());
     adat->attributes = attr();
     adat->areacopyaddid = CFG->areacopyaddid;
     adat->areacopydirect = CFG->areacopydirect;

@@ -36,7 +36,7 @@
 //  ------------------------------------------------------------------
 //  en_gswitches{} enumeration elements shoulds be complemented with
 //  globalbool[] array elements (see gccfgg0.cpp).
-enum en_gswitches
+enum class en_gswitches
 {
     internetlookup,
     kludgechrs,
@@ -96,7 +96,7 @@ enum en_gswitches
     nodelistwarn,
     akamatchnet,
 
-    gswitches_last
+    gswitches_last  
 };
 
 class gswitches
@@ -106,26 +106,25 @@ public:
 
     inline bool get(en_gswitches what)
     {
-        return cfg[what];
+        return cfg[(uint16_t)what];
     }
     inline void set(en_gswitches what, bool value)
     {
-        cfg[what] = value;
+        cfg[(uint16_t)what] = value;
     }
 
     bool handle(word crc, const char* value);
 
     gswitches()
     {
-        for(uint i=0; i<gswitches_last; i++)
+        for(uint i=0; i< (uint16_t)en_gswitches::gswitches_last; i++)
         {
             cfg[i] = false;
         }
     };
 
 private:
-
-    bool cfg[gswitches_last];
+    bool cfg[(uint16_t)en_gswitches::gswitches_last];
 };
 
 

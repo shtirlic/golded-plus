@@ -29,7 +29,6 @@
 #include <gutlmisc.h>
 #include <gtimall.h>
 
-
 //  ------------------------------------------------------------------
 
 int _use_fwd = true;
@@ -98,9 +97,8 @@ char* MakeTearline(GMsg* msg, char* buf)
 
 void MakeFlags(GMsg* msg, Line** line, char* buf)
 {
-
     // The FrontDoor FLAGS netmail kludge
-    if (CFG->switches.get(useflags))
+    if (CFG->switches.get(en_gswitches::useflags))
     {
         sprintf(buf, "\001FLAGS ");
         if(msg->attr.imm())
@@ -354,7 +352,7 @@ void DoKludges(int mode, GMsg* msg, int kludges)
         }
 
         // The REPLY: kludge for Receiver identification
-        if(CFG->switches.get(usemsgid) and *msg->replys)
+        if(CFG->switches.get(en_gswitches::usemsgid) and *msg->replys)
         {
             sprintf(buf, "\001REPLY: %s", msg->replys);
             line = AddKludge(line, buf);
@@ -390,7 +388,7 @@ void DoKludges(int mode, GMsg* msg, int kludges)
             gsprintf(PRINTF_DECLARE_BUFFER(msg->msgids), "%s %08x", buf2, getMsgId());
         }
 
-        if (CFG->switches.get(usemsgid) && (AA->basetype() != "PCBOARD"))
+        if (CFG->switches.get(en_gswitches::usemsgid) && (AA->basetype() != "PCBOARD"))
         {
             sprintf(buf, "\001MSGID: %s", msg->msgids);
             line = AddKludge(line, buf);
@@ -400,7 +398,7 @@ void DoKludges(int mode, GMsg* msg, int kludges)
         // The PID: (Product ID code) kludge
         strxmerge(msg->pid, sizeof(msg->pid), __gver_shortpid__, " ", __gver_ver__, NULL);
 
-        if(CFG->usepid and (CFG->switches.get(emptytearline) or not (striinc(__gver_longpid__, msg->tearline))))
+        if(CFG->usepid and (CFG->switches.get(en_gswitches::emptytearline) or not (striinc(__gver_longpid__, msg->tearline))))
         {
 
             sprintf(buf, "\001PID: %s", msg->pid);
@@ -415,7 +413,7 @@ void DoKludges(int mode, GMsg* msg, int kludges)
             if(strieql(msg->charset, "I51"))
                 strcpy(buf, "\001I51");
             else if(not strieql(msg->charset, "COMPOSED"))
-                sprintf(buf, "\001%s: %s", CFG->switches.get(kludgechrs) ? "CHRS" : "CHARSET", msg->charset);
+                sprintf(buf, "\001%s: %s", CFG->switches.get(en_gswitches::kludgechrs) ? "CHRS" : "CHARSET", msg->charset);
             if(*buf)
             {
                 line = AddKludge(line, buf);

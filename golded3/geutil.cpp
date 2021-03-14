@@ -50,7 +50,7 @@ void update_statuslines()
 
     HandleGEvent(EVTT_REMOVEVOCBUF);
 
-    if(CFG->switches.get(dispstatusline) or not called) // FIXME: Strange, status line displayed always in first call. May be need to change?
+    if(CFG->switches.get(en_gswitches::dispstatusline) or not called) // FIXME: Strange, status line displayed always in first call. May be need to change?
     {
 
         called = YES;
@@ -60,7 +60,7 @@ void update_statuslines()
         *clkinfo = NUL;
         *help = NUL;
 
-        if(CFG->switches.get(statuslineclock))
+        if(CFG->switches.get(en_gswitches::statuslineclock))
         {
             time32_t t = gtime(NULL);
             struct tm tm;
@@ -207,7 +207,7 @@ void update_statuslinef(const char *format, const char *token, ...)
 void w_shadow()
 {
 
-    if(CFG->switches.get(screenshadows))
+    if(CFG->switches.get(en_gswitches::screenshadows))
         wshadow(C_SHADOW);
 }
 
@@ -555,7 +555,7 @@ vattr quotecolor(const char* line)
 {
 
     char buf[MAXQUOTELEN];
-    uint len;
+    size_t len;
 
     GetQuotestr(line, buf, &len);
     uint qc = 0;
@@ -570,7 +570,7 @@ vattr quotecolor(const char* line)
 
 //  ------------------------------------------------------------------
 
-int GetQuotestr(const char* ptr, char* qbuf, uint* qlen)
+int GetQuotestr(const char* ptr, char* qbuf, size_t* qlen)
 {
 
     if(is_quote(ptr))

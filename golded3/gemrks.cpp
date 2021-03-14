@@ -223,7 +223,7 @@ void MarkMsgs_Txt(int item, char* markstring)
         update_statuslinef(LNG->SearchingMsg, "ST_SEARCHINGMSG", n, AA->Msgn.Count(), marked);
         w_progress(MODE_UPDATE, C_INFOW, n, AA->Msgn.Count(), NULL);
 
-        if(AA->LoadMsg(msg, AA->Msgn[n-1], CFG->dispmargin-(int)CFG->switches.get(disppagebar)))
+        if(AA->LoadMsg(msg, AA->Msgn[n-1], CFG->dispmargin-(int)CFG->switches.get(en_gswitches::disppagebar)))
         {
 
             bool success = srchmgr.search(msg, false, true);

@@ -118,6 +118,7 @@
 #define JAMSUB_PATH2D              2002
 #define JAMSUB_FLAGS               2003
 #define JAMSUB_TZUTCINFO           2004
+#define JAMSUB_UNKNOWN             0xffff 
 
 #define JAMSUB_OADDRESS_LEN                      100
 #define JAMSUB_DADDRESS_LEN                      100
@@ -165,8 +166,8 @@ struct JamHdr
 {
 
     char    signature[4];   // <J><A><M> followed by <NUL>
-    word    revision;       // Revision level of header
-    word    reservedword;   // Reserved for future use
+    uint16_t    revision;       // Revision level of header
+    uint16_t    reservedword;   // Reserved for future use
     uint32_t   subfieldlen;    // Length of subfields
     uint32_t   timesread;      // Number of times message read
     uint32_t   msgidcrc;       // CRC-32 of MSGID line
@@ -193,8 +194,8 @@ struct JamHdr
 struct JamSubFieldHdr
 {
 
-    word  loid;       // Field ID, 0-65535
-    word  hiid;       // Reserved for future use
+    uint16_t  loid;       // Field ID, 0-65535
+    uint16_t  hiid;       // Reserved for future use
     uint32_t datlen;     // Length of buffer that follows
 };
 
@@ -205,8 +206,8 @@ struct JamSubFieldHdr
 struct JamSubField
 {
 
-    word  loid;         // Field ID, 0-65535
-    word  hiid;         // Reserved for future use
+    uint16_t  loid;         // Field ID, 0-65535
+    uint16_t  hiid;         // Reserved for future use
     uint32_t datlen;       // Length of buffer that follows
     char  buffer[101];  // DATLEN bytes of data
 };
@@ -218,7 +219,7 @@ struct JamSubField
 struct JamIndex
 {
 
-    dword  usercrc;    // CRC-32 of destination username
+    uint32_t  usercrc;    // CRC-32 of destination username
     uint32_t  hdroffset;  // Offset of header in .JHR file
 };
 
@@ -229,10 +230,10 @@ struct JamIndex
 struct JamLast
 {
 
-    dword  usercrc;    // CRC-32 of user name (lowercase)
-    dword  userid;     // Unique UserID
-    dword  lastread;   // Last read message number
-    dword  highread;   // Highest read message number
+    uint32_t  usercrc;    // CRC-32 of user name (lowercase)
+    uint32_t  userid;     // Unique UserID
+    uint32_t  lastread;   // Last read message number
+    uint32_t  highread;   // Highest read message number
 };
 
 
@@ -265,8 +266,8 @@ struct JamData
 
 struct JamWide
 {
-    dword usercrc;
-    dword userid;
+    uint32_t usercrc;
+    uint32_t userid;
     int lookreplies;
     const char* jampath;
     int harddelete;
@@ -302,7 +303,7 @@ protected:
 
     int load_message(int __mode, gmsg* __msg, JamHdr& __hdr);
 
-    void add_subfield(JamHdr& __hdr, byte*& __subfield, word __loid, word __hiid, char* __data, uint32_t maxlen);
+    void add_subfield(JamHdr& __hdr, byte*& __subfield, uint16_t __loid, uint16_t __hiid, char* __data, uint32_t maxlen);
 
     void save_message(int __mode, gmsg* __msg, JamHdr& __hdr);
 

@@ -252,7 +252,7 @@ public:
         reply_list.clear();
     }
 
-    int list_max() const
+    size_t list_max() const
     {
         return reply_list.size();
     }

@@ -117,7 +117,7 @@ bool FindString(GMsg* msg, const char* prompt, int what)
 
     uint32_t tmpmsgno;
 
-    int margin = CFG->dispmargin-(int)CFG->switches.get(disppagebar);
+    int margin = CFG->dispmargin-(int)CFG->switches.get(en_gswitches::disppagebar);
 
     do
     {

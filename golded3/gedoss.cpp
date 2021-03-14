@@ -55,7 +55,7 @@ void Cleanup(void)
     if(CFG)
     {
 
-        if(CFG->switches.get(areakeeplast) and startupscan_success)
+        if(CFG->switches.get(en_gswitches::areakeeplast) and startupscan_success)
             AL.WriteGoldLast();
 
         // Free msg data
@@ -267,7 +267,7 @@ int ShellToDos(const char* command, char* message, vattr cls, int cursor, int pa
     static char prompt[256];
     static char oldprompt[256];
 
-    if(CFG->switches.get(dosprompt))
+    if(CFG->switches.get(en_gswitches::dosprompt))
     {
 #ifdef __DJGPP__
         const char* p = getenv("PROMPT");
@@ -410,7 +410,7 @@ int ShellToDos(const char* command, char* message, vattr cls, int cursor, int pa
 
     // Restore prompt
 #ifndef __UNIX__
-    if(CFG->switches.get(dosprompt))
+    if(CFG->switches.get(en_gswitches::dosprompt))
     {
 #ifdef __DJGPP__
         setenv("PROMPT", oldprompt, true);

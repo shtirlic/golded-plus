@@ -89,8 +89,15 @@ bool ReadGoldedCfg(int& force)
                     CfgSquishuserpath(CFG->areapath);
             }
         }
+        if (*CFG->jampath == NULL) {
+            CfgJampath(CFG->areapath);
+        }
+        else{
+//            MakePathname(CFG->jampath, CFG->goldpath, CFG->jampath);
+            CfgJampath(CFG->jampath);
+        }
 
-        CfgJampath(CFG->jampath);
+        
 
         MakePathname(CFG->goldcfg, CFG->goldpath, CFG->goldcfg);
         MakePathname(CFG->helpcfg.fn, CFG->goldpath, CFG->helpcfg.fn);
@@ -807,36 +814,36 @@ CfgGed::CfgGed()
     attribslocal.loc1();
     attribsnet.loc1();
     attribsnews.loc1();
-    switches.set(akamatchnet, true);
-    switches.set(areaautonext, true);
-    switches.set(areacatchupread, true);
-    switches.set(areakeeplast, true);
-    switches.set(arealistgroupid, true);
-    switches.set(arealistpagebar, true);
-    switches.set(askdelorig, false);
-    switches.set(beepcomment, true);
-    switches.set(beepnoises, true);
-    switches.set(dispautonext, true);
-    switches.set(displocalhigh, true);
-    switches.set(disppagebar, true);
-    switches.set(dispstatusline, true);
-    switches.set(dosprompt, true);
-    switches.set(filelistpagebar, true);
-    switches.set(internetreply, true);
-    switches.set(keybdefaults, true);
-    switches.set(keybext, true);
-    switches.set(kludgechrs, true);
-    switches.set(lookupnet, true);
-    switches.set(msglistpagebar, true);
-    switches.set(msglistviewsubj, true);
-    switches.set(nodelistwarn, true);
-    switches.set(printformfeed, true);
-    switches.set(screenshadows, true);
-    switches.set(statuslineclock, true);
-    switches.set(timeoutsavemsg, true);
-    switches.set(useflags, true);
-    switches.set(usemsgid, true);
-    switches.set(rcvdisablescfm, true);
+    switches.set(en_gswitches::akamatchnet, true);
+    switches.set(en_gswitches::areaautonext, true);
+    switches.set(en_gswitches::areacatchupread, true);
+    switches.set(en_gswitches::areakeeplast, true);
+    switches.set(en_gswitches::arealistgroupid, true);
+    switches.set(en_gswitches::arealistpagebar, true);
+    switches.set(en_gswitches::askdelorig, false);
+    switches.set(en_gswitches::beepcomment, true);
+    switches.set(en_gswitches::beepnoises, true);
+    switches.set(en_gswitches::dispautonext, true);
+    switches.set(en_gswitches::displocalhigh, true);
+    switches.set(en_gswitches::disppagebar, true);
+    switches.set(en_gswitches::dispstatusline, true);
+    switches.set(en_gswitches::dosprompt, true);
+    switches.set(en_gswitches::filelistpagebar, true);
+    switches.set(en_gswitches::internetreply, true);
+    switches.set(en_gswitches::keybdefaults, true);
+    switches.set(en_gswitches::keybext, true);
+    switches.set(en_gswitches::kludgechrs, true);
+    switches.set(en_gswitches::lookupnet, true);
+    switches.set(en_gswitches::msglistpagebar, true);
+    switches.set(en_gswitches::msglistviewsubj, true);
+    switches.set(en_gswitches::nodelistwarn, true);
+    switches.set(en_gswitches::printformfeed, true);
+    switches.set(en_gswitches::screenshadows, true);
+    switches.set(en_gswitches::statuslineclock, true);
+    switches.set(en_gswitches::timeoutsavemsg, true);
+    switches.set(en_gswitches::useflags, true);
+    switches.set(en_gswitches::usemsgid, true);
+    switches.set(en_gswitches::rcvdisablescfm, true);
 
     // screen configuration
     disphdrdateset.len = 19;

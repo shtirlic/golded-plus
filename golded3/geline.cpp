@@ -2215,7 +2215,7 @@ void MakeLineIndex(GMsg* msg, int margin, bool getvalue, bool header_recode)
     char* qptr;
     char* tmp=NULL;
     char* linetmp=NULL;
-    uint qlen=0, qlen2=0;
+    size_t qlen=0, qlen2=0;
     int wraps=0, para=0, chslev;
     bool reflow = false, quoteflag = false;
     bool quotewraphard = AA->Quotewraphard();
@@ -2574,7 +2574,7 @@ void MakeLineIndex(GMsg* msg, int margin, bool getvalue, bool header_recode)
 
                 if (CFG->quoteusenewai && isq_flag1 && !isq_flag2)
                 {
-                    uint bad_qlen;
+                    size_t bad_qlen;
                     char bad_qbuf[MAXQUOTELEN];
                     char *bad_ptr;
 
@@ -3120,7 +3120,7 @@ void MsgLineReIndex(GMsg* msg, int viewhidden, int viewkludge, int viewquote)
             {
                 if(not (line->next->type & GLINE_QUOT) and not strblank(line->next->txt.c_str()))
                 {
-                    if(CFG->switches.get(quotespacing))
+                    if(CFG->switches.get(en_gswitches::quotespacing))
                     {
                         line = AddLine(line, "");
                         msg->lines++;
@@ -3137,7 +3137,7 @@ void MsgLineReIndex(GMsg* msg, int viewhidden, int viewkludge, int viewquote)
                 }
                 if((line->next->type & GLINE_QUOT) and not strblank(line->txt.c_str()))
                 {
-                    if(CFG->switches.get(quotespacing))
+                    if(CFG->switches.get(en_gswitches::quotespacing))
                     {
                         line = AddLine(line, "");
                         msg->lines++;
@@ -3155,7 +3155,7 @@ void MsgLineReIndex(GMsg* msg, int viewhidden, int viewkludge, int viewquote)
 
     char qbuf[MAXQUOTELEN];
     char qbuf0[MAXQUOTELEN];
-    uint qlen = 0;
+    size_t qlen = 0;
     int qmatches = 0;
 
     *qbuf0 = NUL;

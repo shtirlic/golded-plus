@@ -218,7 +218,7 @@ void Area::DelMsgs(GMsg* msg, bool force)
                         {
                             if(msg->attr.uns() and not (msg->attr.rcv() or msg->attr.del()))
                             {
-                                AA->LoadMsg(msg, msgno, CFG->dispmargin-(int)CFG->switches.get(disppagebar));
+                                AA->LoadMsg(msg, msgno, CFG->dispmargin-(int)CFG->switches.get(en_gswitches::disppagebar));
                                 w_progress(MODE_QUIT, BLACK_|_BLACK, 0, 0, NULL);
                                 HeaderView->Use(AA, msg);
                                 HeaderView->Paint();
@@ -241,7 +241,7 @@ void Area::DelMsgs(GMsg* msg, bool force)
                         }
                         if(msg->attr.lok() and not dellocked and not deletethis)
                         {
-                            AA->LoadMsg(msg, msgno, CFG->dispmargin-(int)CFG->switches.get(disppagebar));
+                            AA->LoadMsg(msg, msgno, CFG->dispmargin-(int)CFG->switches.get(en_gswitches::disppagebar));
                             w_progress(MODE_QUIT, BLACK_|_BLACK, 0, 0, NULL);
                             HeaderView->Use(AA, msg);
                             HeaderView->Paint();
@@ -570,7 +570,7 @@ void CmfMsgs(GMsg* msg, bool torecycle)
 
         int mode = 0;
         uint msgno = 0;
-        if(AA->LoadMsg(msg, loadmsgno, CFG->dispmargin-(int)CFG->switches.get(disppagebar), loadmode))
+        if(AA->LoadMsg(msg, loadmsgno, CFG->dispmargin-(int)CFG->switches.get(en_gswitches::disppagebar), loadmode))
         {
 
             // Handle unsent msgs

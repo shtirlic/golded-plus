@@ -234,7 +234,7 @@ int MakeNoise(int type)
 
     int n;
 
-    if((CFG and CFG->switches.get(beepnoises)) and not disablesound)
+    if((CFG and CFG->switches.get(en_gswitches::beepnoises)) and not disablesound)
     {
 
         switch(type)
@@ -337,7 +337,7 @@ int GPlay::Play() const
 void SayBibi()
 {
 
-    if(CFG and CFG->switches.get(beepnoises))
+    if(CFG and CFG->switches.get(en_gswitches::beepnoises))
         HandleGEvent(EVTT_SAYBIBI);
 }
 

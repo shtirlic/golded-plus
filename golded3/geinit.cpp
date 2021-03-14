@@ -812,8 +812,8 @@ void Initialize(int argc, char* argv[])
     InitSound();
 
     // Handle extended keyboard
-    if(not CFG->switches.get(keybext))
-        gkbd.extkbd = CFG->switches.get(keybext);
+    if(not CFG->switches.get(en_gswitches::keybext))
+        gkbd.extkbd = CFG->switches.get(en_gswitches::keybext);
 
     // Report detected multitasker
     if (!quiet && gmtsk.detected)
@@ -826,7 +826,7 @@ void Initialize(int argc, char* argv[])
         waitkey();
     }
 
-    if (CFG->switches.get(keybclear) || !keybuf.empty() || *CFG->keybstack)
+    if (CFG->switches.get(en_gswitches::keybclear) || !keybuf.empty() || *CFG->keybstack)
     {
         clearkeys();
         kbclear();
@@ -995,7 +995,7 @@ void Initialize(int argc, char* argv[])
     AL.SetDefaultMarks();
 
     // Read the lastreads from the last session
-    if(CFG->switches.get(areakeeplast))
+    if(CFG->switches.get(en_gswitches::areakeeplast))
         AL.ReadGoldLast();
 
     // Setup start echo
@@ -1035,7 +1035,7 @@ void Initialize(int argc, char* argv[])
         else
             echoid_width = CFG->arealistechomax;
     }
-    if(areaswithgroupid and CFG->switches.get(arealistgroupid))
+    if(areaswithgroupid and CFG->switches.get(en_gswitches::arealistgroupid))
         groupid_width = arealistnumgrps ? 3 : 1;
 
     int spaces = 0;
@@ -1202,7 +1202,7 @@ void Initialize(int argc, char* argv[])
     if(find(AL.basetypes, "OPUS") or find(AL.basetypes, "FTS1"))
     {
         update_statuslinef("%s Fido", "", LNG->Checking);
-        FidoInit(CFG->fidolastread, CFG->switches.get(fidohwmarks), CFG->switches.get(fidonullfix), CFG->fidouserno, CFG->squishuserpath);
+        FidoInit(CFG->fidolastread, CFG->switches.get(en_gswitches::fidohwmarks), CFG->switches.get(en_gswitches::fidonullfix), CFG->fidouserno, CFG->squishuserpath);
     }
 #ifndef GMB_NOEZY
     if(find(AL.basetypes, "EZYCOM"))
@@ -1215,14 +1215,14 @@ void Initialize(int argc, char* argv[])
     if(find(AL.basetypes, "JAM"))
     {
         update_statuslinef("%s JAM", "", LNG->Checking);
-        JamInit(CFG->jampath, CFG->switches.get(jamharddelete), CFG->switches.get(jamsmapihw));
+        JamInit(CFG->jampath, CFG->switches.get(en_gswitches::jamharddelete), CFG->switches.get(en_gswitches::jamsmapihw));
     }
 #endif
 #ifndef GMB_NOSQSH
     if(find(AL.basetypes, "SQUISH"))
     {
         update_statuslinef("%s Squish", "", LNG->Checking);
-        SquishInit(CFG->squishuserpath, CFG->squishuserno, CFG->switches.get(squishdirect), true, CFG->squishscan);
+        SquishInit(CFG->squishuserpath, CFG->squishuserno, CFG->switches.get(en_gswitches::squishdirect), true, CFG->squishscan);
     }
 #endif
 #ifndef GMB_NOWCAT

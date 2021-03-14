@@ -160,7 +160,7 @@ void GMsgHeaderView::Paint()
     int list_max = msg->link.list_max();
     uint32_t* replies = (uint32_t*)throw_calloc(list_max+1, sizeof(uint32_t));
     uint32_t replyto, replynext;
-    if(CFG->switches.get(disprealmsgno))
+    if(CFG->switches.get(en_gswitches::disprealmsgno))
     {
         ptr += sprintf(ptr, " %-5.5s: #%u [%u]", LNG->Msg, msg->msgno, area->Msgn.Count()+(msg->attr.nwm() ? 1 : 0));
         replyto = msg->link.to();
@@ -224,7 +224,7 @@ void GMsgHeaderView::Paint()
     strsetsz(buf, nodegenerated ? namewidth : (namewidth+nodewidth));
 
     window.prints(2, 0, window_color, LNG->From);
-    vattr color = ((msg->foundwhere&GFIND_FROM) or msg->attr.fmu() or (msg->attr.loc() and CFG->switches.get(displocalhigh))) ? highlight_color : from_color;
+    vattr color = ((msg->foundwhere&GFIND_FROM) or msg->attr.fmu() or (msg->attr.loc() and CFG->switches.get(en_gswitches::displocalhigh))) ? highlight_color : from_color;
     color = GetColorName(msg->By(), msg->orig, color);
     window.prints(2, CFG->disphdrnameset.pos, color, buf);
 
@@ -440,7 +440,7 @@ void GMsgBodyView::Create()
     dummy_line.type = 0;
     dummy_line.color = window_color;
 
-    visible_width = width - (CFG->switches.get(disppagebar) ? 1 : 0);
+    visible_width = width - (CFG->switches.get(en_gswitches::disppagebar) ? 1 : 0);
 }
 
 
@@ -490,7 +490,7 @@ void GMsgBodyView::Use(Area *areaptr, GMsg *msgptr, int startline)
     lowerline = upperline + height - 1;
     can_pagedown = lowerline < (msg->lines-1);
 
-    scrollbar_visible = CFG->switches.get(disppagebar) ? (msg->lines > height) : false;
+    scrollbar_visible = CFG->switches.get(en_gswitches::disppagebar) ? (msg->lines > height) : false;
     visible_width = scrollbar_visible ? width-1 : width;
     window.set_scrollbar_color(scrollbar_visible ? scrollbar_color : DEFATTR);
 }
@@ -738,7 +738,7 @@ int GMsgBodyView::ThumbPosition(int pos)
 void GMsgBodyView::UpdateScrollbar()
 {
 
-    if(CFG->switches.get(disppagebar) and scrollbar_visible)
+    if(CFG->switches.get(en_gswitches::disppagebar) and scrollbar_visible)
         window.vscrollbar(msg->lines, msg->lines-height, upperline);
 }
 

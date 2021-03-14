@@ -52,7 +52,7 @@ void ChangeAttributes()
         if(AA->attr().hex())
         {
             AA->attr().hex0();
-            AA->LoadMsg(reader_msg, reader_msg->msgno, CFG->dispmargin-(int)CFG->switches.get(disppagebar));
+            AA->LoadMsg(reader_msg, reader_msg->msgno, CFG->dispmargin-(int)CFG->switches.get(en_gswitches::disppagebar));
         }
 
         GMsg* msg = (GMsg*)throw_malloc(sizeof(GMsg));
@@ -209,7 +209,7 @@ void ToggleROT13()
 void TogglePageBar()
 {
 
-    CFG->switches.set(disppagebar, not CFG->switches.get(disppagebar));
+    CFG->switches.set(en_gswitches::disppagebar, not CFG->switches.get(en_gswitches::disppagebar));
 }
 
 
@@ -218,7 +218,7 @@ void TogglePageBar()
 void ToggleRealMsgno()
 {
 
-    CFG->switches.set(disprealmsgno, not CFG->switches.get(disprealmsgno));
+    CFG->switches.set(en_gswitches::disprealmsgno, not CFG->switches.get(en_gswitches::disprealmsgno));
     HeaderView->Use(AA, reader_msg);
     HeaderView->Paint();
     reader_keyok = YES;
@@ -332,7 +332,7 @@ void GotoMsgno()
         int list_max = reader_msg->link.list_max();
         uint32_t* replies = (uint32_t*)throw_calloc(list_max+1, sizeof(uint32_t));
         uint32_t replyto, replynext;
-        if(CFG->switches.get(disprealmsgno))
+        if(CFG->switches.get(en_gswitches::disprealmsgno))
         {
             ptr += sprintf(ptr, " %-5.5s:       %s %u", LNG->MsgReal, LNG->of, AA->Msgn.Count());
             replyto = reader_msg->link.to();
@@ -388,7 +388,7 @@ void GotoMsgno()
         long active = AA->Msgn.Count();
         long msgno = atol(fbuf.c_str());
 
-        if(CFG->switches.get(disprealmsgno))
+        if(CFG->switches.get(en_gswitches::disprealmsgno))
             if(msgno > 0)
                 msgno = AA->Msgn.ToReln(msgno);
 
@@ -684,7 +684,7 @@ int ExternUtil(GMsg *msg, const ExtUtil &extutil)
         }
 
         // Ignore any kludge address found
-        msg->TextToLines(CFG->dispmargin-(int)CFG->switches.get(disppagebar), false);
+        msg->TextToLines(CFG->dispmargin-(int)CFG->switches.get(en_gswitches::disppagebar), false);
 
         if(AA->Viewkludge())
         {
@@ -957,8 +957,8 @@ void UUDecode(GMsg* msg)
         if(source == WRITE_QUIT)
             return;
 
-        bool old_quotespacing = CFG->switches.get(quotespacing);
-        CFG->switches.set(quotespacing, false);
+        bool old_quotespacing = CFG->switches.get(en_gswitches::quotespacing);
+        CFG->switches.set(en_gswitches::quotespacing, false);
 
         if(source == WRITE_MARKED)
         {
@@ -979,7 +979,7 @@ void UUDecode(GMsg* msg)
             SaveLines(MODE_WRITE, infile, msg, 79);
         }
 
-        CFG->switches.set(quotespacing, old_quotespacing);
+        CFG->switches.set(en_gswitches::quotespacing, old_quotespacing);
 
         uulist* item;
         int i, res;
@@ -1105,7 +1105,7 @@ void make_pathreport(const char* reportfile)
         {
             update_statuslinef(LNG->ReadingMsg, "ST_READINGMSG", n, AA->Msgn.Count());
             w_progress(MODE_UPDATE, C_INFOW, n, AA->Msgn.Count(), NULL);
-            AA->LoadMsg(msg, AA->Msgn.CvtReln(n), CFG->dispmargin-(int)CFG->switches.get(disppagebar));
+            AA->LoadMsg(msg, AA->Msgn.CvtReln(n), CFG->dispmargin-(int)CFG->switches.get(en_gswitches::disppagebar));
             address = msg->orig;
             int x;
             for(x=0; x<alist.size(); x++)

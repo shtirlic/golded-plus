@@ -90,13 +90,13 @@ int TemplateToText(int mode, GMsg* msg, GMsg* oldmsg, const char* tpl, int origa
     uint ctrlinfo;
     char textfile[GMAXPATH];
     char indexfile[GMAXPATH];
-    size_t sizeofbuf = CFG->quotemargin + 256;
+    size_t sizeofbuf = (size_t)CFG->quotemargin + 256;
     char *buf = (char*)throw_malloc(sizeofbuf);
     char initials[10];
     char quotestr[100];
     char qbuf[100];
-    uint len;
-    int y;
+    size_t len;
+    long y;
     int tmptpl = NO;
     int robotchk = NO;
     int disphdr = NO;
@@ -869,7 +869,7 @@ int TemplateToText(int mode, GMsg* msg, GMsg* oldmsg, const char* tpl, int origa
                                         y, y, quotestr, x, x, qbuf, qbuf+x, quote
                                        );
                             }
-                            else if((not strblank(quote)) or CFG->switches.get(quoteblank))
+                            else if((not strblank(quote)) or CFG->switches.get(en_gswitches::quoteblank))
                                 sprintf(buf, "%s%s", quotestr, quote);
                             else
                                 *buf = NUL;
@@ -1082,7 +1082,7 @@ void ChangeMsg()
         if(AA->attr().hex())
         {
             AA->attr().hex0();
-            AA->LoadMsg(reader_msg, reader_msg->msgno, CFG->dispmargin-(int)CFG->switches.get(disppagebar));
+            AA->LoadMsg(reader_msg, reader_msg->msgno, CFG->dispmargin-(int)CFG->switches.get(en_gswitches::disppagebar));
         }
 
         for(std::vector<Node>:: iterator u = CFG->username.begin(); u != CFG->username.end(); u++)
@@ -1178,14 +1178,14 @@ void ConfirmMsg()
         update_statusline(LNG->GenCfmReceipt);
         MakeMsg(MODE_CONFIRM, reader_msg);
         reader_topline = 0;
-        LoadMessage(reader_msg, CFG->dispmargin-(int)CFG->switches.get(disppagebar));
+        LoadMessage(reader_msg, CFG->dispmargin-(int)CFG->switches.get(en_gswitches::disppagebar));
         if(CurrArea != OrigArea)
         {
             AA->Close();
             AL.SetActiveAreaId(OrigArea);
         }
     }
-    if(not CFG->switches.get(rcvdisablescfm))
+    if(not CFG->switches.get(en_gswitches::rcvdisablescfm))
     {
         reader_msg->attr.cfm0();
         reader_msg->attr.upd1();

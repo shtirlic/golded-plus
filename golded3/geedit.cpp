@@ -965,7 +965,7 @@ Line* IEclass::wrapit(Line** __currline, uint* __curr_col, uint* __curr_row, boo
 
     int scroll = 0;
 
-    uint  _quotelen;
+    size_t  _quotelen;
     char  _quotebuf[MAXQUOTELEN];
     *_quotebuf = NUL;
 
@@ -1457,7 +1457,7 @@ void IEclass::DelChar()
 
         // Is the next line quoted?
         // And is the cursor column non-zero?
-        uint _quotelen = 0;
+        size_t _quotelen = 0;
         if((_nextline->type & GLINE_QUOT) and col)
         {
 
@@ -1659,7 +1659,7 @@ void IEclass::Newline()
 
     // If the split line was quoted, get the quotestring
     // But do not get it if the cursor points to a linefeed or is
-    uint _quotelen;
+    size_t _quotelen;
     char _quotebuf[MAXQUOTELEN];
     GetQuotestr(currline->txt.c_str(), _quotebuf, &_quotelen);
 
@@ -1687,7 +1687,7 @@ void IEclass::Newline()
     setlinetype(currline);
     displine(currline, row);
 
-    uint _quotelen1 = 0;
+    size_t _quotelen1 = 0;
     char _quotebuf1[MAXQUOTELEN] = "";
     if(currline->next != NULL)
     {
@@ -2393,7 +2393,7 @@ int IEclass::reflowok(char* __qstr)
         return false;
 
     // Stop reflow if the quotestring on the next line is not the same
-    uint _qlen2;
+    size_t _qlen2;
     char _qstr2[MAXQUOTELEN];
     GetQuotestr(currline->next->txt.c_str(), _qstr2, &_qlen2);
     if(not cmp_quotes(__qstr, _qstr2))
@@ -2430,7 +2430,7 @@ void IEclass::Reflow()
     }
 
     // Get the first quotestring
-    uint _qlen1;
+    size_t _qlen1;
     char _qstr1[MAXQUOTELEN];
     GetQuotestr(currline->txt.c_str(), _qstr1, &_qlen1);
     const char* _qlenptr = currline->txt.c_str() + _qlen1;
@@ -2894,7 +2894,7 @@ void IEclass::statusline()
 
     uint chr = currline->txt[col];
     update_statuslinef(LNG->EditStatus, "ST_EDITSTATUS", 1+thisrow, 1+col, chr, _buf);
-    if(*_buf and CFG->switches.get(beepcomment))
+    if(*_buf and CFG->switches.get(en_gswitches::beepcomment))
     {
         HandleGEvent(EVTT_EDITCOMMENT);
     }

@@ -263,7 +263,7 @@ void Reader()
             }
             else
             {
-                if(CFG->switches.get(dispautonext) or (AA->lastread() == 0))
+                if(CFG->switches.get(en_gswitches::dispautonext) or (AA->lastread() == 0))
                     next_msg(DIR_NEXT);
                 AA->SetBookmark(AA->lastread());
             }
@@ -281,7 +281,7 @@ void Reader()
                 if(AA->Msgn.Count() and not AA->lastread())
                     AA->set_lastread(1);
 
-                if(LoadMessage(msg, CFG->dispmargin-(int)CFG->switches.get(disppagebar)))
+                if(LoadMessage(msg, CFG->dispmargin-(int)CFG->switches.get(en_gswitches::disppagebar)))
                 {
 
                     do
@@ -434,10 +434,10 @@ void Reader()
                                     HandleGEvent(EVTT_MSGFROMYOU);
                             }
 
-                            if(msg->attr.loc() and CFG->switches.get(beeplocalmsg))
+                            if(msg->attr.loc() and CFG->switches.get(en_gswitches::beeplocalmsg))
                                 HandleGEvent(EVTT_MSGISLOCAL);
 
-                            if(AA->Msgn.Count() and CFG->switches.get(highlightunread) and (msg->orig_timesread == 0))
+                            if(AA->Msgn.Count() and CFG->switches.get(en_gswitches::highlightunread) and (msg->orig_timesread == 0))
                                 AA->UpdateTimesread(msg);
 
                             switch(istwit)
@@ -821,14 +821,14 @@ void Reader()
                             break;
 
                         case KK_ReadRealMsgno:
-                            if(not CFG->switches.get(disprealmsgno))
+                            if(not CFG->switches.get(en_gswitches::disprealmsgno))
                                 ToggleRealMsgno();
                             else
                                 reader_keyok = true;
                             break;
 
                         case KK_ReadSequentMsgno:
-                            if(CFG->switches.get(disprealmsgno))
+                            if(CFG->switches.get(en_gswitches::disprealmsgno))
                                 ToggleRealMsgno();
                             else
                                 reader_keyok = true;
@@ -1016,7 +1016,7 @@ void Reader()
                                 {
                                     for(uint n=0; n<AA->Mark.Count(); n++)
                                     {
-                                        AA->LoadMsg(msg, AA->Mark[n], CFG->dispmargin-(int)CFG->switches.get(disppagebar));
+                                        AA->LoadMsg(msg, AA->Mark[n], CFG->dispmargin-(int)CFG->switches.get(en_gswitches::disppagebar));
                                         update_addressbook(msg, true, true);
                                     }
                                 }
@@ -1201,7 +1201,7 @@ int MsgIsTwit(GMsg* msg, bool& istwitto, bool& istwitsubj)
                 break;
             }
         }
-        if(CFG->switches.get(twitto))
+        if(CFG->switches.get(en_gswitches::twitto))
         {
             if(msg->dest.match(tn->addr))
             {
@@ -1328,7 +1328,7 @@ int LoadMessage(GMsg* msg, int margin)
                         msg->attr.rcv1();               // Mark as received
                         reader_rcv_noise++;
                     }
-                    else if(not CFG->switches.get(rcvdisablescfm))
+                    else if(not CFG->switches.get(en_gswitches::rcvdisablescfm))
                         reader_rcv_noise++;
                 }
 
@@ -1575,14 +1575,14 @@ void GotoReplies()
         if(reln)
         {
             if(CFG->replylinklist == REPLYLINKLIST_FULL)
-                AA->LoadMsg(rmsg, msgn, CFG->dispmargin-(int)CFG->switches.get(disppagebar));
+                AA->LoadMsg(rmsg, msgn, CFG->dispmargin-(int)CFG->switches.get(en_gswitches::disppagebar));
             else
                 AA->LoadHdr(rmsg, msgn);
-            rlist[replies].isread = ((0 == rmsg->timesread) and CFG->switches.get(highlightunread)) ? MMRK_MARK : ' ';
-            if((cursorbar == -1) and (0 == rmsg->timesread) and (CFG->switches.get(highlightunread)))
+            rlist[replies].isread = ((0 == rmsg->timesread) and CFG->switches.get(en_gswitches::highlightunread)) ? MMRK_MARK : ' ';
+            if((cursorbar == -1) and (0 == rmsg->timesread) and (CFG->switches.get(en_gswitches::highlightunread)))
                 cursorbar = replies;
             rlist[replies].msgno[0] = (n==list_max+1) ? '*' : '+';
-            uint32_t msgno = CFG->switches.get(disprealmsgno) ? msgn : reln;
+            uint32_t msgno = CFG->switches.get(en_gswitches::disprealmsgno) ? msgn : reln;
             sprintf(rlist[replies].msgno+1, "%u", msgno);
             maxmsgno = MaxV(maxmsgno, (uint)strlen(rlist[replies].msgno+1));
             strcpy(rlist[replies].name, rmsg->by);
