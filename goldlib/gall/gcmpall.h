@@ -97,7 +97,7 @@
 
 /*  --------------------------------------------------------------- */
 
-#if defined(__MSDOS__) || defined(__OS2__) || defined(__WIN32__)
+#if defined(__WIN32__)
     #define __HAVE_DRIVES__
 #endif
 

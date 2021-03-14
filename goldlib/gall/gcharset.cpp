@@ -34,51 +34,14 @@
 #ifdef __WIN32__
     #include <windows.h>
 #endif
-#ifdef __OS2__
-    #define INCL_DOS
-    #include <os2.h>
-#endif
-#ifdef __DJGPP__
-    #include <dpmi.h>
-    #include <sys/farptr.h>
-#endif
 #include <gcharset.h>
 
 static char charsetbuf[256];
 
 const char *get_charset(void)
 {
-#if defined(__DJGPP__)
-    int segment, selector;
-    __dpmi_regs regs;
-
-    strcpy(charsetbuf, GOLDED_DEFAULT_CHARSET);
-    if ((segment = __dpmi_allocate_dos_memory(3, &selector)) != -1)
-    {
-        regs.h.ah = 0x65;
-        regs.h.al = 0x01;
-        regs.x.bx = 0xffff;
-        regs.x.dx = 0xffff;
-        regs.x.cx = 41;
-        regs.x.es = segment;
-        regs.x.di = 0;
-        __dpmi_int(0x21, &regs);
-        if (!(regs.x.flags & 1) and (regs.x.cx == 41))
-        {
-            int CCP = _farpeekw(selector, 5);
-            sprintf(charsetbuf, "CP%i", CCP);
-        }
-        __dpmi_free_dos_memory(selector);
-    }
-#elif defined(__WIN32__)
+#if defined(__WIN32__)
     sprintf(charsetbuf, "CP%i", GetOEMCP());
-#elif defined(__OS2__)
-    ULONG CCP[8];
-    ULONG cb;
-
-    strcpy(charsetbuf, GOLDED_DEFAULT_CHARSET);
-    if(DosQueryCp(sizeof (CCP), CCP, &cb) == 0)
-        sprintf(charsetbuf, "CP%i", CCP[0]);
 #else
     const char *cp;
 
@@ -108,9 +71,6 @@ const char *get_dos_charset(const char *cpfrom)
     if (cp) gsprintf(PRINTF_DECLARE_BUFFER(cpto), "CP%u", cp);
     else cpto[0]='\0';
     return cpto;
-#elif defined(__MSDOS__) || defined(__OS2__)
-    (void)cpfrom; // These platforms use DOS CP on console, so ignore request
-    return "";
 #else
     static const struct _cpmap
     {

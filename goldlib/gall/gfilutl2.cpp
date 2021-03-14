@@ -199,33 +199,6 @@ bool maketruepath(std::string &dirname)
             ok = false;
         }
     }
-#elif defined __OS2__
-    char expanded[GMAXPATH];
-    if(_fullpath(expanded, dirname.c_str(), GMAXPATH) == 0)
-    {
-        if(access(expanded, R_OK) == 0)
-            dirname = expanded;
-        else
-        {
-            dirname = cwd;
-            ok = false;
-        }
-    }
-    else
-    {
-        dirname = cwd;
-        ok = false;
-    }
-#elif defined __DJGPP__
-    char expanded[GMAXPATH];
-    _fixpath(dirname.c_str(), expanded);
-    if(access(expanded, R_OK) == 0)
-        dirname = expanded;
-    else
-    {
-        dirname = cwd;
-        ok = false;
-    }
 #else
     long inspos = -1;
     if((dirname.length() == 2) and (dirname[1] == ':'))

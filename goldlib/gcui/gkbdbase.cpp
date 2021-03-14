@@ -35,11 +35,6 @@
 
 #include <stdlib.h>
 
-#if defined(__OS2__)
-    #define INCL_BASE
-    #include <os2.h>
-#endif
-
 #ifdef __WIN32__
     #include <windows.h>
     extern OSVERSIONINFO WinVer;
@@ -49,9 +44,6 @@
     #include <gkbdunix.h>
 #endif
 
-#if defined(__DJGPP__)
-    #include <sys/farptr.h>
-#endif
 
 #if defined(__USE_NCURSES__)
     #include <gcurses.h>
@@ -160,14 +152,6 @@ void GKbd::Init()
     // For more ncurses-dependent code, look at the gkbd_curstable array
     // and at the kbxget_raw() function  -jt
 
-#elif defined(__OS2__)
-
-    KBDINFO kbstInfo;
-    kbstInfo.cb = sizeof(kbstInfo);
-    KbdGetStatus(&kbstInfo, 0);
-    kbstInfo.fsMask = (USHORT)((kbstInfo.fsMask & 0xFFF7) | 0x0004);
-    KbdSetStatus(&kbstInfo, 0);
-
 #elif defined(__WIN32__)
 
     OSVERSIONINFO osversion;
@@ -209,12 +193,6 @@ GKbd::GKbd()
 
     // Detect enhanced keyboard by checking bit 4 at 0x00000496
 #if defined(__USE_NCURSES__)
-    extkbd = true;
-#elif defined(__DJGPP__)
-    extkbd = _farpeekb (_dos_ds, 0x0496) & (1 << 4);
-#elif defined(__MSDOS__)
-    extkbd = *((byte*)0x0496) & (1 << 4);
-#elif defined(__OS2__) || defined(__WIN32__)
     extkbd = true;
 #endif
 
@@ -1284,20 +1262,6 @@ bool is_numpad_key(const INPUT_RECORD& inp)
     return false;
 }
 
-
-//  ------------------------------------------------------------------
-//  Numpad translation table
-
-#elif defined(__MSDOS__) || defined(__OS2__)
-
-const word numpad_keys[] =
-{
-    0x4737, 0x4838, 0x4939, 0x0000,
-    0x4B34, 0x0000, 0x4D36, 0x0000,
-    0x4F31, 0x5032, 0x5133,
-    0x5230, 0x532e
-};
-
 #endif
 
 #if defined(__linux__)
@@ -1489,139 +1453,6 @@ gkey kbxget_raw(int mode)
 
     if(mode == 1)
         ungetch(key);
-
-#elif defined(__MSDOS__)
-
-    if(gkbd.extkbd)
-        mode |= 0x10;
-
-    i86 cpu;
-    cpu.ah((byte)mode);
-    cpu.genint(0x16);
-    if(mode & 0x01)
-        if(cpu.flags() & 0x40)   // if ZF is set, no key is available
-            return 0;
-    k = (gkey)cpu.ax();
-
-    if((mode & ~0x10) == 0)
-    {
-        if((KCodAsc(k) == 0xE0) and (KCodScn(k) != 0))
-        {
-            if(kbxget_raw(2) & (LSHIFT | RSHIFT))
-            {
-                KCodAsc(k) = 0;
-                KCodScn(k) |= 0x80;
-            }
-        }
-        else
-            switch(KCodScn(k))
-            {
-            case 0x47:
-            case 0x48:
-            case 0x49:
-            case 0x4B:
-            case 0x4D:
-            case 0x4F:
-            case 0x50:
-            case 0x51:
-            case 0x52:
-            case 0x53:
-            {
-                int shifts = kbxget_raw(2);
-                if(shifts & (LSHIFT | RSHIFT))
-                {
-                    if(shifts & NUMLOCK)
-                        KCodAsc(k) = 0;
-                    else
-                    {
-                        KCodAsc(k) = 0;
-                        KCodScn(k) |= 0x80;
-                    }
-                }
-            }
-            break;
-            default:
-                break;
-            }
-    }
-
-    // If you test shift/alt/ctrl status with bios calls (e.g., using
-    // bioskey (2) or bioskey (0x12)) then you should also use bios calls
-    // for testing for keys.  This can be done with by bioskey (1) or
-    // bioskey (0x11).  Failing to do so can cause trouble in multitasking
-    // environments like DESQview/X. (Taken from DJGPP documentation)
-    if((mode & 0x02) == 1)
-        kbxget_raw(1);
-
-#elif defined(__OS2__)
-
-    KBDKEYINFO kb;
-    mode &= 0xF;
-    if(mode == 0)
-        KbdCharIn(&kb, IO_WAIT, 0);
-    else if(mode == 2)
-    {
-        KbdPeek(&kb, 0);
-        if(kb.fbStatus)
-            return (gkey)(kb.fsState & (RSHIFT|LSHIFT|GCTRL|ALT));
-        else
-            return 0;
-    }
-    else
-    {
-        KbdPeek(&kb, 0);
-        if(!(kb.fbStatus & 0x40))
-            return 0;
-    }
-    KCodScn(k) = kb.chScan;
-    KCodAsc(k) = kb.chChar;
-    if(0x000 == KCodKey(k))
-        return KEY_BRK;
-    if(0xE0 == KCodScn(k))
-        KCodScn(k) = 0x1C;
-    else
-    {
-        if(0xE0 == KCodAsc(k))
-        {
-            // If key on the alphanumeric part then don't touch it.
-            // This need to enter for example, russian 'p' char (code 0xe0)
-            if(KCodScn(k) >= 0x38)
-            {
-                KCodAsc(k) = 0x00;
-                if(kb.fsState & (LSHIFT | RSHIFT))
-                    KCodScn(k) |= 0x80;
-            }
-            else
-                KCodScn(k) = 0x00;
-        }
-        else
-            switch(KCodScn(k))
-            {
-            case 0x47:
-            case 0x48:
-            case 0x49:
-            case 0x4B:
-            case 0x4D:
-            case 0x4F:
-            case 0x50:
-            case 0x51:
-            case 0x52:
-            case 0x53:
-                if(kb.fsState & (LSHIFT | RSHIFT))
-                {
-                    if(kb.fsState & NUMLOCK)
-                        KCodAsc(k) = 0;
-                    else
-                    {
-                        KCodAsc(k) = 0;
-                        KCodScn(k) |= 0x80;
-                    }
-                }
-                break;
-            default:
-                break;
-            }
-    }
 
 #elif defined(__WIN32__)
 
@@ -1965,49 +1796,6 @@ int kbput(gkey xch)
 
 gkey kbput_(gkey xch)
 {
-
-#if defined(__MSDOS__)
-
-#if defined(__DJGPP__)
-    if(gkbd.extkbd)
-    {
-        i86 cpu;
-
-        cpu.ah(0x05);
-        cpu.cx((word)xch);
-        cpu.genint(0x16);
-    }
-    else
-    {
-#endif
-
-#define BufStart (word)peek(0x40,0x80)
-#define BufEnd   (word)peek(0x40,0x82)
-#define BufHead  (word)peek(0x40,0x1A)
-#define BufTail  (word)peek(0x40,0x1C)
-#define BufTail_(a) poke(0x40,0x1C,(word)(a))
-
-        word OldBufTail;
-
-        OldBufTail = BufTail;
-        if(BufTail == BufEnd-2)
-            BufTail_(BufStart);
-        else
-            BufTail_(BufTail+2);
-
-        if(BufTail == BufHead)
-            BufTail_(OldBufTail);
-        else
-        {
-            poke(0x40, OldBufTail, xch);
-        }
-
-#if defined(__DJGPP__)
-    }
-#endif
-
-#endif
-
     return xch;
 }
 

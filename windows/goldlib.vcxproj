@@ -356,7 +356,6 @@
     <ClInclude Include="..\goldlib\gall\glog.h" />
     <ClInclude Include="..\goldlib\gall\gmemall.h" />
     <ClInclude Include="..\goldlib\gall\gmemdbg.h" />
-    <ClInclude Include="..\goldlib\gall\gmemi86.h" />
     <ClInclude Include="..\goldlib\gall\gmiscdef.h" />
     <ClInclude Include="..\goldlib\gall\gmsgattr.h" />
     <ClInclude Include="..\goldlib\gall\gprnall.h" />

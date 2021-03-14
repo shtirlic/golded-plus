@@ -97,12 +97,6 @@ const word MSMOUSE_SET_TEXT_CURSOR          = 0x0A;
 class GMou
 {
 
-#if 0
-#ifdef __OS2__
-    HMOU hmou;
-#endif
-#endif
-
 public:
 
     int      detected;   // true if a mouse driver was detected

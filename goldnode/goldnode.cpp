@@ -1559,9 +1559,7 @@ static bool FindCfg(char* path)
             return false;
     }
     AddBackslash(path);
-#if defined(__OS2__)
-    found = ExistCfg(path, "ged2.cfg");
-#elif defined(__WIN32__)
+#if defined(__WIN32__)
     found = ExistCfg(path, "gedw32.cfg");
 #endif
     if(not found)
@@ -1583,10 +1581,7 @@ static bool read_config(const char *cfg, const char *argv_0)
     {
         // Look for configfilename in the environment
         const char *ptr = getenv("GOLDNODE");
-#if defined(__OS2__)
-        if(not(ptr and *ptr))
-            ptr = getenv("GED2");
-#elif defined(__WIN32__)
+#if defined(__WIN32__)
         if(not(ptr and *ptr))
             ptr = getenv("GEDW32");
 #endif

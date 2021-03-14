@@ -257,8 +257,6 @@ const int KEYB_POLL  = 1;
 //  ------------------------------------------------------------------
 //  Registration key valid OS
 
-const int GKEY_VALID_DOS = 0x0001;
-const int GKEY_VALID_OS2 = 0x0002;
 const int GKEY_VALID_W32 = 0x0004;
 const int GKEY_VALID_LNX = 0x0008;
 const int GKEY_VALID_WIN = 0x0010;

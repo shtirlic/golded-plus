@@ -34,15 +34,7 @@
 #include <gmemall.h>
 #include <gmemdbg.h>
 #include <gstrall.h>
-#if defined(__WATCOMC__) || defined(__DJGPP__)
-    #include <conio.h>
-#endif
 #include <gvidall.h>
-
-#if defined(__OS2__)
-    #define INCL_BASE
-    #include <os2.h>
-#endif
 
 #if defined(__WIN32__)
     #include <windows.h>
@@ -54,33 +46,6 @@
     #include <unistd.h>
     #include <errno.h>
 #endif
-
-#if defined(__DJGPP__)
-    #include <sys/farptr.h>
-    #include <go32.h>
-#endif
-
-
-//  ------------------------------------------------------------------
-//  Check if Borland C++ for OS/2 1.0 header has been fixed
-
-#if defined(__OS2__) && defined(__BORLANDC__)
-    #if __BORLANDC__ <= 0x400
-        #ifndef BCOS2_BSESUB_FIXED
-            #error There is a bug in the BSESUB.H header. Please fix it.
-            //
-            // Add/change the following in BSESUB.H:
-            //
-            // #define BCOS2_BSESUB_FIXED
-            // APIRET16  APIENTRY16    VioGetState (PVOID16 pState, HVIO hvio);
-            // APIRET16  APIENTRY16    VioSetState (PVOID16 pState, HVIO hvio);
-            //
-            // Borland forgot this (was only PVOID)      ^^
-            //
-        #endif
-    #endif
-#endif
-
 
 //  ------------------------------------------------------------------
 //  Global video data
@@ -104,10 +69,6 @@ GVid *gvid;
 
     HANDLE gvid_hout = INVALID_HANDLE_VALUE;
 
-#elif defined(__MSDOS__)
-
-    int __gdvdetected = false;
-
 #endif
 
 
@@ -116,16 +77,10 @@ GVid *gvid;
 
 GVid::GVid()
 {
-
-#ifdef __DJGPP__
-    dmaptr = dmadir = 0;
-#else
     dmaptr = dmadir = NULL;
-#endif
     bufchr = NULL;
     bufwrd = NULL;
     bufansi = NULL;
-
     init();
 }
 
@@ -150,9 +105,6 @@ GVid::~GVid()
 
     gvid_printf("\033<\033[?5l\033[0m");
 
-#endif
-#ifndef __DJGPP__
-    if(dmaptr != dmadir)  throw_xfree(dmaptr);
 #endif
     throw_xfree(bufwrd);
     throw_xfree(bufchr);
@@ -185,21 +137,13 @@ void GVid::init()
     detectinfo(&orig);
     memcpy(&curr, &orig, sizeof(GVidInfo));
 
-#if defined(__MSDOS__)
-    device = GVID_DMA;
-#elif defined(__OS2__)
-    device = GVID_OS2;
-#elif defined(__WIN32__)
+#if defined(__WIN32__)
     device = GVID_W32;
 #endif
 
 #if defined(__USE_NCURSES__)
     dmaptr = dmadir = NULL;
-#elif defined(__WATCOMC__) && defined(__386__)
-    dmaptr = dmadir = (gdma)(videoseg << 4);
-#elif defined(__DJGPP__)
-    dmaptr = dmadir = ScreenPrimary;
-#elif defined(__OS2__) || defined(__WIN32__)
+#elif defined(__WIN32__)
     dmaptr = dmadir = NULL;
 #elif defined(__UNIX__)
     dmaptr = (gdma)throw_xcalloc((orig.screen.rows+1)*orig.screen.columns, sizeof(word));
@@ -231,175 +175,6 @@ int GVid::detectadapter()
     setcolorpairs();
 
     adapter = V_VGA;
-
-#elif defined(__MSDOS__)
-
-    i86 cpu;
-
-    // Get video mode
-    cpu.ah(V_GET_MODE);
-    cpu.genint(0x10);
-    int _got_mode = cpu.al();
-
-    // Check for PS/2 compatible video BIOS by calling the get
-    // video configuration function. If it exists, the video
-    // configuration code will be returned in BL.
-
-    cpu.ax(0x1A00);
-    cpu.genint(0x10);
-
-    if(cpu.al() == 0x1A)
-    {
-
-        switch(cpu.bl())
-        {
-        case 0x00:
-            adapter = GV_NONE;
-            break;
-        case 0x01:
-            adapter = V_MDA;
-            break;
-        case 0x02:
-            adapter = V_CGA;
-            break;
-        case 0x04:
-            adapter = V_EGA;
-            break;
-        case 0x05:
-            adapter = V_EGAMONO;
-            break;
-        case 0x07:
-            adapter = (_got_mode == 7) ? V_VGAMONO : V_VGA;
-            break;
-        case 0x08:
-            adapter = (_got_mode == 7) ? V_VGAMONO : V_VGA;
-            break;
-        case 0x0A:
-        case 0x0C:
-            adapter = V_MCGA;
-            break;
-        case 0x0B:
-            adapter = V_MCGAMONO;
-            break;
-        default:
-            adapter = V_VGA;    // We hope it is VGA compatible!
-        }
-    }
-    else
-    {
-
-        // OK, we know that it's not a PS/2 BIOS, so check for an EGA.
-        // If an EGA is not present, BH will be unchanged on return.
-
-        cpu.ah(0x12);
-        cpu.bl(0x10);
-        cpu.genint(0x10);
-
-        if(cpu.bl() - 0x10)
-        {
-            adapter = cpu.bh() ? V_EGAMONO : V_EGA;
-        }
-        else
-        {
-
-            // Now we know it's not an EGA. Get the BIOS equipment
-            // flag and test for CGA, MDA, or no video adapter.
-
-            cpu.genint(0x11);
-
-            switch(cpu.al() & 0x30)
-            {
-            case 0x00:
-                adapter = (_got_mode == 7) ? V_VGAMONO : V_VGA;   // EGA, VGA, or PGA
-                break;
-            case 0x10:
-                adapter = GV_NONE;   // 40x25 color
-                break;
-            case 0x20:
-                adapter = V_CGA;    // 80x25 color
-                break;
-            case 0x30:
-                adapter = V_MDA;    // 80x25 monochrome
-                break;
-            }
-        }
-    }
-
-#ifndef __DJGPP__
-
-    // Set video segment
-#if defined(__BORLANDC__) && defined(__DPMI32__)
-    videoseg = (word)((adapter & V_MONO) ? __SegB000 : __SegB800);
-#else
-    videoseg = (word)((adapter & V_MONO) ? 0xB000 : 0xB800);
-#endif
-
-    // check for presence of DESQview by using the DOS Set
-    // System Date function and trying to set an invalid date
-
-    cpu.ax(0x2B01);  // DOS Set System Date
-    cpu.ch('D');
-    cpu.cl('E');
-    cpu.dh('S');
-    cpu.dl('Q');
-    cpu.genint(0x21);
-
-    // if error, then DESQview not present
-    if(cpu.al() != 0xFF)
-    {
-
-        __gdvdetected = true;
-
-#if defined(__WATCOMC__) && defined(__386__)
-        memset(&RMI, 0, sizeof(RMI));
-        RMI.EAX = 0x0000FE00;
-        RMI.ES = videoseg;
-        cpu.ax(0x0300);
-        cpu.bl(0x10);
-        cpu.bh(0);
-        cpu.cx(0);
-        cpu.es(FP_SEG(&RMI));
-        cpu.edi(FP_OFF(&RMI));
-        cpu.genint(0x31);
-        videoseg = RMI.ES;
-#else
-        cpu.ah(0xFE);        // DV get alternate video buffer
-        cpu.es(videoseg);
-        cpu.di(0x0000);
-        cpu.genint(0x10);
-        videoseg = cpu.es();
-#endif
-    }
-
-#endif // __DJGPP__
-
-#elif defined(__OS2__)
-
-    {
-        VIOCONFIGINFO vioconfiginfo;
-        memset(&vioconfiginfo, 0, sizeof(VIOCONFIGINFO));
-        vioconfiginfo.cb = sizeof(VIOCONFIGINFO);
-        VioGetConfig(0, &vioconfiginfo, 0);
-        switch(vioconfiginfo.adapter)
-        {
-        case DISPLAY_MONOCHROME:
-            adapter = V_MDA;
-            break;
-        case DISPLAY_CGA:
-            adapter = V_CGA;
-            break;
-        case DISPLAY_EGA:
-            adapter = V_EGA;
-            break;
-        case DISPLAY_VGA:
-            adapter = V_VGA;
-            break;
-        default:
-            adapter = V_VGA;    // We hope it is VGA compatible!
-        }
-        if(vioconfiginfo.display == DISPLAY_MONOCHROME)
-            adapter |= V_MONO;
-    }
 
 #elif defined(__WIN32__)
 
@@ -484,73 +259,6 @@ void GVid::detectinfo(GVidInfo* _info)
     _info->cursor.attr = 7;
     _info->color.intensity = 1;
     _info->color.overscan = 0;
-
-#elif defined(__MSDOS__)
-
-    i86 cpu;
-
-    // Get video mode and number of columns
-    cpu.ah(V_GET_MODE);
-    cpu.genint(0x10);
-    _info->screen.mode = cpu.al();
-    _info->screen.columns = cpu.ah();
-
-    // Get the number of screen rows
-    if(adapter >= V_EGA)
-    {
-        cpu.ax(V_GET_FONT_INFO);
-        cpu.dx(0);
-        cpu.genint(0x10);
-        _info->screen.rows = cpu.dl() + ((adapter & V_EGA) ? 0 : 1);
-        if(_info->screen.rows == 24)  // Normally nonsense
-            _info->screen.rows++;
-        //_info->screen.cheight = cpu.cx();
-        _info->screen.cheight = 8;
-        _info->screen.cwidth = 8;
-    }
-    else
-    {
-        _info->screen.rows = 25;
-        _info->screen.cheight = 8;
-        _info->screen.cwidth = 8;
-    }
-
-    // Get character attribute under the cursor
-    cpu.ah(V_RD_CHAR_ATTR);
-    cpu.bh(0);
-    cpu.genint(0x10);
-    _info->color.textattr = cpu.ah();
-
-    // Get cursor position and form
-    cpu.ah(V_GET_CURSOR_POS);
-    cpu.bh(0);
-    cpu.genint(0x10);
-    _info->cursor.row = cpu.dh();
-    _info->cursor.column = cpu.dl();
-    _info->cursor.start = cpu.ch();
-    _info->cursor.end = cpu.cl();
-    _info->cursor.attr = (word)_info->color.textattr;
-    // Get overscan color
-    if(adapter & V_VGA)
-    {
-        cpu.ax(0x1008);
-        cpu.bh(0xFF);
-        cpu.genint(0x10);
-        _info->color.overscan = cpu.bh();
-    }
-
-    // Get intensity state
-    {
-        // Check bit 5 at 0000:0465
-#if defined(__DJGPP__)
-        _info->color.intensity = (_farpeekb (_dos_ds, 0x465) & 0x20) ? 0 : 1;
-#else
-        byte* _bptr = (byte*)0x0465;
-        _info->color.intensity = (*_bptr & 0x20) ? 0 : 1;
-#endif
-
-    }
-
 #elif defined(__WIN32__)
 
     // Get video mode and number of rows and columns
@@ -718,19 +426,6 @@ void GVid::setdevice(int _device)
 
 void GVid::setmode(int _mode)
 {
-
-    if(_mode)
-    {
-#if defined(__MSDOS__)
-
-        i86 cpu;
-        cpu.ah(0x00);
-        cpu.al((byte)_mode);
-        cpu.genint(0x10);
-
-#endif
-    }
-
     detectinfo(&curr);
     resetcurr();
 }
@@ -747,72 +442,6 @@ void GVid::setrows(int _rows)
 #if defined(__USE_NCURSES__)
 
     NW(_rows);
-
-#elif defined(__MSDOS__)
-    i86 cpu;
-
-    // Set video mode 3 (80xNN)
-    if(curr.screen.mode != 3)
-    {
-        cpu.ax(0x0003);
-        cpu.genint(0x10);
-    }
-
-    if(adapter >= V_EGA)
-    {
-        if((_rows == 28) and (adapter >= V_VGA))    // vga-only
-        {
-            cpu.ax(0x1202);
-            cpu.bl(0x30);
-            cpu.genint(0x10);
-            cpu.ax(0x1111);
-            cpu.bl(0);
-            cpu.genint(0x10);
-        }
-        else if(_rows >= 43)
-        {
-            cpu.ax(0x1112);    // Load 8x8 character set
-            cpu.bl(0x00);
-            cpu.genint(0x10);
-            cpu.ax(0x1200);    // Select alternate print-screen routine
-            cpu.bl(0x20);
-            cpu.genint(0x10);
-            if(adapter & V_EGA)
-            {
-                // Disable cursor size emulation
-                byte* _bptr = (byte*)0x0487;
-                *_bptr |= (byte)0x01;
-                // Set cursor size
-                cpu.ah(0x01);
-                cpu.al((byte)orig.screen.mode);
-                cpu.cx(0x0600);
-                cpu.genint(0x10);
-            }
-        }
-        else
-        {
-            if(adapter & V_EGA)
-            {
-                // Enable cursor size emulation
-                byte* _bptr = (byte*)0x0487;
-                *_bptr &= (byte)0xFE;
-            }
-            // Set cursor size
-            cpu.ah(0x01);
-            cpu.al((byte)orig.screen.mode);
-            cpu.cx(0x0607);
-            cpu.genint(0x10);
-        }
-    }
-
-#elif defined(__OS2__)
-
-    VIOMODEINFO viomodeinfo;
-    memset(&viomodeinfo, 0, sizeof(VIOMODEINFO));
-    viomodeinfo.cb = sizeof(VIOMODEINFO);
-    VioGetMode(&viomodeinfo, 0);
-    viomodeinfo.row = (USHORT)_rows;
-    VioSetMode(&viomodeinfo, 0);
 
 #elif defined(__WIN32__) || defined(__UNIX__)
 
@@ -837,23 +466,6 @@ void GVid::setoverscan(vattr _overscan)
 
     NW (_overscan);
 
-#elif defined(__MSDOS__)
-
-    i86 cpu;
-    cpu.ah(0x0B);
-    cpu.bh(0x00);
-    cpu.bl((byte)_overscan);
-    cpu.genint(0x10);
-
-#elif defined(__OS2__)
-
-    VIOOVERSCAN viooverscan;
-    memset(&viooverscan, 0, sizeof(VIOOVERSCAN));
-    viooverscan.cb = sizeof(VIOOVERSCAN);
-    viooverscan.type = 0x0001;
-    VioGetState(&viooverscan, 0);
-    viooverscan.color = (BYTE)_overscan;
-    VioSetState(&viooverscan, 0);
 
 #elif defined(__WIN32__) || defined(__UNIX__)
 
@@ -872,49 +484,6 @@ void GVid::setintensity(int _intensity)
 
     NW(_intensity);
 
-#elif defined(__MSDOS__)
-
-#ifdef __DJGPP__
-
-    if(_intensity)
-        intensevideo();
-    else
-        blinkvideo();
-
-#else
-
-    if(adapter & V_CGA)
-    {
-        word* _wptr = (word*)0x0463;
-        byte* _bptr = (byte*)0x0465;
-        uint port = *_wptr + 4;
-        uint reg = *_bptr;
-        if(_intensity)
-            reg &= 0xDF;
-        else
-            reg |= 0x20;
-        outp(port, reg);
-    }
-    else
-    {
-        i86 cpu;
-        cpu.ax(0x1003);
-        cpu.bh(0x00);
-        cpu.bl((byte)(_intensity ? 0 : 1));
-        cpu.genint(0x10);
-    }
-
-#endif // __DJGPP__
-
-#elif defined(__OS2__)
-
-    VIOINTENSITY viointensity;
-    memset(&viointensity, 0, sizeof(VIOINTENSITY));
-    viointensity.cb = sizeof(VIOINTENSITY);
-    viointensity.fs = (USHORT)(_intensity ? 1 : 0);
-    viointensity.type = 0x0002;
-    VioSetState(&viointensity, 0);
-
 #elif defined(__WIN32__) || defined(__UNIX__)
 
     NW(_intensity);
@@ -931,42 +500,6 @@ void GVid::getpalette(int* _palette)
 
     NW(_palette);
 
-#elif defined(__MSDOS__)
-
-    // Get palette state
-    if(adapter & V_VGA)
-    {
-        i86 cpu;
-        for(byte n=0; n<16; n++)
-        {
-            cpu.ax(0x1007);    // GET INDIVIDUAL PALETTE REGISTER
-            cpu.bh(0xFF);
-            cpu.bl(n);
-            cpu.genint(0x10);
-            _palette[n] = cpu.bh();
-        }
-    }
-    else
-    {
-        // Set to standard palette colors
-        for(byte n=0; n<16; n++)
-            _palette[n] = n + ((n > 7) ? 48 : 0);
-    }
-
-#elif defined(__OS2__)
-
-    // Get palette state
-    BYTE viopalstate[38];
-    PVIOPALSTATE pviopalstate;
-    memset(viopalstate, 0, sizeof(viopalstate));
-    pviopalstate = (PVIOPALSTATE)viopalstate;
-    pviopalstate->cb = sizeof(viopalstate);
-    pviopalstate->type = 0;
-    pviopalstate->iFirst = 0;
-    VioGetState(pviopalstate, 0);
-    for(byte n=0; n<16; n++)
-        _palette[n] = pviopalstate->acolor[n];
-
 #elif defined(__WIN32__) || defined(__UNIX__)
 
     NW(_palette);
@@ -982,38 +515,6 @@ void GVid::setpalette(int* _palette)
 #if defined(__USE_NCURSES__)
 
     NW(_palette);
-
-#elif defined(__MSDOS__)
-
-    if(adapter & (V_EGA|V_MCGA|V_VGA))
-    {
-        i86 cpu;
-        for(byte n=0; n<16; n++)
-        {
-            if(_palette[n] != -1)
-            {
-                cpu.ax(0x1000);
-                cpu.bl(n);
-                cpu.bh((byte)_palette[n]);
-                cpu.genint(0x10);
-            }
-        }
-    }
-
-#elif defined(__OS2__)
-
-    BYTE viopalstate[38];
-    PVIOPALSTATE pviopalstate;
-    memset(viopalstate, 0, sizeof(viopalstate));
-    pviopalstate = (PVIOPALSTATE)viopalstate;
-    pviopalstate->cb = sizeof(viopalstate);
-    pviopalstate->type = 0;
-    pviopalstate->iFirst = 0;
-    VioGetState(pviopalstate, 0);
-    for(byte n=0; n<16; n++)
-        if(_palette[n] != -1)
-            pviopalstate->acolor[n] = (USHORT)_palette[n];
-    VioSetState(pviopalstate, 0);
 
 #elif defined(__WIN32__) || defined(__UNIX__)
 
@@ -1046,7 +547,7 @@ void GVid::resize_screen(int columns, int rows)
     bufwrd = (vatch*)throw_xrealloc(bufwrd, (numcols+1)*sizeof(vatch));
     bufansi = (vchar*)throw_xrealloc(bufansi, 1+(11*numcols));
 
-#if defined(__UNIX__) && !defined(__USE_NCURSES__) && !defined(__DJGPP__)
+#if defined(__UNIX__) && !defined(__USE_NCURSES__)
     dmaptr = (gdma)throw_xrealloc(dmaptr, (rows+1)*columns*sizeof(word));
 #endif
 }

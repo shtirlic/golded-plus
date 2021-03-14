@@ -542,9 +542,7 @@ char *gcpuid(char *_cpuname)
     cpuname(scpuid.family?scpuid.family:scpuid.cpu, scpuid.model, scpuid.vendor, _cpuname);
 
 #else
-#if defined(MSDOS) || defined(DOS) || defined(__MSDOS__) || defined(_DOS) \
-   || defined(WIN32) || defined(__WIN32__) || defined(_WIN) || defined(WINNT) \
-   || defined(__OS2__) || defined(OS2)
+#if defined(WIN32) || defined(__WIN32__) || defined(_WIN) || defined(WINNT)
     cpuname(0, 0, "x86", _cpuname);
 #else
     cpuname(0, 0, "UNKNOWN", _cpuname);
@@ -742,12 +740,6 @@ char* ggetosstring(void)
             strcpy(osstring, "Win32-unknown");
 
 #else
-
-#if defined(__MSDOS__)
-        const char* osname = "DOS";
-#elif defined(__OS2__)
-        const char* osname = "OS/2";
-#endif
 
         sprintf(osstring, "%s %d.%02d %s", osname, _osmajor, _osminor, gcpuid(processor));
 

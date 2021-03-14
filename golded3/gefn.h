@@ -34,12 +34,8 @@
 
 #ifndef GEDCFG2
 
-    #if defined(__OS2__)
-        #define GEDCFG2 "ged2.cfg"
-    #elif defined(__WIN32__)
+    #if defined(__WIN32__)
         #define GEDCFG2 "gedw32.cfg"
-    #elif defined(__DOS__) || defined(__MSDOS__)
-        #define GEDCFG2 "geddos.cfg"
     #elif defined(__UNIX__)
         #define GEDCFG2 "golded.conf"
     #endif

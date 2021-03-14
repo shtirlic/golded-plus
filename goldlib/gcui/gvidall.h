@@ -158,7 +158,6 @@ const vattr REVERSE   = 112;
 #define VP_BIOS     2   // BIOS screen writes
 #define VP_MONO     3   // monochrome attribute translation on
 #define VP_COLOR    4   // monochrome attribute translation off
-#define VP_OS2VIO   6   // OS/2 vio screen writes
 #define VP_W32CON   7   // WIN32 console screen writes
 #define VP_CURSES   8   // Curses screen writes
 
@@ -169,69 +168,12 @@ const vattr REVERSE   = 112;
 #define GVID_DMA  0
 #define GVID_CGA  1
 #define GVID_BIO  2
-#define GVID_OS2  4
 #define GVID_W32  5
 #define GVID_CUR  6
 
 
 //  ------------------------------------------------------------------
 //  Useful defines for video (0x10) interrupt function numbers
-
-#if defined(__MSDOS__)
-    #define V_SET_MODE              0x00
-    #define V_SET_CURSOR_POS        0x02
-    #define V_GET_CURSOR_POS        0x03
-    #define V_SCROLL_UP             0x06
-    #define V_SCROLL_DOWN           0x07
-    #define V_RD_CHAR_ATTR          0x08
-    #define V_WR_CHAR_ATTR          0x09
-    #define V_WR_CHAR               0x0A
-    #define V_WR_TTY                0x0E
-    #define V_GET_MODE              0x0F
-    #define V_GET_FONT_INFO         0x1130
-#endif
-
-
-//  ------------------------------------------------------------------
-
-#if defined(__MSDOS__)
-struct __int10_ah1b_statebuf
-{
-    // Offset  Size    Description
-    dword statfunctable;  //  00h    DWORD   address of static funtionality table (see below)
-    byte  videomode;      //  04h    BYTE    video mode in effect
-    word  columns;        //  05h    WORD    number of columns
-    word  regenbuflen;    //  07h    WORD    length of regen buffer in bytes
-    word  regenbufstart;  //  09h    WORD    starting address of regen buffer
-    word  cursorpos0;     //  0Bh    WORD    cursor position for page 0
-    word  cursorpos1;     //  0Dh    WORD    cursor position for page 1
-    word  cursorpos2;     //  0Fh    WORD    cursor position for page 2
-    word  cursorpos3;     //  11h    WORD    cursor position for page 3
-    word  cursorpos4;     //  13h    WORD    cursor position for page 4
-    word  cursorpos5;     //  15h    WORD    cursor position for page 5
-    word  cursorpos6;     //  17h    WORD    cursor position for page 6
-    word  cursorpos7;     //  19h    WORD    cursor position for page 7
-    word  cursortype;     //  1Bh    WORD    cursor type
-    byte  activepage;     //  1Dh    BYTE    active display page
-    word  crctportaddr;   //  1Eh    WORD    CRTC port address
-    byte  curr_reg_3x8;   //  20h    BYTE    current setting of register (3?8)
-    byte  curr_reg_3x9;   //  21h    BYTE    current setting of register (3?9)
-    byte  rows;           //  22h    BYTE    number of rows
-    word  bytesperchar;   //  23h    WORD    bytes/character
-    byte  dispcombcode;   //  25h    BYTE    display combination code of active display
-    byte  dcc;            //  26h    BYTE    DCC of alternate display
-    word  numcolors;      //  27h    WORD    number of colors supported in current mode
-    byte  numpages;       //  29h    BYTE    number of pages supported in current mode
-    byte  numscanlines;   //  2Ah    BYTE    number of scan lines active (0,1,2,3) = (200,350,400,480) Tseng ET3000: (4,5,6 = 512,600,768)
-    byte  primcharblock;  //  2Bh    BYTE    primary character block
-    byte  seccharblock;   //  2Ch    BYTE    secondary character block
-    byte  miscflags;      //  2Dh    BYTE    miscellaneous flags (see below)
-    byte  reserved1[3];   //  2Eh  3 BYTEs   reserved (00h)
-    byte  videomem;       //  31h    BYTE    video memory available 00h = 64K, 01h = 128K, 02h = 192K, 03h = 256K
-    byte  stateflags;     //  32h    BYTE    save pointer state flags (see below)
-    byte  reserved2[13];  //  33h 13 BYTEs   reserved (00h)
-};
-#endif
 
 
 //  ------------------------------------------------------------------
@@ -286,11 +228,7 @@ struct GVidInfo
 
 //  ------------------------------------------------------------------
 
-#ifdef __DJGPP__
-    typedef uint32_t gdma; // Video DMA linear address
-#else
     typedef word*    gdma; // Video DMA pointer
-#endif
 
 //  ------------------------------------------------------------------
 //  Video information record

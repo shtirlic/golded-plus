@@ -38,10 +38,6 @@
     #include <unistd.h>
     #include <sys/times.h>
 #endif
-#ifdef __OS2__
-    #define INCL_BASE
-    #include <os2.h>
-#endif
 #ifdef __WIN32__
     #include <windows.h>
 #endif

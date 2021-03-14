@@ -75,70 +75,15 @@ inline WCHAR gvid_tcpr(vchar chr)
 
 //  ------------------------------------------------------------------
 
-#if defined(__MSDOS__) || defined(__UNIX__)
-
-#if defined(__MSDOS__)
-    extern int __gdvdetected;
-#endif
-
-#ifndef __DJGPP__
-const uint16_t _dos_ds = 0;
-
-inline uint16_t _my_ds(void)
-{
-
-    return 0;
-}
-
-inline void _farpokew(uint16_t s, gdma ptr, word chat)
-{
-
-    NW(s);
-    *ptr = chat;
-}
-
-inline void _farnspokew(gdma ptr, word chat)
-{
-
-    *ptr = chat;
-}
-
-inline word _farpeekw(uint16_t s, gdma ptr)
-{
-
-    NW(s);
-    return *ptr;
-}
-
-inline void _farnspokeb(byte *ptr, byte chr)
-{
-
-    *ptr = chr;
-}
-
-inline void _farsetsel(uint16_t s)
-{
-
-    NW(s);
-}
-#endif
-
-#ifdef __DJGPP__
-    const int ATTRSIZE = sizeof(word);
-#else
-    const int ATTRSIZE = 1;
-#endif
+#if defined(__UNIX__)
+    
+const int ATTRSIZE = 1;
 
 inline void gdmacpy(uint16_t seg_d, gdma sel_d, uint16_t seg_s, gdma sel_s, int len)
 {
-
-#ifdef __DJGPP__
-    movedata(seg_s, sel_s, seg_d, sel_d, len);
-#else
     NW(seg_d);
     NW(seg_s);
     memcpy(sel_d, sel_s, len);
-#endif
 }
 
 inline gdma gdmaptr(int col, int row)
@@ -424,88 +369,6 @@ char* gvid_newattr(int& attr)
 
 
 //  ------------------------------------------------------------------
-//  OS/2 Vio* wrappers for prevent 16-bit segment overrun
-
-#if defined(__OS2__)
-
-#ifndef _THUNK_PTR_SIZE_OK
-    #define _THUNK_PTR_SIZE_OK(ptr,size) (((ULONG)(ptr) & ~0xffff) == (((ULONG)(ptr) + (size) - 1) & ~0xffff))
-#endif
-
-static USHORT VioReadCellStr_(PCH str, PUSHORT pcb, USHORT row, USHORT col, HVIO hvio)
-{
-    USHORT rc, cb = *pcb;
-
-    if(_THUNK_PTR_SIZE_OK(str, cb))
-        return VioReadCellStr(str, pcb, row, col, hvio);
-    PCH newstr = (PCH)throw_xmalloc(cb * 2);
-    if(_THUNK_PTR_SIZE_OK(newstr, cb))
-    {
-        rc = VioReadCellStr(newstr, pcb, row, col, hvio);
-        if(rc == 0)
-            memcpy(str, newstr, *pcb);
-    }
-    else
-    {
-        rc = VioReadCellStr(newstr + cb, pcb, row, col, hvio);
-        if(rc == 0)
-            memcpy(str, newstr + cb, *pcb);
-    }
-    throw_xfree(newstr);
-    return rc;
-}
-
-
-static USHORT VioWrtCellStr_(PCCH str, USHORT cb, USHORT row, USHORT col, HVIO hvio)
-{
-    USHORT rc;
-
-    if(_THUNK_PTR_SIZE_OK(str, cb ))
-        return VioWrtCellStr(str, cb, row, col, hvio);
-    PCH newstr = (PCH)throw_xmalloc(cb * 2);
-    if(_THUNK_PTR_SIZE_OK(newstr, cb))
-    {
-        memcpy(newstr, str, cb);
-        rc = VioWrtCellStr(newstr, cb, row, col, hvio);
-    }
-    else
-    {
-        memcpy(newstr + cb, str, cb);
-        rc = VioWrtCellStr(newstr + cb, cb, row, col, hvio);
-    }
-    throw_xfree(newstr);
-    return rc;
-}
-
-
-static USHORT VioWrtCharStrAtt_(PCCH str, USHORT cb, USHORT row, USHORT col, PBYTE attr, HVIO hvio)
-{
-    USHORT rc;
-
-    if(_THUNK_PTR_SIZE_OK(str, cb))
-        return VioWrtCharStrAtt(str, cb, row, col, attr, hvio);
-    PCH newstr = (PCH)throw_xmalloc(cb * 2);
-    if(_THUNK_PTR_SIZE_OK(newstr, cb))
-    {
-        memcpy(newstr, str, cb);
-        rc = VioWrtCharStrAtt(newstr, cb, row, col, attr, hvio);
-    }
-    else
-    {
-        memcpy(newstr + cb, str, cb);
-        rc = VioWrtCharStrAtt(newstr + cb, cb, row, col, attr, hvio);
-    }
-    throw_xfree(newstr);
-    return rc;
-}
-
-#define VioReadCellStr         VioReadCellStr_
-#define VioWrtCellStr          VioWrtCellStr_
-#define VioWrtCharStrAtt       VioWrtCharStrAtt_
-
-#endif
-
-//  ------------------------------------------------------------------
 //  ncurses support functions
 
 #else // defined(__USE_NCURSES__)
@@ -621,10 +484,6 @@ void vputw(int row, int col, vatch chat)
         cpu.genint(0x10);
     }
 
-#elif defined(__OS2__)
-
-    VioWrtNCell((BYTE *)&chat, 1, (USHORT)row, (USHORT)col, 0);
-
 #elif defined(__WIN32__)
 
     const COORD coord = {0, 0};
@@ -697,10 +556,6 @@ void vputws(int row, int col, vatch* buf, uint len)
         }
     }
 
-#elif defined(__OS2__)
-
-    VioWrtCellStr((PCCH)buf, (USHORT)(len*2), (USHORT)row, (USHORT)col, 0);
-
 #elif defined(__WIN32__)
 
     const COORD coord = {0, 0};
@@ -765,7 +620,7 @@ void vputc(int row, int col, vattr atr, vchar chr)
         cpu.genint(0x10);
     }
 
-#elif defined(__OS2__) || defined(__WIN32__)
+#elif defined(__WIN32__)
 
     vputw(row, col, vcatch(chr, atr));
 
@@ -867,10 +722,6 @@ void vputs(int row, int col, vattr atr, const char* str)
         }
     }
 
-#elif defined(__OS2__)
-
-    VioWrtCharStrAtt((PCCH)str, (USHORT)strlen(str), (USHORT)row, (USHORT)col, (PBYTE)&atr, 0);
-
 #elif defined(__WIN32__)
 
     int i;
@@ -967,18 +818,6 @@ void vputns(int row, int col, vattr atr, const char* str, uint width)
             cpu.cx(1);
             cpu.genint(0x10);
         }
-    }
-
-#elif defined(__OS2__)
-
-    uint len = strlen(str);
-
-    VioWrtCharStrAtt((PCCH)str, (USHORT)minimum_of_two(len,width), (USHORT)row, (USHORT)col, (PBYTE)&atr, 0);
-
-    if(width > len)
-    {
-        vatch filler = vcatch(fillchar, atr);
-        VioWrtNCell((BYTE *)&filler, (USHORT)(width-len), (USHORT)row, (USHORT)(col+len), 0);
     }
 
 #elif defined(__WIN32__)
@@ -1078,11 +917,6 @@ void vputx(int row, int col, vattr atr, vchar chr, uint len)
         cpu.genint(0x10);
     }
 
-#elif defined(__OS2__)
-
-    vatch filler = vcatch(chr, atr);
-    VioWrtNCell((BYTE *)&filler, (USHORT)len, (USHORT)row, (USHORT)col, 0);
-
 #elif defined(__WIN32__)
 
     if (len > gvid->numcols)
@@ -1161,12 +995,6 @@ void vputy(int row, int col, vattr atr, vchar chr, uint len)
             cpu.genint(0x10);
         }
     }
-
-#elif defined(__OS2__)
-
-    vatch filler = vcatch(chr, atr);
-    for(int n=0; n<len; n++)
-        VioWrtNCell((BYTE *)&filler, 1, (USHORT)row++, (USHORT)col, 0);
 
 #elif defined(__WIN32__)
 
@@ -1248,15 +1076,6 @@ vatch vgetw(int row, int col)
         return cpu.ax();
     }
     return 0;
-
-#elif defined(__OS2__)
-
-    vatch chat;
-    USHORT len=sizeof(chat);
-
-    VioReadCellStr((BYTE *)&chat, &len, (USHORT)row, (USHORT)col, 0);
-
-    return chat;
 
 #elif defined(__WIN32__)
 
@@ -1417,16 +1236,6 @@ void vscroll(int srow, int scol, int erow, int ecol, vattr atr, int lines)
         cpu.dl((byte)ecol);
         cpu.genint(0x10);
     }
-
-#elif defined(__OS2__)
-
-    vatch filler = vcatch(' ', atr);
-
-    if(lines > 0)
-        VioScrollUp((USHORT)srow, (USHORT)scol, (USHORT)erow, (USHORT)ecol, (USHORT)lines, (BYTE *)&filler, 0);
-    else
-        VioScrollDn((USHORT)srow, (USHORT)scol, (USHORT)erow, (USHORT)ecol, (USHORT)-lines, (BYTE *)&filler, 0);
-
 #elif defined(__WIN32__)
 
     SMALL_RECT r;
@@ -1484,13 +1293,6 @@ void vposget(int* row, int* col)
     gvid->currow = cpu.dh();
     gvid->curcol = cpu.dl();
 
-#elif defined(__OS2__)
-
-    USHORT _getrow, _getcol;
-    VioGetCurPos(&_getrow, &_getcol, 0);
-    gvid->currow = _getrow;
-    gvid->curcol = _getcol;
-
 #elif defined(__WIN32__)
 
     CONSOLE_SCREEN_BUFFER_INFO i;
@@ -1532,9 +1334,6 @@ void vposset(int row, int col)
     cpu.dl((byte)col);
     cpu.genint(0x10);
 
-#elif defined(__OS2__)
-
-    VioSetCurPos((USHORT)row, (USHORT)col, 0);
 
 #elif defined(__WIN32__)
 
@@ -1612,11 +1411,6 @@ void vclrscr(vattr atr)
         cpu.genint(0x10);
     }
 
-#elif defined(__OS2__)
-
-    vatch filler = vcatch(' ', atr);
-    VioScrollUp(0, 0, 0xFFFF, 0xFFFF, 0xFFFF, (BYTE *)&filler, 0);
-
 #elif defined(__WIN32__)
 
     COORD c = {0, 0};
@@ -1640,7 +1434,7 @@ void vclrscr(vattr atr)
 //  ------------------------------------------------------------------
 //  Saves the current screen and returns pointer to buffer
 
-#if (defined(__MSDOS__) || defined(__UNIX__)) && !defined(__USE_NCURSES__)
+#if (defined(__UNIX__)) && !defined(__USE_NCURSES__)
 static void _vsave(word* buf, int len1, int srow, int scol, int erow)
 {
 
@@ -1714,11 +1508,6 @@ vsavebuf* vsave(int srow, int scol, int erow, int ecol)
                 }
             }
         }
-
-#elif defined(__OS2__)
-
-        int len1 = (int)(ecol-scol+1);
-
 #if defined(__BORLANDC__)
         PCHAR16 ptr = (PCHAR16)buf;
 #else
@@ -1837,12 +1626,6 @@ void vrestore(vsavebuf* sbuf, int srow, int scol, int erow, int ecol)
             }
         }
     }
-
-#elif defined(__OS2__)
-
-    USHORT len1 = (USHORT)(ecol-scol+1);
-    USHORT len2 = (USHORT)(len1*sizeof(word));
-
 #if defined(__BORLANDC__)
     PCHAR16 ptr = (PCHAR16)buf;
 #else
@@ -1927,15 +1710,6 @@ void vcurset(int sline, int eline)
     cpu.ch((byte)sline);
     cpu.cl((byte)eline);
     cpu.genint(0x10);
-
-#elif defined(__OS2__)
-
-    VIOCURSORINFO vioci;
-    VioGetCurType(&vioci, 0);
-    vioci.yStart = (USHORT)sline;
-    vioci.cEnd   = (USHORT)eline;
-    vioci.attr   = (USHORT)((eline == 0) ? 0xFFFF : gvid->curr.color.textattr);
-    VioSetCurType(&vioci, 0);
 
 #elif defined(__WIN32__)
 
@@ -2032,10 +1806,6 @@ void vcurlarge()
         vcurset(1,12);
     }
 
-#elif defined(__OS2__)
-
-    vcurset(1, gvid->curr.screen.cheight-1);
-
 #elif defined(__WIN32__)
 
     vcurset(90, true);
@@ -2081,10 +1851,6 @@ void vcursmall()
     default:    // one of the monochrome cards
         vcurset(11,12);
     }
-
-#elif defined(__OS2__)
-
-    vcurset(gvid->curr.screen.cheight-2, gvid->curr.screen.cheight-1);
 
 #elif defined(__WIN32__)
 

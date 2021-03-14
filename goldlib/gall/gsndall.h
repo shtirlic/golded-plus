@@ -31,10 +31,6 @@
 //  ------------------------------------------------------------------
 
 #include <gsndsapi.h>
-#ifdef __OS2__
-    #define INCL_BASE
-    #include <os2.h>
-#endif
 #ifdef __WIN32__
     #include <windows.h>
 #endif
@@ -53,18 +49,6 @@ class gsnd
 {
 
 protected:
-
-#if defined(__MSDOS__)
-    int mpx;
-#if defined(__DJGPP__) || (defined(__WATCOMC__) && defined(__386__))
-    int buffer;
-#else
-    char* buffer;
-#endif
-    gsapidata* data;
-    uint key_value;
-    int call_api(uint al, uint bx=0);
-#endif
 
     int api_open;
     int file_open;

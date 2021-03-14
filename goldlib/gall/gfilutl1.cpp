@@ -37,17 +37,8 @@
     #include <utime.h>
 #endif
 
-#if defined(__OS2__)
-    #define INCL_BASE
-    #include <os2.h>
-#endif
-
 #if defined(__WIN32__)
     #include <windows.h>
-#endif
-
-#if defined(__MSDOS__)
-    #include <dos.h>
 #endif
 
 #if defined(__UNIX__)

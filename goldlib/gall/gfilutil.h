@@ -46,7 +46,7 @@
 #include <cstdio>
 #include <string>
 #include <gshare.h>
-#if !defined(__UNIX__) || defined(__DJGPP__)
+#if !defined(__UNIX__)
     #include <io.h>
 #endif
 #include <gdefs.h>
@@ -106,7 +106,7 @@
 //  ------------------------------------------------------------------
 //  Misc. defines
 
-#if defined(__MSDOS__) || defined(__OS2__) || defined(__WIN32__)
+#if defined(__WIN32__)
     #define GOLD_SLASH_CHR                    '\\'              // Backslash
     #define GOLD_SLASH_STR                    "\\"
     #define GOLD_WRONG_SLASH_CHR              '/'               // Fwrdslash

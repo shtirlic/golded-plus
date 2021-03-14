@@ -223,13 +223,11 @@ uint gkbd_sys_getkey()
             sleep(1);
             continue;
         }
-#ifndef __DJGPP__
         if(errno == EWOULDBLOCK)
         {
             sleep(1);
             continue;
         }
-#endif
         return (uint)-1;
     }
 

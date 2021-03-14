@@ -40,10 +40,6 @@
     extern int __gftrk_statusline;
 #endif
 
-#ifdef __OS2__
-    extern bool gmem_check_overrun;
-#endif
-
 extern bool gKeystacking;
 
 std::string keybuf;
@@ -678,9 +674,7 @@ void Initialize(int argc, char* argv[])
     {
 
         // Look for configfilename in the environment
-#if defined(__OS2__)
-        ptr = getenv("GED2");
-#elif defined(__WIN32__)
+#if defined(__WIN32__)
         ptr = getenv("GEDW32");
 #else
         ptr = NULL;

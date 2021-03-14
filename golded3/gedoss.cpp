@@ -269,15 +269,6 @@ int ShellToDos(const char* command, char* message, vattr cls, int cursor, int pa
 
     if(CFG->switches.get(en_gswitches::dosprompt))
     {
-#ifdef __DJGPP__
-        const char* p = getenv("PROMPT");
-        if(p)
-        {
-            strcpy(oldprompt, p);
-            strcpy(stpcpy(prompt, LNG->Prompt), p);
-            setenv("PROMPT", prompt, true);
-        }
-#else
         int envn = 0;
         while (environ[envn] and *environ[envn])
         {
@@ -290,7 +281,6 @@ int ShellToDos(const char* command, char* message, vattr cls, int cursor, int pa
             }
             envn++;
         }
-#endif
     }
 #endif
 
@@ -412,9 +402,6 @@ int ShellToDos(const char* command, char* message, vattr cls, int cursor, int pa
 #ifndef __UNIX__
     if(CFG->switches.get(en_gswitches::dosprompt))
     {
-#ifdef __DJGPP__
-        setenv("PROMPT", oldprompt, true);
-#else
         int envn = 0;
         while(environ[envn] and *environ[envn])
         {
@@ -425,7 +412,6 @@ int ShellToDos(const char* command, char* message, vattr cls, int cursor, int pa
             }
             envn++;
         }
-#endif
     }
 #endif
 
