@@ -501,14 +501,14 @@ glob_t *pglob;
 
     /* Find the filename.  */
     filename = strrchr (pattern, '/');
-#if defined __MSDOS__ || defined WINDOWS32
+#if defined WINDOWS32
     /* The case of "d:pattern".  Since `:' is not allowed in
        file names, we can safely assume that wherever it
        happens in pattern, it signals the filename part.  This
        is so we could some day support patterns like "[a-z]:foo".  */
     if (filename == NULL)
         filename = strchr (pattern, ':');
-#endif /* __MSDOS__ || WINDOWS32 */
+#endif /* WINDOWS32 */
     if (filename == NULL)
     {
         /* This can mean two things: a simple name or "~name".  The later
@@ -545,7 +545,7 @@ glob_t *pglob;
     {
         char *newp;
         dirlen = filename - pattern;
-#if defined __MSDOS__ || defined WINDOWS32
+#if defined WINDOWS32
         if (*filename == ':'
                 || (filename > pattern + 1 && filename[-1] == ':'))
         {
@@ -579,7 +579,7 @@ glob_t *pglob;
         ++filename;
 
         if (filename[0] == '\0'
-#if defined __MSDOS__ || defined WINDOWS32
+#if  defined WINDOWS32
                 && dirname[dirlen - 1] != ':'
                 && (dirlen < 3 || dirname[dirlen - 2] != ':'
                     || dirname[dirlen - 1] != '/')
@@ -1072,7 +1072,7 @@ size_t n;
 {
     register size_t i;
     size_t dirlen = strlen (dirname);
-#if defined __MSDOS__ || defined WINDOWS32
+#if defined WINDOWS32
     int sep_char = '/';
 # define DIRSEP_CHAR sep_char
 #else
@@ -1083,7 +1083,7 @@ size_t n;
         /* DIRNAME is just "/", so normal prepending would get us "//foo".
            We want "/foo" instead, so don't prepend any chars from DIRNAME.  */
         dirlen = 0;
-#if defined __MSDOS__ || defined WINDOWS32
+#if defined WINDOWS32
     else if (dirlen > 1)
     {
         if (dirname[dirlen - 1] == '/')

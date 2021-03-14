@@ -81,22 +81,6 @@ int GMTsk::win32()
 
 int GMTsk::windows()
 {
-
-#if defined(__MSDOS__)
-    i86 cpu;
-    cpu.ax(0x352F);
-    cpu.genint(0x21);
-    if(cpu.es() != 0)
-    {
-        cpu.ax(0x1600);
-        cpu.genint(0x2F);
-        if(cpu.ax() & 0x007F)
-        {
-            detected = GMTSK_WINDOWS;
-            name = "Windows";
-        }
-    }
-#endif
     return detected;
 }
 
@@ -107,11 +91,6 @@ int GMTsk::windows()
 int GMTsk::dosint28()
 {
 
-#if defined(__MSDOS__)
-    detected = GMTSK_DOS;
-    name = "DOS";
-#endif
-
     return detected;
 }
 
@@ -120,10 +99,6 @@ int GMTsk::dosint28()
 
 void GMTsk::timeslice()
 {
-#if defined(__MSDOS__)
-    i86 cpu;
-#endif
-
     switch(detected)
     {
 #if defined(__UNIX__)
@@ -135,21 +110,6 @@ void GMTsk::timeslice()
     case GMTSK_W32:
         Sleep(5);
         break;
-    case GMTSK_DOS:
-        Sleep(5);
-        break;
-#endif
-#if defined(__MSDOS__)
-        // Drop through if this is a DOS version
-#if defined(__MSDOS__)
-    case GMTSK_WINDOWS:
-        cpu.ax(0x1680);
-        cpu.genint(0x2F);
-        break;
-    case GMTSK_DOS:
-        cpu.genint(0x28);
-        break;
-#endif
 #endif
     }
 }

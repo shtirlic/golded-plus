@@ -445,7 +445,7 @@ chtype gvid_tcpr(vchar chr)
 //  ------------------------------------------------------------------
 //  Print character and attribute at specfied location
 
-#if (defined(__MSDOS__) || defined(__UNIX__)) && !defined(__USE_NCURSES__)
+#if (defined(__UNIX__)) && !defined(__USE_NCURSES__)
 inline void _vputw(int row, int col, word chat)
 {
 
@@ -461,28 +461,6 @@ void vputw(int row, int col, vatch chat)
 
     mvaddch(row, col, chat);
     refresh();
-
-#elif defined(__MSDOS__)
-
-    if(gvid->isdma())
-    {
-        _vputw(row, col, chat);
-    }
-    else if(gvid->isbios() or gvid->iscga())
-    {
-        i86 cpu;
-        cpu.ah(2);
-        cpu.bh(0);
-        cpu.dh((byte)row);
-        cpu.dl((byte)col);
-        cpu.genint(0x10);
-        cpu.ah(9);
-        cpu.al(vgchar(chat));
-        cpu.bh(0);
-        cpu.bl(vgattr(chat));
-        cpu.cx(1);
-        cpu.genint(0x10);
-    }
 
 #elif defined(__WIN32__)
 
@@ -530,32 +508,6 @@ void vputws(int row, int col, vatch* buf, uint len)
         addch(buf[counter]);
     refresh();
 
-#elif defined(__MSDOS__)
-
-    if(gvid->isdma())
-    {
-        gdmacpy(_dos_ds, (gdma)gdmaptr(col, row), _my_ds(), (gdma)buf, len*sizeof(word));
-    }
-    else if(gvid->isbios() or gvid->iscga())
-    {
-        i86 cpu;
-        byte* p = (byte*)buf;
-        for(uint n=0; n<len; n++)
-        {
-            cpu.ah(2);
-            cpu.bh(0);
-            cpu.dh((byte)row);
-            cpu.dl((byte)col++);
-            cpu.genint(0x10);
-            cpu.ah(9);
-            cpu.al(*p++);
-            cpu.bh(0);
-            cpu.bl(*p++);
-            cpu.cx(1);
-            cpu.genint(0x10);
-        }
-    }
-
 #elif defined(__WIN32__)
 
     const COORD coord = {0, 0};
@@ -597,28 +549,6 @@ void vputc(int row, int col, vattr atr, vchar chr)
 
     mvaddch(row, col, vcatch(gvid_tcpr(chr), atr));
     refresh();
-
-#elif defined(__MSDOS__)
-
-    if(gvid->isdma())
-    {
-        _vputw(row, col, vcatch(chr, atr));
-    }
-    else if(gvid->isbios() or gvid->iscga())
-    {
-        i86 cpu;
-        cpu.ah(2);
-        cpu.bh(0);
-        cpu.dh((byte)row);
-        cpu.dl((byte)col);
-        cpu.genint(0x10);
-        cpu.ah(9);
-        cpu.al(chr);
-        cpu.bh(0);
-        cpu.bl((byte)atr);
-        cpu.cx(1);
-        cpu.genint(0x10);
-    }
 
 #elif defined(__WIN32__)
 
@@ -690,38 +620,6 @@ void vputs(int row, int col, vattr atr, const char* str)
         addch(gvid_tcpr(str[counter]) | attr);
     refresh();
 
-#elif defined(__MSDOS__)
-
-    if(gvid->isdma())
-    {
-        gdma p = gdmaptr(col, row);
-        _farsetsel(_dos_ds);
-        while(*str)
-        {
-            _farnspokew(p, vcatch(*str++, atr));
-            p += ATTRSIZE;
-        }
-    }
-    else if(gvid->isbios() or gvid->iscga())
-    {
-        i86 cpu;
-        for(const char* q=str; *q; q++)
-        {
-            // Write as fast as possible on XT bios...
-            cpu.ah(2);
-            cpu.bh(0);
-            cpu.dh((byte)row);
-            cpu.dl((byte)(col++));
-            cpu.genint(0x10);
-            cpu.ah(9);
-            cpu.al(*q);
-            cpu.bh(0);
-            cpu.bl((byte)atr);
-            cpu.cx(1);
-            cpu.genint(0x10);
-        }
-    }
-
 #elif defined(__WIN32__)
 
     int i;
@@ -754,7 +652,7 @@ void vputs(int row, int col, vattr atr, const char* str)
 //  ------------------------------------------------------------------
 //  Print string with attribute at specfied location
 
-#if (defined(__MSDOS__) || defined(__UNIX__)) && !defined(__USE_NCURSES__)
+#if (defined(__UNIX__)) && !defined(__USE_NCURSES__)
 static void _vputns(int row, int col, int atr, const char* str, uint width)
 {
 
@@ -793,32 +691,6 @@ void vputns(int row, int col, vattr atr, const char* str, uint width)
             addch(gvid_tcpr(fillchar) | attr);
     }
     refresh();
-
-#elif defined(__MSDOS__)
-
-    if(gvid->isdma())
-    {
-        _vputns(row, col, atr, str, width);
-    }
-    else if(gvid->isbios() or gvid->iscga())
-    {
-        i86 cpu;
-        while(width--)
-        {
-            // Write as fast as possible on XT bios...
-            cpu.ah(2);
-            cpu.bh(0);
-            cpu.dh((byte)row);
-            cpu.dl((byte)(col++));
-            cpu.genint(0x10);
-            cpu.ah(9);
-            cpu.al(*str ? *str++ : fillchar);
-            cpu.bh(0);
-            cpu.bl((byte)atr);
-            cpu.cx(1);
-            cpu.genint(0x10);
-        }
-    }
 
 #elif defined(__WIN32__)
 
@@ -868,7 +740,7 @@ void vputns(int row, int col, vattr atr, const char* str, uint width)
 //  ------------------------------------------------------------------
 //  Print horizontal line of character and attribute
 
-#if (defined(__MSDOS__) || defined(__UNIX__)) && !defined(__USE_NCURSES__)
+#if (defined(__UNIX__)) && !defined(__USE_NCURSES__)
 void _vputx(int row, int col, int atr, char chr, uint len)
 {
 
@@ -894,28 +766,6 @@ void vputx(int row, int col, vattr atr, vchar chr, uint len)
 
     mvhline(row, col, vcatch(gvid_tcpr(chr), atr), len);
     refresh();
-
-#elif defined(__MSDOS__)
-
-    if(gvid->isdma())
-    {
-        _vputx(row, col, atr, chr, len);
-    }
-    else if(gvid->isbios() or gvid->iscga())
-    {
-        i86 cpu;
-        cpu.ah(2);
-        cpu.bh(0);
-        cpu.dh((byte)row);
-        cpu.dl((byte)col);
-        cpu.genint(0x10);
-        cpu.ah(9);
-        cpu.al(chr);
-        cpu.bh(0);
-        cpu.bl((byte)atr);
-        cpu.cx((word)len);
-        cpu.genint(0x10);
-    }
 
 #elif defined(__WIN32__)
 
@@ -944,7 +794,7 @@ void vputx(int row, int col, vattr atr, vchar chr, uint len)
 //  ------------------------------------------------------------------
 //  Print vertical line of character and attribute
 
-#if (defined(__MSDOS__) || defined(__UNIX__)) && !defined(__USE_NCURSES__)
+#if (defined(__UNIX__)) && !defined(__USE_NCURSES__)
 inline void _vputy(int row, int col, int atr, char chr, uint len)
 {
 
@@ -970,32 +820,6 @@ void vputy(int row, int col, vattr atr, vchar chr, uint len)
 
     mvvline(row, col, vcatch(gvid_tcpr(chr), atr), len);
     refresh();
-
-#elif defined(__MSDOS__)
-
-    if(gvid->isdma())
-    {
-        _vputy(row, col, atr, chr, len);
-    }
-    else if(gvid->isbios() or gvid->iscga())
-    {
-        for(uint n=0; n<len; n++)
-        {
-            i86 cpu;
-            cpu.ah(2);
-            cpu.bh(0);
-            cpu.dh((byte)row++);
-            cpu.dl((byte)col);
-            cpu.genint(0x10);
-            cpu.ah(9);
-            cpu.al(chr);
-            cpu.bh(0);
-            cpu.bl((byte)atr);
-            cpu.cx(1);
-            cpu.genint(0x10);
-        }
-    }
-
 #elif defined(__WIN32__)
 
     vatch filler = vcatch(chr, atr);
@@ -1037,7 +861,7 @@ void vputy(int row, int col, vattr atr, vchar chr, uint len)
 //  ------------------------------------------------------------------
 //  Get character and attribute at cursor position
 
-#if (defined(__MSDOS__) || defined(__UNIX__)) && !defined(__USE_NCURSES__)
+#if (defined(__UNIX__)) && !defined(__USE_NCURSES__)
 inline word _vgetw(int row, int col)
 {
 
@@ -1055,27 +879,6 @@ vatch vgetw(int row, int col)
 #if defined(__USE_NCURSES__)
 
     return mvinch(row, col);
-
-#elif defined(__MSDOS__)
-
-    if(gvid->isdma())
-    {
-        return _vgetw(row, col);
-    }
-    else if(gvid->isbios() or gvid->iscga())
-    {
-        i86 cpu;
-        cpu.ah(2);
-        cpu.bh(0);
-        cpu.dh((byte)row);
-        cpu.dl((byte)col);
-        cpu.genint(0x10);
-        cpu.ah(8);
-        cpu.bh(0);
-        cpu.genint(0x10);
-        return cpu.ax();
-    }
-    return 0;
 
 #elif defined(__WIN32__)
 
@@ -1124,7 +927,7 @@ void vgetc(int row, int col, vattr* atr, vchar* chr)
 //  ------------------------------------------------------------------
 //  Scroll screen area
 
-#if (defined(__MSDOS__) || defined(__UNIX__)) && !defined(__USE_NCURSES__)
+#if (defined(__UNIX__)) && !defined(__USE_NCURSES__)
 static void _vscroll(int srow, int scol, int erow, int ecol, int atr, int lines)
 {
 
@@ -1217,25 +1020,6 @@ void vscroll(int srow, int scol, int erow, int ecol, vattr atr, int lines)
             mvhline(srow + counter, scol, filler, 1 + ecol - scol);
         refresh();
     }
-
-#elif defined(__MSDOS__)
-
-    if(gvid->isdma())
-    {
-        _vscroll(srow, scol, erow, ecol, atr, lines);
-    }
-    else if(gvid->isbios() or gvid->iscga())
-    {
-        i86 cpu;
-        cpu.ah((byte)(lines > 0 ? 6 : 7));
-        cpu.al((byte)absolute(lines));
-        cpu.bh((byte)atr);
-        cpu.ch((byte)srow);
-        cpu.cl((byte)scol);
-        cpu.dh((byte)erow);
-        cpu.dl((byte)ecol);
-        cpu.genint(0x10);
-    }
 #elif defined(__WIN32__)
 
     SMALL_RECT r;
@@ -1284,15 +1068,6 @@ void vposget(int* row, int* col)
 
     getyx(stdscr, gvid->currow, gvid->curcol);
 
-#elif defined(__MSDOS__)
-
-    i86 cpu;
-    cpu.ah(3);
-    cpu.bh(0);
-    cpu.genint(0x10);
-    gvid->currow = cpu.dh();
-    gvid->curcol = cpu.dl();
-
 #elif defined(__WIN32__)
 
     CONSOLE_SCREEN_BUFFER_INFO i;
@@ -1324,17 +1099,6 @@ void vposset(int row, int col)
 
     move(row, col);
     refresh();
-
-#elif defined(__MSDOS__)
-
-    i86 cpu;
-    cpu.ah(2);
-    cpu.bh(0);
-    cpu.dh((byte)row);
-    cpu.dl((byte)col);
-    cpu.genint(0x10);
-
-
 #elif defined(__WIN32__)
 
     // No need to set the cursor position if its not visible
@@ -1367,7 +1131,7 @@ void vclrscr()
 //  ------------------------------------------------------------------
 //  Clears the screen using given attribute and homes the cursor
 
-#if (defined(__MSDOS__) || defined(__UNIX__)) && !defined(__USE_NCURSES__)
+#if (defined(__UNIX__)) && !defined(__USE_NCURSES__)
 static void _vclrscr(vattr atr)
 {
 
@@ -1393,24 +1157,6 @@ void vclrscr(vattr atr)
         mvhline(row, 0, filler, COLS);
     move(0, 0);
     refresh();
-
-#elif defined(__MSDOS__)
-
-    if(gvid->isdma())
-    {
-        _vclrscr(atr);
-    }
-    else if(gvid->isbios() or gvid->iscga())
-    {
-        i86 cpu;
-        cpu.ax(0x0600);           // clear screen by scrolling it
-        cpu.bh((byte)atr);
-        cpu.cx(0);
-        cpu.dh((byte)(gvid->numrows - 1));
-        cpu.dl((byte)(gvid->numcols - 1));
-        cpu.genint(0x10);
-    }
-
 #elif defined(__WIN32__)
 
     COORD c = {0, 0};
@@ -1479,48 +1225,6 @@ vsavebuf* vsave(int srow, int scol, int erow, int ecol)
             for(int col=scol; col<=ecol; col++)
                 *buf++ = mvinch(row, col);
 
-#elif defined(__MSDOS__)
-
-        int len1 = ecol-scol+1;
-
-        if(gvid->isdma())
-        {
-            _vsave(buf, len1, srow, scol, erow);
-        }
-        else if(gvid->isbios() or gvid->iscga())
-        {
-            i86 cpu;
-            byte* p = (byte*)buf;
-            for(byte row=(byte)srow; row<=erow; row++)
-            {
-                for(byte col=(byte)scol; col<=ecol; col++)
-                {
-                    cpu.ah(2);
-                    cpu.bh(0);
-                    cpu.dh(row);
-                    cpu.dl(col);
-                    cpu.genint(0x10);
-                    cpu.ah(8);
-                    cpu.bh(0);
-                    cpu.genint(0x10);
-                    *p++ = cpu.al();
-                    *p++ = cpu.ah();
-                }
-            }
-        }
-#if defined(__BORLANDC__)
-        PCHAR16 ptr = (PCHAR16)buf;
-#else
-        PCH ptr = (PCH)buf;
-#endif
-
-        USHORT len2 = (USHORT)(len1*sizeof(word));
-        for(int nrow=srow; nrow<=erow; nrow++)
-        {
-            VioReadCellStr(ptr, &len2, nrow, scol, 0);
-            ptr += len2;
-        }
-
 #elif defined(__WIN32__)
 
         const COORD coord = {0, 0};
@@ -1554,7 +1258,7 @@ vsavebuf* vsave(int srow, int scol, int erow, int ecol)
 //  ------------------------------------------------------------------
 //  Redraws a previously saved screen
 
-#if (defined(__MSDOS__) || defined(__UNIX__)) && !defined(__USE_NCURSES__)
+#if (defined(__UNIX__)) && !defined(__USE_NCURSES__)
 static void _vredraw(word* buf, int len1, int srow, int scol, int erow)
 {
 
@@ -1595,49 +1299,6 @@ void vrestore(vsavebuf* sbuf, int srow, int scol, int erow, int ecol)
             mvaddch(row, col, *buf++);
 
     refresh();
-
-#elif defined(__MSDOS__)
-
-    int len1 = ecol-scol+1;
-
-    if(gvid->isdma())
-    {
-        _vredraw(buf, len1, srow, scol, erow);
-    }
-    else if(gvid->isbios() or gvid->iscga())
-    {
-        i86 cpu;
-        byte* p = (byte*)buf;
-        for(byte row=(byte)srow; row<=erow; row++)
-        {
-            for(byte col=(byte)scol; col<=ecol; col++)
-            {
-                cpu.ah(2);
-                cpu.bh(0);
-                cpu.dh(row);
-                cpu.dl(col);
-                cpu.genint(0x10);
-                cpu.ah(9);
-                cpu.al(*p++);
-                cpu.bh(0);
-                cpu.bl(*p++);
-                cpu.cx(1);
-                cpu.genint(0x10);
-            }
-        }
-    }
-#if defined(__BORLANDC__)
-    PCHAR16 ptr = (PCHAR16)buf;
-#else
-    PCH ptr = (PCH)buf;
-#endif
-
-    for(USHORT nrow=srow; nrow<=erow; nrow++)
-    {
-        VioWrtCellStr(ptr, len2, nrow, scol, 0);
-        ptr += len2;
-    }
-
 #elif defined(__WIN32__)
 
     const COORD coord = {0, 0};
@@ -1696,20 +1357,6 @@ void vcurset(int sline, int eline)
         curs_set(1);
     else
         curs_set(2);
-
-#elif defined(__MSDOS__)
-
-    if(eline == 0)
-    {
-        int _dvhide = __gdvdetected ? 0x01 : 0x30;
-        sline = ((gvid->adapter>=V_HGC) and (gvid->adapter<=V_INCOLOR)) ? 0x3F : _dvhide;
-    }
-
-    i86 cpu;
-    cpu.ah(1);
-    cpu.ch((byte)sline);
-    cpu.cl((byte)eline);
-    cpu.genint(0x10);
 
 #elif defined(__WIN32__)
 
@@ -1780,33 +1427,7 @@ void vcurlarge()
 #else
     vcurshow();
 
-#if defined(__MSDOS__)
-
-    switch(gvid->adapter)
-    {
-    case V_CGA:
-        vcurset(1,7);
-        break;
-    case V_EGA:
-        if(gvid->numrows == 25)
-        {
-            vcurset(1,7);
-        }
-        else
-        {
-            word* p = (word*)0x0463;  // video BIOS data area
-            outpw(*p,0x000A);         // update cursor start register
-            outpw(*p,0x0A0B);         // update cursor end register
-        }
-        break;
-    case V_VGA:
-        vcurset(1,7);
-        break;
-    default:    // one of the monochrome cards
-        vcurset(1,12);
-    }
-
-#elif defined(__WIN32__)
+#if defined(__WIN32__)
 
     vcurset(90, true);
 
@@ -1825,34 +1446,7 @@ void vcursmall()
     curs_set(1);
 #else
     vcurshow();
-
-#if defined(__MSDOS__)
-
-    switch(gvid->adapter)
-    {
-    case V_CGA:
-        vcurset(6,7);
-        break;
-    case V_EGA:
-        if(gvid->numrows == 25)
-        {
-            vcurset(6,7);
-        }
-        else
-        {
-            word* p = (word*)0x0463;    // video BIOS data area
-            outpw(*p,0x060A);           // update cursor start register
-            outpw(*p,0x000B);           // update cursor end register
-        }
-        break;
-    case V_VGA:
-        vcurset(6,7);
-        break;
-    default:    // one of the monochrome cards
-        vcurset(11,12);
-    }
-
-#elif defined(__WIN32__)
+#if defined(__WIN32__)
 
     vcurset(13, true);
 

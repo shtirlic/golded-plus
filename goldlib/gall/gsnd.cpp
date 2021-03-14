@@ -29,10 +29,6 @@
 #include <cstdlib>
 #include <gutlos.h>
 
-#if defined(__MSDOS__)
-    #include <gmemi86.h>
-    #include <gmemdbg.h>
-#endif
 
 #include <gstrall.h>
 #include <gasmamis.h>

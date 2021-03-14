@@ -36,7 +36,7 @@
 
 //  ------------------------------------------------------------------
 
-#if defined(__WIN32__) || defined(__MSDOS__)
+#if defined(__WIN32__)
     #define CLIP_NAME "Windows Clipboard"
 #else
     #define CLIP_NAME "Fake Clipboard"

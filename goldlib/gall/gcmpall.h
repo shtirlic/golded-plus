@@ -37,14 +37,6 @@
 
 /*  --------------------------------------------------------------- */
 
-#if !defined(__MSDOS__)
-    #if defined(MSDOS)
-        #define __MSDOS__ MSDOS
-    #elif defined(__DOS__)
-        #define __MSDOS__ __DOS__
-    #endif
-#endif
-
 
 #if !defined(__WIN32__)
     #if defined(_WIN32)

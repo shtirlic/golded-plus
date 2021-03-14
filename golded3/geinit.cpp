@@ -637,7 +637,7 @@ void Initialize(int argc, char* argv[])
         STD_PRINTNL("-M              Mute sounds. Disables all noises in GoldED+.");
         STD_PRINTNL("-N              Disable share-compatible file opens during startup.");
         STD_PRINTNL("-NOSCAN         Temporarily disable area scan during startup.");
-#if defined(GUTLOS_FUNCS) && !defined(__MSDOS__)
+#if defined(GUTLOS_FUNCS)
         STD_PRINTNL("-P              Increase/decrease program priority to run faster/slower.");
 #endif
         STD_PRINTNL("-Q              Don't print information messages at config load time (Quiet mode).");
@@ -879,13 +879,6 @@ void Initialize(int argc, char* argv[])
 
     if(EDIT->QuoteMargin() <= 0)
         EDIT->QuoteMargin(EDIT->QuoteMargin()+MAXCOL);
-
-#ifdef __MSDOS__
-    if(CFG->switches.get(screenusebios))
-        gvid->setdevice(GVID_BIO);
-    else
-        gvid->setdevice(GVID_DMA);
-#endif
 
     // Set palette if changes were specified
     if(CFG->screenpalette[16])
