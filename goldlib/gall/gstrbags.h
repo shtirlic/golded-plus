@@ -31,8 +31,8 @@
 
 //  ------------------------------------------------------------------
 
+#include <gstrall.h>
 #include <gmemdbg.h>
-
 
 //  ------------------------------------------------------------------
 
@@ -41,8 +41,7 @@ class GStrBag
 
 protected:
 
-    char* bag;
-    int bagsize;
+    gstrarray bag;
     int items;
     int currno;
 
@@ -75,13 +74,9 @@ public:
         currno = c;
     }
 
-    int& Pos(int i)
-    {
-        return ((int*)(bag+bagsize))[i];
-    }
     const char* Index(int i)
     {
-        return bag ? bag + Pos(i) : NULL;
+        return !bag[i].empty() ? bag[i].c_str() : NULL;
     }
 
     int First()

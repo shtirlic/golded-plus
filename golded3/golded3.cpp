@@ -99,11 +99,11 @@
 #if defined(__WIN32__)
     #if defined(_M_X64)
         #if defined(_MSC_VER)
-            #define __GVER_PLATFORM__      "/W64-MSVC"
+            #define __GVER_PLATFORM__      "/W10"
         #else
-            #define __GVER_PLATFORM__      "/W64"
+            #define __GVER_PLATFORM__      "/W10"
         #endif
-        #define __GVER_SHORTPLATFORM__ "W64"
+        #define __GVER_SHORTPLATFORM__ "W10"
         #define __GVER_SHORTLOGNAME__  "W"
         #define __GVER_CFGEXT__        ".gew"
     #endif

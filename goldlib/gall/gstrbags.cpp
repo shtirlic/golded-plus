@@ -41,9 +41,6 @@ GStrBag::GStrBag()
 {
 
     items = 0;
-    bagsize = 0;
-    bag = NULL;
-    blocksize = BLOCKSIZE;
     currno = 0;
 }
 
@@ -61,9 +58,7 @@ GStrBag::~GStrBag()
 
 void GStrBag::Reset()
 {
-
-    if(bag != NULL)
-        throw_release(bag);
+    bag.clear();
 }
 
 
@@ -71,8 +66,9 @@ void GStrBag::Reset()
 
 int GStrBag::Add(const char* string)
 {
-
-    return Add(string, strlen(string)+1);
+    std::string tmpStr(string);
+    bag.push_back(tmpStr);
+    return items++;
 }
 
 
@@ -80,18 +76,8 @@ int GStrBag::Add(const char* string)
 
 int GStrBag::Add(const void* data, int length)
 {
-
-    if(items == 0)
-        bag = (char*)throw_malloc(blocksize);
-    int currsize = bagsize + (items*sizeof(int));
-    int currsizeblks = (currsize/blocksize) + 1;
-    int newsizeblks = ((currsize+length+sizeof(int))/blocksize) + 1;
-    if(newsizeblks != currsizeblks)
-        bag = (char*)throw_realloc(bag, newsizeblks*blocksize);
-    memmove(bag+bagsize+length, bag+bagsize, items*sizeof(int));
-    memcpy(bag+bagsize, data, length);
-    ((int*)(bag+bagsize+length))[items] = bagsize;
-    bagsize += length;
+    std::string tmpStr((char*)data, length);
+    bag.push_back(tmpStr);
     return items++;
 }
 
@@ -100,7 +86,6 @@ int GStrBag::Add(const void* data, int length)
 
 void GStrBag::Change(int index, const char* string)
 {
-
     Change(index, string, strlen(string)+1);
 }
 
@@ -109,30 +94,8 @@ void GStrBag::Change(int index, const char* string)
 
 void GStrBag::Change(int index, const void* data, int length)
 {
-
-    int oldpos = Pos(index);
-    int oldlen = bag ? strlen(bag+oldpos)+1 : 0;
-    int lendiff = length - oldlen;
-    int oldsize = bagsize+(items*sizeof(int));
-    int movesize = oldsize - oldpos - oldlen;
-    int currsizeblks = (oldsize/blocksize) + 1;
-    int newsizeblks = ((oldsize+lendiff)/blocksize) + 1;
-    if(lendiff > 0)
-    {
-        if(newsizeblks != currsizeblks)
-            bag = (char*)throw_realloc(bag, oldsize+lendiff);
-        memmove(bag+oldpos+length, bag+oldpos+oldlen, movesize);
-    }
-    else if(lendiff < 0)
-    {
-        memmove(bag+oldpos+length, bag+oldpos+oldlen, movesize);
-        if(newsizeblks != currsizeblks)
-            bag = (char*)throw_realloc(bag, oldsize+lendiff);
-    }
-    memcpy(bag+oldpos, data, length);
-    bagsize += lendiff;
-    for(int n=index+1; n<items; n++)
-        Pos(n) += lendiff;
+    std::string tmpStr((char*)data, length);
+    bag[index] = tmpStr;    
 }
 
 
