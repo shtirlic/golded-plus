@@ -31,7 +31,6 @@
 #include <fstream>
 #include <list>
 
-using namespace std;
 
 #include <gstrall.h>
 #include <gftnall.h>
@@ -68,9 +67,9 @@ public:
     int                 depth;
     int                 posts;
     ftn_addr           address;
-    string             name;
-    vector<ftn_addr>   links;
-    string             display;
+    std::string             name;
+    std::vector<ftn_addr>   links;
+    std::string             display;
 
     void add(const char* s)
     {
@@ -86,7 +85,7 @@ public:
 
 //  ------------------------------------------------------------------
 
-typedef list<node> list_node;
+typedef std::list<node> list_node;
 
 //  ------------------------------------------------------------------
 
@@ -167,7 +166,7 @@ void node::add(ftn_addr& addr)
     if(debug)
     {
         char buf1[50], buf2[50];
-        cout << address.make_string(buf1) << " += " << addr.make_string(buf2) << endl;
+        std::cout << address.make_string(buf1) << " += " << addr.make_string(buf2) << std::endl;
     }
 
     links.push_back(addr);
@@ -197,7 +196,7 @@ void nodetree::add(node& anode)
     if(debug)
     {
         char buf[50];
-        cout << anode.address.make_string(buf) << endl;
+        std::cout << anode.address.make_string(buf) << std::endl;
     }
     nodes.push_back(anode);
 }
@@ -211,9 +210,9 @@ void nodetree::prepare(ftn_addr& previous, ftn_addr& current, int depth)
     if(debug)
     {
         char buf[50];
-        cout << "prepare(" << previous.make_string(buf);
-        cout << ", " << current.make_string(buf);
-        cout << ", " << depth << ")" << endl;
+        std::cout << "prepare(" << previous.make_string(buf);
+        std::cout << ", " << current.make_string(buf);
+        std::cout << ", " << depth << ")" << std::endl;
     }
 
     // Find top node
@@ -380,7 +379,7 @@ void nodetree::print()
     }
 
     for(n=nodes.begin(); n != nodes.end(); n++)
-        cout << n->display.c_str() << endl;
+        std::cout << n->display.c_str() << std::endl;
 }
 
 
@@ -394,27 +393,27 @@ int main(int argc, char** argv)
     // set locale
     setlocale(LC_CTYPE, "");
 
-    cout << __gver_name__ << " v." << __gver_preversion__ << __gver_shortver__ << __gver_platform__ << __gver_postversion__;
+    std::cout << __gver_name__ << " v." << __gver_preversion__ << __gver_shortver__ << __gver_platform__ << __gver_postversion__;
 #ifdef KOI8
     cout << " (koi8)";
 #endif
-    cout << endl
-         << "Copyright (C) 1999 Odinn Sorensen" << endl
-         << "Copyright (C) 1999-2001 Alexander S. Aganichev" << endl
-         << "Copyright (C) 2005 Stas Degteff & Golded+ team" << endl
-         << "----------------------------------------------------------------------" << endl
-         << endl;
+    std::cout << std::endl
+         << "Copyright (C) 1999 Odinn Sorensen" << std::endl
+         << "Copyright (C) 1999-2001 Alexander S. Aganichev" << std::endl
+         << "Copyright (C) 2005 Stas Degteff & Golded+ team" << std::endl
+         << "----------------------------------------------------------------------" << std::endl
+         << std::endl;
 
     if(argc < 2)
     {
-        cout << "Syntax: RDDT <routefile> [options] [address or name]" << endl
-             << "\twhere options may be:" << endl
-             << "\t\t-d             - Debug mode" << endl
-             << "\t\t-p             - Decode path" << endl
-             << "\t\t-n ownaddress  - Your own address" << endl
-             << "\t\t-l ownuplink   - Your own uplink" << endl
-             << "\t\t-i num         - indent <num> spaces" << endl
-             << endl;
+        std::cout << "Syntax: RDDT <routefile> [options] [address or name]" << std::endl
+             << "\twhere options may be:" << std::endl
+             << "\t\t-d             - Debug mode" << std::endl
+             << "\t\t-p             - Decode path" << std::endl
+             << "\t\t-n ownaddress  - Your own address" << std::endl
+             << "\t\t-l ownuplink   - Your own uplink" << std::endl
+             << "\t\t-i num         - indent <num> spaces" << std::endl
+             << std::endl;
 
         return 1;
     }
@@ -425,7 +424,7 @@ int main(int argc, char** argv)
 
     node      anode;
     nodetree  atree;
-    ifstream  fp(argv[1]);
+    std::ifstream  fp(argv[1]);
     ftn_addr address;
     bool decode_path = false;
     char* top = NULL;
@@ -455,7 +454,7 @@ int main(int argc, char** argv)
                 atree.indent = atoi(argp + 2);
                 break;
             default:
-                cerr << "Illegal option '" << argp << "', ignored" << endl;
+                std::cerr << "Illegal option '" << argp << "', ignored" << std::endl;
             }
         }
         else
@@ -583,9 +582,9 @@ int main(int argc, char** argv)
                 for(list_node::iterator n=atree.nodes.begin(); n != atree.nodes.end(); n++)
                 {
                     xnode = *n;
-                    cout << xnode.address.make_string(buf_a) << endl;
+                    std::cout << xnode.address.make_string(buf_a) << std::endl;
                     for(int l=0; l<xnode.links.size(); l++)
-                        cout << "  " << xnode.links[l].make_string(buf) << endl;
+                        std::cout << "  " << xnode.links[l].make_string(buf) << std::endl;
                 }
             }
 
@@ -595,7 +594,7 @@ int main(int argc, char** argv)
         }
         else
         {
-            cout << "Address or name not found!" << endl;
+            std::cout << "Address or name not found!" << std::endl;
         }
     }
 

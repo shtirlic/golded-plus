@@ -57,7 +57,7 @@ LIBCURSES=-lncurses
 endif
 endif
 
-CFLAGS+=-funsigned-char -g $(INCS) -Wall -Wno-long-long -Wno-sign-compare -pedantic -O0 -DPRAGMA_PACK -std=c++14 # -fomit-frame-pointer
+CFLAGS+=-funsigned-char -g $(INCS) -Wall -Wno-long-long -Wno-sign-compare -pedantic -O0 -DPRAGMA_PACK -Wno-write-strings -std=c++17 # -fomit-frame-pointer
 LNKFLAGS+=-g
 CPPFLAGS+=$(CFLAGS)
 
