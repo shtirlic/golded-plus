@@ -351,16 +351,16 @@ void CfgColorset()
 
     if(strieql(val, "Normal"))
     {
-        memcpy(CFG->color, gold_color1, sizeof(Win)*16);
+        std::memcpy(CFG->color, gold_color1, sizeof(Win)*16);
     }
     else if(strieql(val, "Intense"))
     {
         CFG->intensecolors = true;
-        memcpy(CFG->color, gold_color2, sizeof(Win)*16);
+        std::memcpy(CFG->color, gold_color2, sizeof(Win)*16);
     }
     else if(strieql(val, "Mono"))
     {
-        memcpy(CFG->color, gold_mono1, sizeof(Win)*16);
+        std::memcpy(CFG->color, gold_mono1, sizeof(Win)*16);
     }
 }
 

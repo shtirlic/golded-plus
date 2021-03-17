@@ -241,15 +241,15 @@ void GPickArealist::dispbuf(char* buf, int areano)
     echoidwidth  = MinV(echoidwidth,  echoid_width);
     groupidwidth = MinV(groupidwidth, groupid_width);
 
-    memcpy(buf+area_pos+area_width-areawidth,          areabuf,    areawidth);
-    memcpy(buf+marked_pos,                             markedbuf,  markedwidth);
-    memcpy(buf+desc_pos,                               descbuf,    descwidth);
-    memcpy(buf+count_pos+count_width-countwidth,       countbuf,   countwidth);
-    memcpy(buf+pmark_pos,                              pmarkbuf,   pmarkwidth);
-    memcpy(buf+unread_pos+unread_width-unreadwidth,    unreadbuf,  unreadwidth);
-    memcpy(buf+changed_pos,                            changedbuf, changedwidth);
-    memcpy(buf+echoid_pos,                             echoidbuf,  echoidwidth);
-    memcpy(buf+groupid_pos+groupid_width-groupidwidth, groupidbuf, groupidwidth);
+    std::memcpy(buf+area_pos+area_width-areawidth,          areabuf,    areawidth);
+    std::memcpy(buf+marked_pos,                             markedbuf,  markedwidth);
+    std::memcpy(buf+desc_pos,                               descbuf,    descwidth);
+    std::memcpy(buf+count_pos+count_width-countwidth,       countbuf,   countwidth);
+    std::memcpy(buf+pmark_pos,                              pmarkbuf,   pmarkwidth);
+    std::memcpy(buf+unread_pos+unread_width-unreadwidth,    unreadbuf,  unreadwidth);
+    std::memcpy(buf+changed_pos,                            changedbuf, changedwidth);
+    std::memcpy(buf+echoid_pos,                             echoidbuf,  echoidwidth);
+    std::memcpy(buf+groupid_pos+groupid_width-groupidwidth, groupidbuf, groupidwidth);
 }
 
 //  ------------------------------------------------------------------

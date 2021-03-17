@@ -453,7 +453,7 @@ int Hunspell::spell(const char * word)
         rv = check(cw);
         if ((abbv) && !(rv))
         {
-            memcpy(wspace,cw,wl);
+            std::memcpy(wspace,cw,wl);
             *(wspace+wl) = '.';
             *(wspace+wl+1) = '\0';
             rv = check(wspace);
@@ -466,7 +466,7 @@ int Hunspell::spell(const char * word)
         if (rv) break;
         if (abbv)
         {
-            memcpy(wspace,cw,wl);
+            std::memcpy(wspace,cw,wl);
             *(wspace+wl) = '.';
             *(wspace+wl+1) = '\0';
             rv = check(wspace);
@@ -476,7 +476,7 @@ int Hunspell::spell(const char * word)
         {
             char tmpword[MAXWORDUTF8LEN];
             wl = mkallsmall2(cw, unicw, nc);
-            memcpy(wspace,cw,(wl+1));
+            std::memcpy(wspace,cw,(wl+1));
             rv = spellsharps(wspace, wspace, 0, 0, tmpword);
             if (!rv)
             {
@@ -490,7 +490,7 @@ int Hunspell::spell(const char * word)
                 rv = spellsharps(wspace, wspace, 0, 0, tmpword);
                 if (!rv)
                 {
-                    memcpy(wspace, cw, wl2);
+                    std::memcpy(wspace, cw, wl2);
                     *(wspace+wl2) = '.';
                     *(wspace+wl2+1) = '\0';
                     rv = spellsharps(wspace, wspace, 0, 0, tmpword);
@@ -502,7 +502,7 @@ int Hunspell::spell(const char * word)
     case INITCAP:
     {
         wl = mkallsmall2(cw, unicw, nc);
-        memcpy(wspace,cw,(wl+1));
+        std::memcpy(wspace,cw,(wl+1));
         rv = check(wspace);
         if (!rv || (is_keepcase(rv) && !((captype == INITCAP) &&
                                          // if CHECKSHARPS: KEEPCASE words with ß are allowed
@@ -521,7 +521,7 @@ int Hunspell::spell(const char * word)
             rv = check(wspace);
             if (!rv || is_keepcase(rv))
             {
-                memcpy(wspace, cw, wl2);
+                std::memcpy(wspace, cw, wl2);
                 *(wspace+wl2) = '.';
                 *(wspace+wl2+1) = '\0';
                 rv = check(wspace);
@@ -747,7 +747,7 @@ int Hunspell::suggest(char*** slst, const char * word)
         capwords = 1;
         ns = pSMgr->suggest(slst, cw, ns);
         if (ns == -1) break;
-        memcpy(wspace,cw,(wl+1));
+        std::memcpy(wspace,cw,(wl+1));
         mkallsmall2(wspace, unicw, nc);
         ns = pSMgr->suggest(slst, wspace, ns);
         break;
@@ -763,11 +763,11 @@ int Hunspell::suggest(char*** slst, const char * word)
             if (captype == HUHINITCAP)
             {
                 // TheOpenOffice.org -> The OpenOffice.org
-                memcpy(wspace,cw,(wl+1));
+                std::memcpy(wspace,cw,(wl+1));
                 mkinitsmall2(wspace, unicw, nc);
                 ns = pSMgr->suggest(slst, wspace, ns);
             }
-            memcpy(wspace,cw,(wl+1));
+            std::memcpy(wspace,cw,(wl+1));
             mkallsmall2(wspace, unicw, nc);
             insert_sug(slst, wspace, &ns);
             prevns = ns;
@@ -805,7 +805,7 @@ int Hunspell::suggest(char*** slst, const char * word)
 
     case ALLCAP:
     {
-        memcpy(wspace, cw, (wl+1));
+        std::memcpy(wspace, cw, (wl+1));
         mkallsmall2(wspace, unicw, nc);
         ns = pSMgr->suggest(slst, wspace, ns);
         if (ns == -1) break;
@@ -864,7 +864,7 @@ int Hunspell::suggest(char*** slst, const char * word)
         }
         case HUHCAP:
         {
-            memcpy(wspace,cw,(wl+1));
+            std::memcpy(wspace,cw,(wl+1));
             mkallsmall2(wspace, unicw, nc);
             ns = pSMgr->ngsuggest(*slst, wspace, pHMgr);
             break;
@@ -872,14 +872,14 @@ int Hunspell::suggest(char*** slst, const char * word)
         case INITCAP:
         {
             capwords = 1;
-            memcpy(wspace,cw,(wl+1));
+            std::memcpy(wspace,cw,(wl+1));
             mkallsmall2(wspace, unicw, nc);
             ns = pSMgr->ngsuggest(*slst, wspace, pHMgr);
             break;
         }
         case ALLCAP:
         {
-            memcpy(wspace,cw,(wl+1));
+            std::memcpy(wspace,cw,(wl+1));
             mkallsmall2(wspace, unicw, nc);
             ns = pSMgr->ngsuggest(*slst, wspace, pHMgr);
             for (int j=0; j < ns; j++)
@@ -1019,7 +1019,7 @@ int Hunspell::suggest_auto(char*** slst, const char * word)
 
     case INITCAP:
     {
-        memcpy(wspace,cw,(wl+1));
+        std::memcpy(wspace,cw,(wl+1));
         mkallsmall(wspace);
         ns = pSMgr->suggest_auto(slst, wspace, ns);
         for (int j=0; j < ns; j++)
@@ -1034,7 +1034,7 @@ int Hunspell::suggest_auto(char*** slst, const char * word)
         ns = pSMgr->suggest_auto(slst, cw, ns);
         if (ns == 0)
         {
-            memcpy(wspace,cw,(wl+1));
+            std::memcpy(wspace,cw,(wl+1));
             mkallsmall(wspace);
             ns = pSMgr->suggest_auto(slst, wspace, ns);
         }
@@ -1043,7 +1043,7 @@ int Hunspell::suggest_auto(char*** slst, const char * word)
 
     case ALLCAP:
     {
-        memcpy(wspace,cw,(wl+1));
+        std::memcpy(wspace,cw,(wl+1));
         mkallsmall(wspace);
         ns = pSMgr->suggest_auto(slst, wspace, ns);
 
@@ -1121,7 +1121,7 @@ int Hunspell::stem(char*** slst, const char * word)
 
         if ((abbv) && (ns == 0))
         {
-            memcpy(wspace,cw,wl);
+            std::memcpy(wspace,cw,wl);
             *(wspace+wl) = '.';
             *(wspace+wl+1) = '\0';
             ns = pSMgr->suggest_stems(slst, wspace, ns);
@@ -1137,7 +1137,7 @@ int Hunspell::stem(char*** slst, const char * word)
 
         if (ns == 0)
         {
-            memcpy(wspace,cw,(wl+1));
+            std::memcpy(wspace,cw,(wl+1));
             mkallsmall(wspace);
             ns = pSMgr->suggest_stems(slst, wspace, ns);
 
@@ -1145,7 +1145,7 @@ int Hunspell::stem(char*** slst, const char * word)
 
         if ((abbv) && (ns == 0))
         {
-            memcpy(wspace,cw,wl);
+            std::memcpy(wspace,cw,wl);
             mkallsmall(wspace);
             *(wspace+wl) = '.';
             *(wspace+wl+1) = '\0';
@@ -1161,7 +1161,7 @@ int Hunspell::stem(char*** slst, const char * word)
         ns = pSMgr->suggest_stems(slst, cw, ns);
         if (ns != 0) break;
 
-        memcpy(wspace,cw,(wl+1));
+        std::memcpy(wspace,cw,(wl+1));
         mkallsmall(wspace);
         ns = pSMgr->suggest_stems(slst, wspace, ns);
 
@@ -1173,7 +1173,7 @@ int Hunspell::stem(char*** slst, const char * word)
 
         if ((abbv) && (ns == 0))
         {
-            memcpy(wspace,cw,wl);
+            std::memcpy(wspace,cw,wl);
             mkallsmall(wspace);
             *(wspace+wl) = '.';
             *(wspace+wl+1) = '\0';
@@ -1220,7 +1220,7 @@ int Hunspell::suggest_pos_stems(char*** slst, const char * word)
 
         if ((abbv) && (ns == 0))
         {
-            memcpy(wspace,cw,wl);
+            std::memcpy(wspace,cw,wl);
             *(wspace+wl) = '.';
             *(wspace+wl+1) = '\0';
             ns = pSMgr->suggest_pos_stems(slst, wspace, ns);
@@ -1236,7 +1236,7 @@ int Hunspell::suggest_pos_stems(char*** slst, const char * word)
 
         if (ns == 0 || ((*slst)[0][0] == '#'))
         {
-            memcpy(wspace,cw,(wl+1));
+            std::memcpy(wspace,cw,(wl+1));
             mkallsmall(wspace);
             ns = pSMgr->suggest_pos_stems(slst, wspace, ns);
         }
@@ -1250,7 +1250,7 @@ int Hunspell::suggest_pos_stems(char*** slst, const char * word)
         ns = pSMgr->suggest_pos_stems(slst, cw, ns);
         if (ns != 0) break;
 
-        memcpy(wspace,cw,(wl+1));
+        std::memcpy(wspace,cw,(wl+1));
         mkallsmall(wspace);
         ns = pSMgr->suggest_pos_stems(slst, wspace, ns);
 
@@ -1495,7 +1495,7 @@ char * Hunspell::morph(const char * word)
         }
         if (abbv)
         {
-            memcpy(wspace,cw,wl);
+            std::memcpy(wspace,cw,wl);
             *(wspace+wl) = '.';
             *(wspace+wl+1) = '\0';
             st = pSMgr->suggest_morph(wspace);
@@ -1510,7 +1510,7 @@ char * Hunspell::morph(const char * word)
     }
     case INITCAP:
     {
-        memcpy(wspace,cw,(wl+1));
+        std::memcpy(wspace,cw,(wl+1));
         mkallsmall(wspace);
         st = pSMgr->suggest_morph(wspace);
         if (st)
@@ -1527,7 +1527,7 @@ char * Hunspell::morph(const char * word)
         }
         if (abbv)
         {
-            memcpy(wspace,cw,wl);
+            std::memcpy(wspace,cw,wl);
             *(wspace+wl) = '.';
             *(wspace+wl+1) = '\0';
             mkallsmall(wspace);
@@ -1558,7 +1558,7 @@ char * Hunspell::morph(const char * word)
             free(st);
         }
 #if 0
-        memcpy(wspace,cw,(wl+1));
+        std::memcpy(wspace,cw,(wl+1));
         mkallsmall(wspace);
         st = pSMgr->suggest_morph(wspace);
         if (st)
@@ -1572,7 +1572,7 @@ char * Hunspell::morph(const char * word)
     }
     case ALLCAP:
     {
-        memcpy(wspace,cw,(wl+1));
+        std::memcpy(wspace,cw,(wl+1));
         st = pSMgr->suggest_morph(wspace);
         if (st)
         {
@@ -1597,7 +1597,7 @@ char * Hunspell::morph(const char * word)
         }
         if (abbv)
         {
-            memcpy(wspace,cw,(wl+1));
+            std::memcpy(wspace,cw,(wl+1));
             *(wspace+wl) = '.';
             *(wspace+wl+1) = '\0';
             if (*result) strcat(result, "\n");
@@ -1773,7 +1773,7 @@ char * Hunspell::morph_with_correction(const char * word)
         }
         if (abbv)
         {
-            memcpy(wspace,cw,wl);
+            std::memcpy(wspace,cw,wl);
             *(wspace+wl) = '.';
             *(wspace+wl+1) = '\0';
             st = pSMgr->suggest_morph_for_spelling_error(wspace);
@@ -1788,7 +1788,7 @@ char * Hunspell::morph_with_correction(const char * word)
     }
     case INITCAP:
     {
-        memcpy(wspace,cw,(wl+1));
+        std::memcpy(wspace,cw,(wl+1));
         mkallsmall(wspace);
         st = pSMgr->suggest_morph_for_spelling_error(wspace);
         if (st)
@@ -1805,7 +1805,7 @@ char * Hunspell::morph_with_correction(const char * word)
         }
         if (abbv)
         {
-            memcpy(wspace,cw,wl);
+            std::memcpy(wspace,cw,wl);
             *(wspace+wl) = '.';
             *(wspace+wl+1) = '\0';
             mkallsmall(wspace);
@@ -1835,7 +1835,7 @@ char * Hunspell::morph_with_correction(const char * word)
             strcat(result, st);
             free(st);
         }
-        memcpy(wspace,cw,(wl+1));
+        std::memcpy(wspace,cw,(wl+1));
         mkallsmall(wspace);
         st = pSMgr->suggest_morph_for_spelling_error(wspace);
         if (st)
@@ -1848,7 +1848,7 @@ char * Hunspell::morph_with_correction(const char * word)
     }
     case ALLCAP:
     {
-        memcpy(wspace,cw,(wl+1));
+        std::memcpy(wspace,cw,(wl+1));
         st = pSMgr->suggest_morph_for_spelling_error(wspace);
         if (st)
         {
@@ -1873,7 +1873,7 @@ char * Hunspell::morph_with_correction(const char * word)
         }
         if (abbv)
         {
-            memcpy(wspace,cw,(wl+1));
+            std::memcpy(wspace,cw,(wl+1));
             *(wspace+wl) = '.';
             *(wspace+wl+1) = '\0';
             if (*result) strcat(result, "\n");

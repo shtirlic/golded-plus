@@ -750,7 +750,7 @@ static BOOL __stdcall ReadProcMemoryFromIMallocHash(HANDLE pData, DWORD64 lpBase
         // Errechne den Offset
         DWORD dwOffset = (DWORD) lpBaseAddress - pHashEntry->dwESPOffset;
         DWORD dwSize = __min(nSize, MAX_ESP_LEN_BUF-dwOffset);
-        memcpy(lpBuffer, &(pHashEntry->pcESPAddr[dwOffset]), dwSize);
+        std::memcpy(lpBuffer, &(pHashEntry->pcESPAddr[dwOffset]), dwSize);
         *lpNumberOfBytesRead = dwSize;
         if (dwSize != nSize)
             return FALSE;
@@ -762,7 +762,7 @@ static BOOL __stdcall ReadProcMemoryFromIMallocHash(HANDLE pData, DWORD64 lpBase
         // Errechne den Offset
         DWORD dwOffset = (DWORD) lpBaseAddress - pHashEntry->dwEIPOffset;
         DWORD dwSize = __min(nSize, MAX_ESP_LEN_BUF-dwOffset);
-        memcpy(lpBuffer, &(pHashEntry->pcEIPAddr[dwOffset]), dwSize);
+        std::memcpy(lpBuffer, &(pHashEntry->pcEIPAddr[dwOffset]), dwSize);
         *lpNumberOfBytesRead = dwSize;
         if (dwSize != nSize)
             return FALSE;
@@ -1186,7 +1186,7 @@ static BOOL __stdcall ReadProcMemoryFromHash(HANDLE hRequestID, DWORD64 lpBaseAd
         // Calculate the offset
         DWORD dwOffset = (DWORD) lpBaseAddress - pHashEntry->dwESPOffset;
         DWORD dwSize = __min(nSize, MAX_ESP_LEN_BUF-dwOffset);
-        memcpy(lpBuffer, &(pHashEntry->pcESPAddr[dwOffset]), dwSize);
+        std::memcpy(lpBuffer, &(pHashEntry->pcESPAddr[dwOffset]), dwSize);
         *lpNumberOfBytesRead = dwSize;
         if (dwSize != nSize)
             return FALSE;
@@ -1198,7 +1198,7 @@ static BOOL __stdcall ReadProcMemoryFromHash(HANDLE hRequestID, DWORD64 lpBaseAd
         // Calculate the offset
         DWORD dwOffset = (DWORD) lpBaseAddress - pHashEntry->dwEIPOffset;
         DWORD dwSize = __min(nSize, MAX_ESP_LEN_BUF-dwOffset);
-        memcpy(lpBuffer, &(pHashEntry->pcEIPAddr[dwOffset]), dwSize);
+        std::memcpy(lpBuffer, &(pHashEntry->pcEIPAddr[dwOffset]), dwSize);
         *lpNumberOfBytesRead = dwSize;
         if (dwSize != nSize)
             return FALSE;

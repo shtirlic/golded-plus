@@ -349,7 +349,7 @@ int SMBCALL smb_stack(smb_t* smb, int op)
         }
         if(smb->shd_fp==NULL || smb->sdt_fp==NULL || smb->sid_fp==NULL)
             return(0);    /* Msg base not open */
-        memcpy(&stack[stack_idx],smb,sizeof(smb_t));
+        std::memcpy(&stack[stack_idx],smb,sizeof(smb_t));
         stack_idx++;
         return(0);
     }
@@ -360,14 +360,14 @@ int SMBCALL smb_stack(smb_t* smb, int op)
     {
         if(smb->shd_fp==NULL)
             return(0);
-        memcpy(&tmp_smb,smb,sizeof(smb_t));
+        std::memcpy(&tmp_smb,smb,sizeof(smb_t));
     }
 
     stack_idx--;
-    memcpy(smb,&stack[stack_idx],sizeof(smb_t));
+    std::memcpy(smb,&stack[stack_idx],sizeof(smb_t));
     if(op==SMB_STACK_XCHNG)
     {
-        memcpy(&stack[stack_idx],&tmp_smb,sizeof(smb_t));
+        std::memcpy(&stack[stack_idx],&tmp_smb,sizeof(smb_t));
         stack_idx++;
     }
     return(0);
@@ -956,17 +956,17 @@ int SMBCALL smb_copymsgmem(smbmsg_t* msg, smbmsg_t* srcmsg)
 {
     int i;
 
-    memcpy(msg,srcmsg,sizeof(smbmsg_t));
+    std::memcpy(msg,srcmsg,sizeof(smbmsg_t));
 
     /* data field types/lengths */
     if((msg->dfield=(dfield_t *)MALLOC(msg->hdr.total_dfields*sizeof(dfield_t)))==NULL)
         return(1);
-    memcpy(msg->dfield,srcmsg->dfield,msg->hdr.total_dfields*sizeof(dfield_t));
+    std::memcpy(msg->dfield,srcmsg->dfield,msg->hdr.total_dfields*sizeof(dfield_t));
 
     /* header field types/lengths */
     if((msg->hfield=(hfield_t *)MALLOC(msg->total_hfields*sizeof(hfield_t)))==NULL)
         return(2);
-    memcpy(msg->hfield,srcmsg->hfield,msg->total_hfields*sizeof(hfield_t));
+    std::memcpy(msg->hfield,srcmsg->hfield,msg->total_hfields*sizeof(hfield_t));
 
     /* header field data */
     if((msg->hfield_dat=(void* *)MALLOC(msg->total_hfields*sizeof(void*)))==NULL)
@@ -976,7 +976,7 @@ int SMBCALL smb_copymsgmem(smbmsg_t* msg, smbmsg_t* srcmsg)
     {
         if((msg->hfield_dat[i]=(char*)MALLOC(msg->hfield[i].length))==NULL)
             return(4);
-        memcpy(msg->hfield_dat[i],srcmsg->hfield_dat[i],msg->hfield[i].length);
+        std::memcpy(msg->hfield_dat[i],srcmsg->hfield_dat[i],msg->hfield[i].length);
     }
 
     return(0);
@@ -999,7 +999,7 @@ int SMBCALL smb_unlockmsghdr(smb_t* smb, smbmsg_t* msg)
 /****************************************************************************/
 /* Adds a header field to the 'msg' structure (in memory only)              */
 /****************************************************************************/
-int SMBCALL smb_hfield(smbmsg_t* msg, uint16_t type, size_t length, void* data)
+int SMBCALL smb_hfield(smbmsg_t* msg, uint16_t type, size_t length, const void* data)
 {
     hfield_t* vp;
     void* *vpp;
@@ -1021,7 +1021,7 @@ int SMBCALL smb_hfield(smbmsg_t* msg, uint16_t type, size_t length, void* data)
     {
         if((msg->hfield_dat[i]=(void* )MALLOC(length))==NULL)
             return(4);
-        memcpy(msg->hfield_dat[i],data,length);
+        std::memcpy(msg->hfield_dat[i],data,length);
     }
     else
         msg->hfield_dat[i]=NULL;
@@ -1289,7 +1289,7 @@ int SMBCALL smb_putmsghdr(smb_t* smb, smbmsg_t* msg)
     /**********************************/
     /* Set the message header ID here */
     /**********************************/
-    memcpy(&msg->hdr.id,SHD_HEADER_ID,LEN_HEADER_ID);
+    std::memcpy(&msg->hdr.id,SHD_HEADER_ID,LEN_HEADER_ID);
 
     /************************************************/
     /* Write the fixed portion of the header record */
@@ -1360,7 +1360,7 @@ int SMBCALL smb_create(smb_t* smb)
             && smb_locksmbhdr(smb))  /* header exists, so lock it */
         return(1);
     memset(&hdr,0,sizeof(smbhdr_t));
-    memcpy(hdr.id,SMB_HEADER_ID,LEN_HEADER_ID);
+    std::memcpy(hdr.id,SMB_HEADER_ID,LEN_HEADER_ID);
     hdr.version=SMB_VERSION;
     hdr.length=sizeof(smbhdr_t)+sizeof(smbstatus_t);
     smb->status.last_msg=smb->status.total_msgs=0;

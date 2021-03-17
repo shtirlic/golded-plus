@@ -502,7 +502,7 @@ struct GEvent
         switch(command)
         {
         case EVTC_PLAY:
-            memcpy(&play, &a.play, sizeof(play));
+            std::memcpy(&play, &a.play, sizeof(play));
             break;
         }
         return *this;

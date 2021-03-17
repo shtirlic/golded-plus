@@ -84,7 +84,7 @@ char* CvtPrnstr(char* str, char* prn)
     }
 
     *str = len;
-    memcpy(str+1, buf, len);
+    std::memcpy(str+1, buf, len);
 
     return str;
 }

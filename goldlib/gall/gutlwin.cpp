@@ -257,14 +257,14 @@ int g_put_clip_text(const char *Data)
         if((hData=GlobalAlloc(GMEM_MOVEABLE | GMEM_DDESHARE, BufferSize)) != NULL)
             if((GData = GlobalLock(hData)) != NULL)
             {
-                memcpy(GData, Data, DataSize + 1);
+                std::memcpy(GData, Data, DataSize + 1);
                 GlobalUnlock(hData);
                 SetClipboardData(CF_OEMTEXT, (HANDLE)hData);
             }
         if((hData=GlobalAlloc(GMEM_MOVEABLE | GMEM_DDESHARE, BufferSize)) != NULL)
             if((GData=GlobalLock(hData)) != NULL)
             {
-                memcpy(GData, Data, DataSize + 1);
+                std::memcpy(GData, Data, DataSize + 1);
                 OemToChar((LPCSTR)GData, (LPTSTR)GData);
                 GlobalUnlock(hData);
                 SetClipboardData(CF_TEXT, (HANDLE)hData);

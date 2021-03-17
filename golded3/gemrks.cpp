@@ -141,7 +141,7 @@ void MarkMsgs_All()
 {
 
     AA->Mark.Resize(AA->Msgn.Count());
-    memcpy(AA->Mark.tag, AA->Msgn.tag, AA->Msgn.Count()*sizeof(uint32_t));
+    std::memcpy(AA->Mark.tag, AA->Msgn.tag, AA->Msgn.Count()*sizeof(uint32_t));
 }
 
 
@@ -152,7 +152,7 @@ void MarkMsgs_New()
 
     uint oldmarks = AA->Mark.Count();
     AA->Mark.Resize(AA->Mark.Count()+(AA->Msgn.Count() - AA->lastread()));
-    memcpy(AA->Mark.tag+oldmarks, AA->Msgn.tag+AA->lastread(), (AA->Msgn.Count()-AA->lastread())*sizeof(uint32_t));
+    std::memcpy(AA->Mark.tag+oldmarks, AA->Msgn.tag+AA->lastread(), (AA->Msgn.Count()-AA->lastread())*sizeof(uint32_t));
     AA->Mark.Sort();
     AA->Mark.ElimDups();
 }
@@ -165,7 +165,7 @@ void MarkMsgs_Old()
 
     uint oldmarks = AA->Mark.Count();
     AA->Mark.Resize(AA->Mark.Count() + (AA->lastread() - 1));
-    memcpy(AA->Mark.tag+oldmarks, AA->Msgn.tag, (AA->lastread()-1)*sizeof(uint32_t));
+    std::memcpy(AA->Mark.tag+oldmarks, AA->Msgn.tag, (AA->lastread()-1)*sizeof(uint32_t));
     AA->Mark.Sort();
     AA->Mark.ElimDups();
 }

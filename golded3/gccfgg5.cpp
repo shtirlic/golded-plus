@@ -102,7 +102,7 @@ void CfgIntensecolors()
 
     CFG->intensecolors = make_bool(GetYesno(val));
     if(CFG->intensecolors)
-        memcpy(CFG->color, gold_color2, sizeof(CFG->color));
+        std::memcpy(CFG->color, gold_color2, sizeof(CFG->color));
 }
 
 //  ------------------------------------------------------------------

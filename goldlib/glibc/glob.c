@@ -170,7 +170,7 @@
     extern void bcopy ();
 #endif
 
-# define memcpy(d, s, n)    bcopy ((s), (d), (n))
+# define std::memcpy(d, s, n)    bcopy ((s), (d), (n))
 # define strrchr    rindex
 /* memset is only used for zero here, but let's be paranoid.  */
 # define memset(s, better_be_zero, n) \
@@ -401,7 +401,7 @@ glob_t *pglob;
 #ifdef HAVE_MEMPCPY
             alt_start = mempcpy (onealt, pattern, begin - pattern);
 #else
-            memcpy (onealt, pattern, begin - pattern);
+            std::memcpy (onealt, pattern, begin - pattern);
             alt_start = &onealt[begin - pattern];
 #endif
 
@@ -459,8 +459,8 @@ glob_t *pglob;
 #ifdef HAVE_MEMPCPY
                 mempcpy (mempcpy (alt_start, p, next - p), rest, rest_len);
 #else
-                memcpy (alt_start, p, next - p);
-                memcpy (&alt_start[next - p], rest, rest_len);
+                std::memcpy (alt_start, p, next - p);
+                std::memcpy (&alt_start[next - p], rest, rest_len);
 #endif
 
                 result = glob (onealt,
@@ -556,7 +556,7 @@ glob_t *pglob;
 #ifdef HAVE_MEMPCPY
             *((char *) mempcpy (drive_spec, pattern, dirlen)) = '\0';
 #else
-            memcpy (drive_spec, pattern, dirlen);
+            std::memcpy (drive_spec, pattern, dirlen);
             drive_spec[dirlen] = '\0';
 #endif
             /* For now, disallow wildcards in the drive spec, to
@@ -572,7 +572,7 @@ glob_t *pglob;
 #ifdef HAVE_MEMPCPY
         *((char *) mempcpy (newp, pattern, dirlen)) = '\0';
 #else
-        memcpy (newp, pattern, dirlen);
+        std::memcpy (newp, pattern, dirlen);
         newp[dirlen] = '\0';
 #endif
         dirname = newp;
@@ -680,8 +680,8 @@ glob_t *pglob;
                 mempcpy (mempcpy (newp, home_dir, home_len),
                          &dirname[1], dirlen);
 # else
-                memcpy (newp, home_dir, home_len);
-                memcpy (&newp[home_len], &dirname[1], dirlen);
+                std::memcpy (newp, home_dir, home_len);
+                std::memcpy (&newp[home_len], &dirname[1], dirlen);
 # endif
                 dirname = newp;
             }
@@ -703,7 +703,7 @@ glob_t *pglob;
                 *((char *) mempcpy (newp, dirname + 1, end_name - dirname))
                     = '\0';
 # else
-                memcpy (newp, dirname + 1, end_name - dirname);
+                std::memcpy (newp, dirname + 1, end_name - dirname);
                 newp[end_name - dirname - 1] = '\0';
 # endif
                 user_name = newp;
@@ -746,8 +746,8 @@ glob_t *pglob;
                 *((char *) mempcpy (mempcpy (newp, home_dir, home_len),
                                     end_name, rest_len)) = '\0';
 #  else
-                memcpy (newp, home_dir, home_len);
-                memcpy (&newp[home_len], end_name, rest_len);
+                std::memcpy (newp, home_dir, home_len);
+                std::memcpy (&newp[home_len], end_name, rest_len);
                 newp[home_len + rest_len] = '\0';
 #  endif
                 dirname = newp;
@@ -795,7 +795,7 @@ glob_t *pglob;
                 size_t len = strlen (dirname) + 1;
                 char *dircopy = malloc (len);
                 if (dircopy != NULL)
-                    pglob->gl_pathv[pglob->gl_pathc] = memcpy (dircopy, dirname,
+                    pglob->gl_pathv[pglob->gl_pathc] = std::memcpy (dircopy, dirname,
                                                        len);
             }
 #endif
@@ -937,9 +937,9 @@ glob_t *pglob;
                                       GOLD_SLASH_CHR, 1),
                              filename, filename_len);
 #else
-                    memcpy (pglob->gl_pathv[pglob->gl_pathc], dir, dir_len);
+                    std::memcpy (pglob->gl_pathv[pglob->gl_pathc], dir, dir_len);
                     pglob->gl_pathv[pglob->gl_pathc][dir_len] = '/';
-                    memcpy (&pglob->gl_pathv[pglob->gl_pathc][dir_len + 1],
+                    std::memcpy (&pglob->gl_pathv[pglob->gl_pathc][dir_len + 1],
                             filename, filename_len);
 #endif
                     ++pglob->gl_pathc;
@@ -1116,9 +1116,9 @@ size_t n;
             mempcpy (endp, array[i], eltlen);
         }
 #else
-        memcpy (new, dirname, dirlen);
+        std::memcpy (new, dirname, dirlen);
         new[dirlen] = DIRSEP_CHAR;
-        memcpy (&new[dirlen + 1], array[i], eltlen);
+        std::memcpy (&new[dirlen + 1], array[i], eltlen);
 #endif
         free ((__ptr_t) array[i]);
         array[i] = new;
@@ -1216,9 +1216,9 @@ glob_t *pglob;
                               GOLD_SLASH_CHR, 1),
                      pattern, patlen + 1);
 # else
-            memcpy (fullname, directory, dirlen);
+            std::memcpy (fullname, directory, dirlen);
             fullname[dirlen] = GOLD_SLASH_CHR;
-            memcpy (&fullname[dirlen + 1], pattern, patlen + 1);
+            std::memcpy (&fullname[dirlen + 1], pattern, patlen + 1);
 # endif
             if (((flags & GLOB_ALTDIRFUNC)
                     ? (*pglob->gl_stat) (fullname, &st)
@@ -1303,7 +1303,7 @@ glob_t *pglob;
                         *((char *) mempcpy ((__ptr_t) new->name, name, len))
                             = '\0';
 #else
-                        memcpy ((__ptr_t) new->name, name, len);
+                        std::memcpy ((__ptr_t) new->name, name, len);
                         new->name[len] = '\0';
 #endif
                         new->next = names;
@@ -1327,7 +1327,7 @@ glob_t *pglob;
 #ifdef HAVE_MEMPCPY
         *((char *) mempcpy (names->name, pattern, len)) = '\0';
 #else
-        memcpy (names->name, pattern, len);
+        std::memcpy (names->name, pattern, len);
         names->name[len] = '\0';
 #endif
     }

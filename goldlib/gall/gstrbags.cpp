@@ -120,9 +120,9 @@ void GStrSet3::Put(const char* s1, const char* s2, const char* s3)
     set = (char *)throw_xmalloc(cfg.size);
     cfg.pos2 = len1;
     cfg.pos3 = len1 + len2;
-    memcpy(set, s1 ? s1 : "", len1);
-    memcpy(set+cfg.pos2, s2 ? s2 : "", len2);
-    memcpy(set+cfg.pos3, s3 ? s3 : "", len3);
+    std::memcpy(set, s1 ? s1 : "", len1);
+    std::memcpy(set+cfg.pos2, s2 ? s2 : "", len2);
+    std::memcpy(set+cfg.pos3, s3 ? s3 : "", len3);
 }
 
 

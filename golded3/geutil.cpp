@@ -112,7 +112,7 @@ void update_statuslines()
             }
         }
         len = end-begin+1;
-        memcpy( obegin, begin, (len<sizeof(old_status_line))? len : sizeof(old_status_line) );
+        std::memcpy( obegin, begin, (len<sizeof(old_status_line))? len : sizeof(old_status_line) );
 
 #ifdef GOLD_MOUSE
         gmou.GetStatus();

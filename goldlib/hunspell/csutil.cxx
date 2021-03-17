@@ -243,14 +243,14 @@ char * mystrsep(char ** stringp, const char delim)
             *stringp = dp+1;
             int nc = (int)((unsigned long)dp - (unsigned long)mp);
             rv = (char *) malloc(nc+1);
-            memcpy(rv,mp,nc);
+            std::memcpy(rv,mp,nc);
             *(rv+nc) = '\0';
             return rv;
         }
         else
         {
             rv = (char *) malloc(n+1);
-            memcpy(rv, mp, n);
+            std::memcpy(rv, mp, n);
             *(rv+n) = '\0';
             *stringp = mp + n;
             return rv;
@@ -268,7 +268,7 @@ char * mystrdup(const char * s)
     {
         int sl = strlen(s);
         d = (char *) malloc(((sl+1) * sizeof(char)));
-        if (d) memcpy(d,s,((sl+1)*sizeof(char)));
+        if (d) std::memcpy(d,s,((sl+1)*sizeof(char)));
     }
     return d;
 }
@@ -480,7 +480,7 @@ void enmkallsmall(char * d, const char * p, const char * encoding)
 void enmkinitcap(char * d, const char * p, const char * encoding)
 {
     struct cs_info * csconv = get_current_cs(encoding);
-    memcpy(d,p,(strlen(p)+1));
+    std::memcpy(d,p,(strlen(p)+1));
     if (*p != '\0') *d= csconv[((unsigned char)*p)].cupper;
 }
 

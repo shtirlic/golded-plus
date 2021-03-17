@@ -199,7 +199,7 @@ public:
     void AddItm(int __type, char __data);
     void AddItm(int __type, int __data);
     void AddItm(int __type, const std::string& __data);
-    void AddItm(int __type, void* __data, int __size);
+    void AddItm(int __type, void* __data, size_t __size);
 
     int GetItm(int __type, bool& __data, int __no=-1);
     int GetItm(int __type, char& __data, int __no=-1);

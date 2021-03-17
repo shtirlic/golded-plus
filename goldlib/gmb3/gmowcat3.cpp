@@ -65,7 +65,7 @@ int WCatArea::load_message(int __mode, gmsg* __msg, WCatHdr& __hdr)
     strnp2cc(__msg->wildcat.internal_attach, __hdr.internalattach, 12);
     strnp2cc(__msg->wildcat.external_attach, __hdr.externalattach, 12);
 
-    memcpy(__msg->wildcat.reserved, __hdr.reserved, 20);
+    std::memcpy(__msg->wildcat.reserved, __hdr.reserved, 20);
 
     __msg->wildcat.from_userid = __hdr.fromuserid;
     __msg->wildcat.to_userid = __hdr.touserid;

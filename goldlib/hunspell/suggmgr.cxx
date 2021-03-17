@@ -52,7 +52,7 @@ SuggestMgr::SuggestMgr(const char * tryme, int maxn,
             w_char t[MAXSWL];
             ctryl = u8_u16(t, MAXSWL, tryme);
             ctry_utf = (w_char *) malloc(ctryl * sizeof(w_char));
-            memcpy(ctry_utf, t, ctryl * sizeof(w_char));
+            std::memcpy(ctry_utf, t, ctryl * sizeof(w_char));
         }
         else
         {
@@ -512,7 +512,7 @@ int SuggestMgr::badchar_utf(char ** wlst, const w_char * word, int wl, int ns, i
     time_t timelimit = time(NULL);
     int timer = MINTIMER;
 
-    memcpy(candidate_utf, word, wl * sizeof(w_char));
+    std::memcpy(candidate_utf, word, wl * sizeof(w_char));
 
     // swap out each char one by one and try all the tryme
     // chars in its place to see if that makes a good word
@@ -557,7 +557,7 @@ int SuggestMgr::extrachar_utf(char** wlst, const w_char * word, int wl, int ns, 
     if (wl < 2) return ns;
 
     // try omitting one char of word at a time
-    memcpy(candidate_utf, word + 1, (wl - 1) * sizeof(w_char));
+    std::memcpy(candidate_utf, word + 1, (wl - 1) * sizeof(w_char));
     for (p = word, r = candidate_utf;  p < word + wl;  )
     {
         cwrd = 1;
@@ -683,7 +683,7 @@ int SuggestMgr::forgotchar_utf(char ** wlst, const w_char * word, int wl, int ns
     int timer = MINTIMER;
 
     // try inserting a tryme character before every letter
-    memcpy (candidate_utf + 1, word, wl * sizeof(w_char));
+    std::memcpy (candidate_utf + 1, word, wl * sizeof(w_char));
     for (p = word, q = candidate_utf;  p < (word + wl); )
     {
         for (int i = 0;  i < ctryl;  i++)
@@ -838,7 +838,7 @@ int SuggestMgr::swapchar_utf(char ** wlst, const w_char * word, int wl, int ns, 
     int cwrd;
 
     // try swapping adjacent chars one by one
-    memcpy (candidate_utf, word, wl * sizeof(w_char));
+    std::memcpy (candidate_utf, word, wl * sizeof(w_char));
     for (p = candidate_utf;  p < (candidate_utf + wl - 1);  p++)
     {
         tmpc = *p;

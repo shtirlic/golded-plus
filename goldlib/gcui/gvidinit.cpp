@@ -135,7 +135,7 @@ void GVid::init()
 
     // Detect original video information
     detectinfo(&orig);
-    memcpy(&curr, &orig, sizeof(GVidInfo));
+    std::memcpy(&curr, &orig, sizeof(GVidInfo));
 
 #if defined(__WIN32__)
     device = GVID_W32;

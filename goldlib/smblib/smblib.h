@@ -111,7 +111,7 @@ SMBEXPORT int   SMBCALL smb_lockmsghdr(smb_t* smb, smbmsg_t* msg);
 SMBEXPORT int   SMBCALL smb_getmsghdr(smb_t* smb, smbmsg_t* msg);
 SMBEXPORT int   SMBCALL smb_unlockmsghdr(smb_t* smb, smbmsg_t* msg);
 SMBEXPORT int   SMBCALL smb_addcrc(smb_t* smb, uint32_t crc);
-SMBEXPORT int   SMBCALL smb_hfield(smbmsg_t* msg, uint16_t type, size_t length, void* data);
+SMBEXPORT int   SMBCALL smb_hfield(smbmsg_t* msg, uint16_t type, size_t length, const void* data);
 SMBEXPORT int   SMBCALL smb_dfield(smbmsg_t* msg, uint16_t type, uint32_t length);
 SMBEXPORT void* SMBCALL smb_get_hfield(smbmsg_t* msg, uint16_t type, hfield_t* hfield);
 SMBEXPORT int   SMBCALL smb_addmsghdr(smb_t* smb, smbmsg_t* msg,int storage);

@@ -189,7 +189,7 @@ void WCatArea::save_message(int __mode, gmsg* __msg, WCatHdr& __hdr)
 
     __hdr.cost = __msg->cost;
 
-    memcpy(__hdr.reserved, __msg->wildcat.reserved, 20);
+    std::memcpy(__hdr.reserved, __msg->wildcat.reserved, 20);
 
     char* _txt = NULL;
     uint _reln = Msgn->ToReln(__msg->msgno)-1;

@@ -155,7 +155,7 @@ void Area::InitData()
     adat->usestylies = CFG->usestylies;
     strcpy(adat->inputfile, CFG->inputfile);
     strcpy(adat->internetaddress, CFG->internetaddress);
-    memcpy(&adat->internetgate, &CFG->internetgate, sizeof(Node));
+    std::memcpy(&adat->internetgate, &CFG->internetgate, sizeof(Node));
     adat->internetmsgid = CFG->internetmsgid;
     adat->internetrfcbody = CFG->internetrfcbody;
     strcpy(adat->loadlanguage, CFG->loadlanguage);
@@ -167,7 +167,7 @@ void Area::InitData()
     strcpy(adat->organization, CFG->organization);
     strxcpy(adat->origin, CFG->origin.empty() ? "" : CFG->origin[CFG->originno].c_str(), sizeof(adat->origin));
     strcpy(adat->outputfile, CFG->outputfile);
-    memcpy(&adat->play, &CFG->play, sizeof(GPlay));
+    std::memcpy(&adat->play, &CFG->play, sizeof(GPlay));
     strcpy(adat->quotebuffile, CFG->quotebuffile);
     strcpy(adat->quotechars, CFG->quotechars);
     adat->quotectrl = CFG->quotectrl;
@@ -254,7 +254,6 @@ void Area::RandomizeData(int mode)
 
     if(not adat)
     {
-//    adat = (AreaData*)throw_calloc(1, sizeof(AreaData));
         adat = new AreaData;
         InitData();
     }

@@ -877,7 +877,7 @@ int ChangeUsername()
 
 //  ------------------------------------------------------------------
 
-int ChangeTemplate()
+size_t ChangeTemplate()
 {
     if (not CFG->tpl.empty())
     {

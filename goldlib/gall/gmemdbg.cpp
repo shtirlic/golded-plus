@@ -402,7 +402,7 @@ void* throw_realloc_debug(void* __oldptr, size_t __size, const char* __file, int
         _ptr = throw_malloc_debug(__size,__file,__line);
         if(dl->nbytes < __size)
             __size = dl->nbytes;
-        memcpy(_ptr,__oldptr,__size);
+        std::memcpy(_ptr,__oldptr,__size);
         throw_free_debug(__oldptr,__file,__line);
     }
     return _ptr;

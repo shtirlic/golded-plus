@@ -970,7 +970,7 @@ void LoadText(GMsg* msg, const char* textfile)
             if((*(txtptr-1) == CR) or (*txtptr == NUL))
             {
                 size = strlen(buf);
-                memcpy(txtptr, buf, size);
+                std::memcpy(txtptr, buf, size);
                 txtptr += size-1;
             }
         }

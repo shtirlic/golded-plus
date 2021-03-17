@@ -205,7 +205,7 @@ int ChangeCharsIn();
 int ChangeCharsOut();
 int ChangeTagline();
 int ChangeOrigin();
-int ChangeTemplate();
+size_t ChangeTemplate();
 int ChangeUsername();
 int ChangeXlatImport();
 

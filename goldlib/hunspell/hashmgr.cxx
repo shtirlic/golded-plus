@@ -210,7 +210,7 @@ int HashMgr::put_word_pattern(const char * word, int wl, const char * pattern)
     struct hentry * dp = lookup(pattern);
     if (!dp || !dp->astr) return 1;
     flags = (unsigned short *) malloc (dp->alen * sizeof(short));
-    memcpy((void *) flags, (void *) dp->astr, dp->alen * sizeof(short));
+    std::memcpy((void *) flags, (void *) dp->astr, dp->alen * sizeof(short));
     add_word(word, wl, flags, dp->alen, NULL);
     return 0;
 }
@@ -411,7 +411,7 @@ int HashMgr::decode_flags(unsigned short ** result, char * flags)
         w_char w[MAXDELEN/2];
         len = u8_u16(w, MAXDELEN/2, flags);
         *result = (unsigned short *) malloc(len * sizeof(short));
-        memcpy(*result, w, len * sizeof(short));
+        std::memcpy(*result, w, len * sizeof(short));
         break;
     }
     default:   // Ispell's one-character flags (erfg -> e r f g)

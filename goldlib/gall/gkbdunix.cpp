@@ -254,7 +254,7 @@ uint gkbd_getkey()
         ch = (uint)*gkbd_input_buffer;
         gkbd_input_buffer_len--;
         imax = gkbd_input_buffer_len;
-        memcpy(gkbd_input_buffer, gkbd_input_buffer+1, imax);
+        std::memcpy(gkbd_input_buffer, gkbd_input_buffer+1, imax);
     }
     else
     {
@@ -382,7 +382,7 @@ static gkbd_key_type* malloc_key(char *str)
     gkbd_key_type* key = (gkbd_key_type*)malloc(sizeof(gkbd_key_type));
 
     memset(key, 0, sizeof(gkbd_key_type));
-    memcpy(key->str, str, *str);
+    std::memcpy(key->str, str, *str);
 
     return key;
 }

@@ -31,29 +31,6 @@
 // -------------------------------------------------------------------
 // snprintf() and vsnprintf()
 
-#if  defined(_MSC_VER) && _MSC_VER<1900
-/* It is need a workaround for implementation "speciality" in snprintf() and vsnprintf() from Microsoft. */
-int snprintf( char *buffer, size_t sizeOfBuffer, const char *format, ... )
-{
-    va_list argptr;
-    va_start(argptr, format);
-    int r = _vsnprintf( buffer, sizeOfBuffer, format, argptr );
-    if( r == -1 || r >= sizeOfBuffer )
-        buffer[sizeOfBuffer-1] = '\0';
-    va_end(argptr);
-    return r;
-}
-# define HAVE_SNPRINTF 1
-int vsnprintf( char *buffer, size_t sizeOfBuffer, const char *format, va_list argptr )
-{
-    int r = _vsnprintf( buffer, sizeOfBuffer, format, argptr );
-    if( r == -1 || r >= sizeOfBuffer )
-        buffer[sizeOfBuffer-1] = '\0';
-    return r;
-}
-# define HAVE_VSNPRINTF 1
-#endif
-
 #ifndef HAVE_SNPRINTF
     #if defined(HAVE__SNPRINTF)
         #define snprintf _snprintf
@@ -246,7 +223,8 @@ const char* striinc(const char* str1, const char* str2)
 char* strins(const char* instr, char* str, int st_pos)
 {
 
-    int i, leninstr;
+    int i;
+    size_t leninstr;
 
     // get length of string to insert
     leninstr = strlen(instr);
@@ -404,7 +382,7 @@ char* strnp2cc(char* dest, const char* str, int n)
 
     int len = (n < *str) ? n : *str;
 
-    memcpy(dest, str+1, len);           // Copy data part
+    std::memcpy(dest, str+1, len);           // Copy data part
     dest[len] = NUL;                    // Set length
     return dest;
 }
@@ -807,52 +785,6 @@ int gsprintf(TCHAR* buffer, size_t sizeOfBuffer, const TCHAR* __file, int __line
     {
         va_list argptr;
         va_start(argptr, format);
-        /* _vsnprintf_s() may cause exception. Need to test before enabling.
-        #   if __VISUAL_C_NOT_LESS(14,00)  // defined HAVE__VSTPRINTF_S // _vsnprintf_s() recommended in MSDN
-            ret = _vsnprintf_s(buffer, _TRUNCATE, format, argptr);
-            if (ret < 0)
-            {
-              if (sizeOfBuffer>7) strcpy(buffer," ERROR ");
-              else               buffer[sizeOfBuffer-1] = '\0';
-              LOG.errtest(__FILE__,__LINE__-5);
-              LOG.printf("! gsprintf()(buffer,%i,%s,...): _vsnprintf_s() error: \"%s\".", sizeOfBuffer, format, strerror(errno));
-              return -1;
-            }
-            buffer[sizeOfBuffer-1] = '\0';  // Microsoft implementation don't write final '\0' if buffer full.
-        #   elif __VISUAL_C_NOT_LESS(10,00)  // defined HAVE__VSTPRINTF // _vsnprintf() exist in VS6 and deprecated in VS2005
-        */
-#   if __VISUAL_C_NOT_LESS(10,00)  // defined HAVE__VSTPRINTF // _vsnprintf() exist in VS6 and deprecated in VS2005
-
-        char * b1 = new char[sizeOfBuffer+1];
-        const size_t endOfBuffer = sizeOfBuffer-1;
-        ret = _vsnprintf(b1, sizeOfBuffer+1, format, argptr);
-        if (ret == -1 || ret >= sizeOfBuffer) // Microsoft implementation returns -1 when buffer overflow.
-        {
-            strncpy(buffer,b1,endOfBuffer);
-            buffer[endOfBuffer] = '\0';  // Microsoft implementation don't write final '\0' when buffer full.
-            if (b1[sizeOfBuffer] && strlen(buffer)>=endOfBuffer)
-            {
-                LOG.printf("! %s", gerrinfo("Memory error", __file, __line));
-                LOG.printf("! gsprintf(buffer,%i,%s,...): buffer overflow, result in next line:", sizeOfBuffer, format);
-                LOG.printf("! %s", buffer);
-                if (sizeOfBuffer>17) memcpy(buffer, " ERROR, see log! ", 17);
-                else if (sizeOfBuffer>7) memcpy(buffer," ERROR ", 7);
-            }
-        }
-        else if (ret < 0)
-        {
-            LOG.errtest(__file, __line);
-            LOG.printf("! gsprintf()(buffer,%i,%s,...): _vsnprintf() error: \"%s\".", sizeOfBuffer, format, strerror(errno));
-            TestErrorExit();
-        }
-        else
-        {
-            strncpy(buffer,b1,endOfBuffer);
-            buffer[endOfBuffer] = '\0';
-        }
-
-#   elif defined HAVE_VSNPRINTF  // C99 and above
-
         ret = vsnprintf(buffer, sizeOfBuffer, format, argptr);
         if (ret < 0) // Until glibc 2.0.6 vsnprintf() would return -1 when the output was truncated.
         {
@@ -873,10 +805,6 @@ int gsprintf(TCHAR* buffer, size_t sizeOfBuffer, const TCHAR* __file, int __line
             LOG.printf("! %s", gerrinfo("Memory error", __file, __line));
             LOG.printf("! gsprintf(buffer,%i,%s,...): buffer overflow (need %i bytes).", sizeOfBuffer, format, ret);
         }
-
-#   else
-#   error Please look C library of your compiler for function like vsnprintf, what do not write more than size bytes into string.
-#   endif
         va_end(argptr);
     }
 

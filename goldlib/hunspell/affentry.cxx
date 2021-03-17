@@ -29,7 +29,7 @@ PfxEntry::PfxEntry(AffixMgr* pmgr, affentry* dp)
     numconds = dp->numconds;   // number of conditions to match
     opts = dp->opts;         // cross product flag
     // then copy over all of the conditions
-    memcpy(&conds.base[0],&dp->conds.base[0],SETSIZE*sizeof(conds.base[0]));
+    std::memcpy(&conds.base[0],&dp->conds.base[0],SETSIZE*sizeof(conds.base[0]));
     next = NULL;
     nextne = NULL;
     nexteq = NULL;
@@ -397,7 +397,7 @@ SfxEntry::SfxEntry(AffixMgr * pmgr, affentry* dp)
     opts = dp->opts;         // cross product flag
 
     // then copy over all of the conditions
-    memcpy(&conds.base[0],&dp->conds.base[0],SETSIZE*sizeof(conds.base[0]));
+    std::memcpy(&conds.base[0],&dp->conds.base[0],SETSIZE*sizeof(conds.base[0]));
 
     rappnd = myrevstrdup(appnd);
 

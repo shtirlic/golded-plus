@@ -1139,7 +1139,7 @@ int AffixMgr::encodeit(struct affentry * ptr, char * cs)
                     {
                         ptr->conds.utf8.wchars[n] = (w_char *) malloc(sizeof(w_char) * (wpos - wmbr));
                         if (!ptr->conds.utf8.wchars[n]) return 1;
-                        memcpy(ptr->conds.utf8.wchars[n], wmbr, sizeof(w_char) * (wpos - wmbr));
+                        std::memcpy(ptr->conds.utf8.wchars[n], wmbr, sizeof(w_char) * (wpos - wmbr));
                         flag_qsort((unsigned short *) ptr->conds.utf8.wchars[n], 0, ptr->conds.utf8.wlen[n]);
                         wpos = wmbr;
                     }
@@ -3633,7 +3633,7 @@ int  AffixMgr::parse_wordchars(char * line)
                         flag_qsort((unsigned short *) w, 0, n);
                         wordchars_utf16 = (unsigned short *) malloc(n * sizeof(unsigned short));
                         if (!wordchars_utf16) return 1;
-                        memcpy(wordchars_utf16, w, n * sizeof(unsigned short));
+                        std::memcpy(wordchars_utf16, w, n * sizeof(unsigned short));
                     }
                     wordchars_utf16_len = n;
                 }
@@ -3695,7 +3695,7 @@ int  AffixMgr::parse_cpdsyllable(char * line)
                         flag_qsort((unsigned short *) w, 0, n);
                         cpdvowels_utf16 = (w_char *) malloc(n * sizeof(w_char));
                         if (!cpdvowels_utf16) return 1;
-                        memcpy(cpdvowels_utf16, w, n * sizeof(w_char));
+                        std::memcpy(cpdvowels_utf16, w, n * sizeof(w_char));
                     }
                     cpdvowels_utf16_len = n;
                 }
@@ -4154,7 +4154,7 @@ int  AffixMgr::parse_maptable(char * line, FILE * af)
                             flag_qsort((unsigned short *) w, 0, n);
                             maptable[j].set_utf16 = (w_char *) malloc(n * sizeof(w_char));
                             if (!maptable[j].set_utf16) return 1;
-                            memcpy(maptable[j].set_utf16, w, n * sizeof(w_char));
+                            std::memcpy(maptable[j].set_utf16, w, n * sizeof(w_char));
                         }
                         maptable[j].len = n;
                     }

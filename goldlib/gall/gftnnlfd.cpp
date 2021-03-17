@@ -832,7 +832,7 @@ void ftn_frontdoor_nodelist_index::push_state()
     state.node = node;
     state.depth = depth;
     state.blockno = blockno;
-    memcpy(state.stack, stack, sizeof(stack));
+    std::memcpy(state.stack, stack, sizeof(stack));
 }
 
 
@@ -841,7 +841,7 @@ void ftn_frontdoor_nodelist_index::push_state()
 void ftn_frontdoor_nodelist_index::pop_state()
 {
 
-    memcpy(stack, state.stack, sizeof(stack));
+    std::memcpy(stack, state.stack, sizeof(stack));
     blockno = state.blockno;
     depth = state.depth;
     node = state.node;

@@ -83,7 +83,7 @@ inline void gdmacpy(uint16_t seg_d, gdma sel_d, uint16_t seg_s, gdma sel_s, int 
 {
     NW(seg_d);
     NW(seg_s);
-    memcpy(sel_d, sel_s, len);
+    std::memcpy(sel_d, sel_s, len);
 }
 
 inline gdma gdmaptr(int col, int row)

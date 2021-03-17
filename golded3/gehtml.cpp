@@ -153,7 +153,7 @@ void RemoveHTML (char *&txt)
     if (i != j)
     {
         txt = (char *)throw_realloc(txt, j + 17);
-        memcpy(txt, new_txt, j + 1);
+        std::memcpy(txt, new_txt, j + 1);
     }
     throw_free(new_txt);
 }

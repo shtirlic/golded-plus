@@ -43,7 +43,7 @@ void IEclass::Clip2Buf()
 
     int tabsz = CFG->disptabsize ? CFG->disptabsize : 1;
 #if defined(__USE_ALLOCA__)
-    char *spaces = (char*)alloca(tabsz+1);
+    char *spaces = (char*)_malloca(tabsz+1);
 #else
     __extension__ char spaces[tabsz+1];
 #endif

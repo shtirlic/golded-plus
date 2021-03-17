@@ -134,7 +134,7 @@ _FP_memdup (void *ptr, int len)
     if ((result = malloc (len)) == NULL)
         return NULL;
 
-    memcpy (result, ptr, len);
+    std::memcpy (result, ptr, len);
     return result;
 }
 

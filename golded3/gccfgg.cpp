@@ -860,9 +860,9 @@ CfgGed::CfgGed()
     areatypeorder[GMB_ECHO|GMB_NEWSGROUP] = 4;
     areatypeorder[GMB_LOCAL]              = 5;
     if(gvid->adapter & V_MONO)
-        memcpy(color, gold_mono1, sizeof(color));
+        std::memcpy(color, gold_mono1, sizeof(color));
     else
-        memcpy(color, gold_color1, sizeof(color));
+        std::memcpy(color, gold_color1, sizeof(color));
     *internetgate.name = 0;
     internetgateexp = (RFCName << 2) | RFCAddress;
     // internetgate.addr.reset();

@@ -313,7 +313,7 @@ void ftn_version7_nodelist_index::getindexkey()
 
     _V7IndxRef* ip = &(block.ndx.inodeblk.indxref[inode-1]);
     keylength = ip->indxlen;
-    memcpy(key, (char*)&block+ip->indxofs, keylength);
+    std::memcpy(key, (char*)&block+ip->indxofs, keylength);
     key[keylength] = NUL;
 
 #ifdef DEBUG
@@ -333,7 +333,7 @@ void ftn_version7_nodelist_index::getleafkey()
 
     _V7LeafRef* lp = &(block.ndx.lnodeblk.leafref[node-1]);
     keylength = lp->keylen;
-    memcpy(key, (char*)&block+lp->keyofs, keylength);
+    std::memcpy(key, (char*)&block+lp->keyofs, keylength);
     key[keylength] = NUL;
 
 #ifdef DEBUG
