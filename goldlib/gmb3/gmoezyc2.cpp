@@ -69,7 +69,7 @@ void EzycomArea::raw_scan(int __keep_index)
 
         uint _active = Msgn->Count();
         uint _count = 1;
-        uint32_t* _msgnoptr = Msgn->tag;
+        uint32_t* _msgnoptr = Msgn->tag.data();
         uint _lastread_reln = 0;
         uint _firstmsgno = 0;
         uint _lastmsgno = 0;

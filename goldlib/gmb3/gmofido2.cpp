@@ -61,7 +61,7 @@ void FidoArea::raw_scan(bool __scanpm)
 
     uint _active = 0;
     uint32_t* _msgnoptr = NULL;
-    uint32_t* _msgndx = Msgn->tag;
+    uint32_t* _msgndx = Msgn->tag.data();
 
     gposixdir d(real_path());
     if(d.ok)

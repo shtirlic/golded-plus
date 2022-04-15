@@ -288,7 +288,7 @@ void JamArea::raw_scan(int __keep_index, int __scanpm)
     uint _total = data->hdrinfo.basemsgnum + _jdxtotal;
     uint _lastread = data->lastrec.lastread;
     uint _lastread_reln = 0;
-    uint32_t* _msgndxptr = Msgn->tag;
+    uint32_t* _msgndxptr = Msgn->tag.data();
     JamIndex* _jdxptr = _jdxbuf;
 
     // Fill message index

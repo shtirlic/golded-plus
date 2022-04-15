@@ -33,6 +33,7 @@
 #include <gdefs.h>
 #include <gfile.h>
 
+#include <vector>
 
 //  ------------------------------------------------------------------
 //  Constants
@@ -58,11 +59,11 @@ public:
     //  ----------------------------------------------------------------
     //  Internal data
 
-    uint32_t* tag;               // tag array
-    uint  tags;               // tags in array
-    uint  count;              // fake tags count
-    uint  allocated;          // actual allocated tags
-    uint  granularity;        // memory allocation optimization
+    std::vector <uint32_t> tag = {};              // tag array
+    uint  tags = {};               // tags in array
+    uint  count = {};              // fake tags count
+    uint  allocated = {};          // actual allocated tags
+    uint  granularity= {};        // memory allocation optimization
 
     //  ----------------------------------------------------------------
     //  Constructor and destructor

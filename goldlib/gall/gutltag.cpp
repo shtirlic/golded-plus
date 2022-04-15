@@ -33,11 +33,7 @@
 
 GTag::GTag()
 {
-
     granularity = 10;
-
-    tag = NULL;
-    allocated = tags = count = 0;
 }
 
 
@@ -57,7 +53,7 @@ GTag::~GTag()
 void GTag::Reset()
 {
 
-    free(tag);
+    tag.clear();
     allocated = tags = 0;
     // NOTE: Does and must NOT reset the count!
 }
@@ -82,12 +78,12 @@ uint32_t* GTag::Resize(uint __tags)
 
     if(newsize)
     {
-        tag = (uint32_t*)realloc(tag, newsize*sizeof(uint32_t));
+        tag.resize(newsize * sizeof(uint32_t));
         allocated = newsize;
     }
 
     count = tags = __tags;
-    return tag;
+    return tag.data();
 }
 
 
@@ -96,11 +92,11 @@ uint32_t* GTag::Resize(uint __tags)
 //  NOTE - Does not check for duplicates or correct sequence!
 
 uint32_t* GTag::Append(uint32_t __tagn)
-{
+{   
 
     Resize(tags+1);
     tag[tags-1] = __tagn;
-    return tag;
+    return tag.data();
 }
 
 
@@ -154,13 +150,13 @@ uint32_t* GTag::Add(uint32_t __tagn)
             _reln--;
 
         // Move data to make room for the new tag number
-        memmove(tag+_reln+1, tag+_reln, (tags-_reln-1)*sizeof(uint32_t));
+        memmove(tag.data() + _reln + 1, tag.data() + _reln, (tags - _reln - 1) * sizeof(uint32_t));
 
         // Copy the new tag number to the insert position
         tag[_reln] = __tagn;
     }
 
-    return tag;
+    return tag.data();
 }
 
 
@@ -183,7 +179,7 @@ uint GTag::DelReln(uint __reln)
 
     if(__reln)
     {
-        memmove(tag+__reln-1, tag+__reln, (tags-__reln)*sizeof(uint32_t));
+        memmove(tag.data() + __reln - 1, tag.data() + __reln, (tags - __reln) * sizeof(uint32_t));
         count--;
         tags--;
     }
@@ -216,7 +212,7 @@ static int TagnCmp(const uint32_t* __a, const uint32_t* __b)
 void GTag::Sort()
 {
 
-    qsort(tag, tags, sizeof(uint32_t), (StdCmpCP)TagnCmp);
+    qsort(tag.data(), tags, sizeof(uint32_t), (StdCmpCP)TagnCmp);
 }
 
 //  ------------------------------------------------------------------
@@ -251,7 +247,7 @@ void GTag::ElimDups()
 uint32_t GTag::CvtReln(uint __reln)
 {
 
-    if(tag and __reln and (__reln <= tags))
+    if(tag.data() and __reln and (__reln <= tags))
         return tag[__reln-1];
     else
         return TAGN_INVALID;
@@ -269,7 +265,7 @@ uint GTag::ToReln(uint32_t __tagn, int __closest)
 
     uint _lastreln = RELN_INVALID;
 
-    if(tag)
+    if(tag.data())
     {
 
         if(__tagn and tags)
@@ -326,7 +322,7 @@ void GTag::Load(gfile& fp)
     if (count)
     {
         Resize(count);
-        fp.Fread(tag, sizeof(uint32_t), count);
+        fp.Fread(tag.data(), sizeof(uint32_t), count);
     }
 }
 
@@ -338,8 +334,8 @@ void GTag::Save(gfile& fp)
     dword val = (dword) count;
     fp.Fwrite(&val, sizeof(dword));
 
-    if (tag and count)
-        fp.Fwrite(tag, sizeof(uint32_t), count);
+    if (tag.data() and count)
+        fp.Fwrite(tag.data(), sizeof(uint32_t), count);
 }
 
 

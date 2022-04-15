@@ -147,7 +147,7 @@ void WCatArea::raw_scan(int __keep_index, int __scanpm)
 
         // Variables for the loop
         uint _msgno;
-        uint32_t* _msgndxptr = Msgn->tag;
+        uint32_t* _msgndxptr = Msgn->tag.data();
         WCatIdx* _ixptr = data->idx;
         uint  _totalmsgs = data->base.active;
         uint _firstmsgno = _totalmsgs ? _ixptr->msgno : 0;

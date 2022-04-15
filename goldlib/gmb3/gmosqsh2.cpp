@@ -177,7 +177,7 @@ void SquishArea::raw_scan(int __keep_index, int __scanpm)
         if(__keep_index)
             Msgn->Resize((uint)data->base.totalmsgs);
 
-        uint32_t* _msgndxptr = Msgn->tag;
+        uint32_t* _msgndxptr = Msgn->tag.data();
 
         // Fill message index
         while(_active < _totalmsgs)

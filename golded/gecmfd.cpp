@@ -411,7 +411,7 @@ void CmfMsgs(GMsg* msg, bool torecycle)
 
         uint32_t loadmsgno = msg->msgno;
         uint32_t mrks = AA->Mark.Count();
-        uint32_t *mrkp = AA->Mark.tag;
+        uint32_t *mrkp = AA->Mark.tag.data();
         uint32_t mrk = 0;
 
         do
@@ -543,7 +543,7 @@ void CmfMsgs(GMsg* msg, bool torecycle)
     Area* AAorig = AA;
     const char* echoid = AAdest->echoid();
     uint loadmsgno = msg->msgno;
-    uint32_t* mrkp = AA->Mark.tag;
+    uint32_t* mrkp = AA->Mark.tag.data();
     int  mrks = AA->Mark.Count();
     int  mrk = 0;
 
