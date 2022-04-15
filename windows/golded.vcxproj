@@ -28,7 +28,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <UseOfMfc>false</UseOfMfc>
     <UseDebugLibraries>true</UseDebugLibraries>
   </PropertyGroup>
@@ -153,7 +153,6 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>Winmm.lib;$(OutDir)goldlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)gedwin64.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
