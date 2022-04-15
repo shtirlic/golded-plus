@@ -19,7 +19,6 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  Squish msgbase handling and Maximus user functions.
 //  ------------------------------------------------------------------
@@ -27,7 +26,6 @@
 
 //  ------------------------------------------------------------------
 
-#include <gmemdbg.h>
 #include <gdbgtrk.h>
 #include <gtxtpara.h>
 #include <gstrall.h>
@@ -92,7 +90,7 @@ int SquishArea::load_message(int __mode, gmsg* __msg, SqshHdr& __hdr)
         {
 
             // Allocate memory for kludges and message text, then read control info
-            char* _dest = __msg->txt = (char*)throw_calloc(1, (uint)(1+_frm.ctlsize+_frm.totsize-sizeof(SqshHdr)));
+            char* _dest = __msg->txt = (char*)calloc(1, (uint)(1+_frm.ctlsize+_frm.totsize-sizeof(SqshHdr)));
             char* _src = _dest + (uint)_frm.ctlsize;
             *_src = NUL;
             rwresult = read(_fhsqd, _src, (uint)_frm.ctlsize);
@@ -104,7 +102,7 @@ int SquishArea::load_message(int __mode, gmsg* __msg, SqshHdr& __hdr)
                     WideLog->printf("! SquishArea::load_message: can't read Squish message kludges");
                 WideLog->printf(": Info: Your msgbase is corrupted.");
                 WideLog->printf("+ Advice: Run a msgbase index rebuild/recover utility.");
-                throw_free(__msg->txt);
+                free(__msg->txt);
                 GFTRK(0);
                 return false;
             }
@@ -138,7 +136,7 @@ int SquishArea::load_message(int __mode, gmsg* __msg, SqshHdr& __hdr)
                     WideLog->printf("! SquishArea::load_message: can't read Squish message text");
                 WideLog->printf(": Info: Your msgbase is corrupted.");
                 WideLog->printf("+ Advice: Run a msgbase index rebuild/recover utility.");
-                throw_free(__msg->txt);
+                free(__msg->txt);
                 GFTRK(0);
                 return false;
             }
@@ -148,7 +146,7 @@ int SquishArea::load_message(int __mode, gmsg* __msg, SqshHdr& __hdr)
         }
         else
         {
-            __msg->txt = (char*)throw_calloc(1, 1);
+            __msg->txt = (char*)calloc(1, 1);
         }
     }
 

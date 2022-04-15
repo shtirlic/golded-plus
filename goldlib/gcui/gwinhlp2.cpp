@@ -20,13 +20,11 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  GCUI: Golded+ Character-oriented User Interface.
 //  Help file compiler.
 //  ------------------------------------------------------------------
 
-#include <gmemdbg.h>
 #include <gutlmisc.h>
 #include <gstrall.h>
 #include <gwinall.h>
@@ -55,7 +53,7 @@ void whelpcompile(const char* helpfile, long& offset)
         }
         ifp.Rewind();
 
-        Hlpr* helpindex = (Hlpr*)throw_xcalloc(count+2, sizeof(Hlpr));
+        Hlpr* helpindex = (Hlpr*)calloc(count+2, sizeof(Hlpr));
 
         long relative_offset = 0;
 
@@ -93,7 +91,7 @@ void whelpcompile(const char* helpfile, long& offset)
         offset += relative_offset;
         whelp.fp->FseekSet(offset);
 
-        throw_xfree(helpindex);
+        free(helpindex);
 
         ifp.Fclose();
     }

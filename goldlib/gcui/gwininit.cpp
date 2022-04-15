@@ -20,7 +20,6 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  GCUI: Golded+ Character-oriented User Interface.
 //  Windowing kernel.
@@ -31,7 +30,6 @@
 #include <cstdarg>
 #include <cstdlib>
 #include <cstring>
-#include <gmemdbg.h>
 #include <gutlmisc.h>
 #include <gwinall.h>
 #include <gkbdcode.h>
@@ -207,13 +205,13 @@ int wdrag(int direction)
     wp = vsave(nsrow,nscol,nerow,necol);
     if(wp==NULL)
     {
-        throw_xfree(win_image);
+        free(win_image);
         return(gwin.werrno=W_ALLOCERR);
     }
 
     // restore window to new coordinates
     vrestore(win_image, nsrow, nscol, nerow, necol);
-    throw_xfree(win_image);
+    free(win_image);
 
     // start buffer positions past coordinates
     src  = gwin.active->wbuf->data;
@@ -273,7 +271,7 @@ int wdrag(int direction)
     }
 
     // free old window buffer
-    throw_xfree(gwin.active->wbuf);
+    free(gwin.active->wbuf);
 
     // update window record
     gwin.active->wbuf   = wp;

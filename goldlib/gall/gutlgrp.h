@@ -172,7 +172,6 @@ private:
         {
             type = TYPE_STRING;
             data.string_item = new std::string(item);
-            throw_new(data.string_item);
         }
         grp_stock(void *item)
         {

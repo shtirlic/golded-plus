@@ -19,14 +19,12 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  Maximus userfile class implementation.
 //  ------------------------------------------------------------------
 
 #include <gstrall.h>
 #include <gfilutil.h>
-#include <gmemdbg.h>
 #include <gusrmax.h>
 
 
@@ -37,7 +35,6 @@ MaximusUser::MaximusUser()
 
     recsize = sizeof(MaxUsers);
     recptr = new char [recsize];
-    throw_new(recptr);
 
     record = (MaxUsers*)recptr;
     memset(record, 0, recsize);
@@ -54,7 +51,7 @@ MaximusUser::MaximusUser()
 MaximusUser::~MaximusUser()
 {
 
-    throw_deletearray(recptr);
+    delete[](recptr);
 }
 
 
@@ -84,9 +81,8 @@ int MaximusUser::read()
                 if(_tmp != recsize)
                 {
                     recsize = _tmp;
-                    throw_deletearray(recptr);
+                    delete[](recptr);
                     recptr = new char [recsize];
-                    throw_new(recptr);
                     record = (MaxUsers*)recptr;
                     name = record->name;
                 }

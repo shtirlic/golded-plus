@@ -19,13 +19,11 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  WildCat! 4.x messagebase engine.
 //  ------------------------------------------------------------------
 
 #include <gdbgerr.h>
-#include <gmemdbg.h>
 #include <gdbgtrk.h>
 #include <gmowcat.h>
 
@@ -134,8 +132,8 @@ void WCatArea::raw_open()
 void WCatExit()
 {
 
-    throw_xrelease(wcatwide);
-    throw_xrelease(wcatdata);
+    free(wcatwide);
+    free(wcatdata);
 }
 
 
@@ -144,8 +142,8 @@ void WCatExit()
 void WCatInit(int userno)
 {
 
-    wcatdata = (WCatData*)throw_calloc(3, sizeof(WCatData));
-    wcatwide = (WCatWide*)throw_calloc(1, sizeof(WCatWide));
+    wcatdata = (WCatData*)calloc(3, sizeof(WCatData));
+    wcatwide = (WCatWide*)calloc(1, sizeof(WCatWide));
 
     wcatwide->userno = userno;
 }
@@ -223,7 +221,7 @@ void WCatArea::close()
             save_lastread();
             raw_close();
             Msgn->Reset();
-            throw_release(data->idx);
+            free(data->idx);
             data_close();
             if(ispacked())
             {

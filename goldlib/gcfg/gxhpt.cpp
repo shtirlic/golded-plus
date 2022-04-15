@@ -19,7 +19,6 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  Read areas from Fidoconfig
 //  ------------------------------------------------------------------
@@ -28,7 +27,6 @@
 #include <cerrno>
 #include <gcrcall.h>
 #include <gstrall.h>
-#include <gmemdbg.h>
 #if defined(__GOLD_GUI__)
     #include <gvidall.h>
     #include <gvidgui.h>
@@ -196,7 +194,7 @@ void gareafile::ReadHPTFile(char* path, char* file, char* origin, int group)
         {
             if (not s.empty())
             {
-                char *alptr = throw_xstrdup(s.c_str());
+                char *alptr = strdup(s.c_str());
                 char *ptr = alptr;
 
                 char* key;
@@ -217,7 +215,7 @@ void gareafile::ReadHPTFile(char* path, char* file, char* origin, int group)
                     if (((ver_maj << 16) + ver_min) > 0x00010009)
                     {
                         STD_PRINTNL("* Error: Unknown fidoconfig version " << ver_maj << '.' << ver_min << " - Skipping.");
-                        throw_xfree(alptr);
+                        free(alptr);
                         goto skip_config;
                     }
                 }
@@ -387,7 +385,7 @@ void gareafile::ReadHPTFile(char* path, char* file, char* origin, int group)
 
                     aa.reset();
                 }
-                throw_xfree(alptr);
+                free(alptr);
             }
         }
 

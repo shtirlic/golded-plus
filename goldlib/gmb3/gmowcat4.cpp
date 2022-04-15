@@ -19,7 +19,6 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  WildCat! 4.x messagebase engine.
 //  ------------------------------------------------------------------
@@ -28,7 +27,6 @@
 //  ------------------------------------------------------------------
 
 #include <gdbgerr.h>
-#include <gmemdbg.h>
 #include <gdbgtrk.h>
 #include <gstrall.h>
 
@@ -100,7 +98,7 @@ void WCatArea::save_message(int __mode, gmsg* __msg, WCatHdr& __hdr)
         data->base.active++;
         __msg->msgno = data->base.nextmsgno++;
         Msgn->Append(__msg->msgno);
-        data->idx = (WCatIdx*)throw_realloc(data->idx, data->base.active*sizeof(WCatIdx));
+        data->idx = (WCatIdx*)realloc(data->idx, data->base.active*sizeof(WCatIdx));
         __hdr.mflags |= mfReceiveable;
         lseekset(data->fhix, 0);
         write(data->fhix, &data->base, sizeof(WCatBase));
@@ -198,7 +196,7 @@ void WCatArea::save_message(int __mode, gmsg* __msg, WCatHdr& __hdr)
     if(__mode & GMSG_TXT)
     {
 
-        _txt = throw_strdup(__msg->txt);
+        _txt = strdup(__msg->txt);
         word _size = (word)strlen(_txt);
         __hdr.msgbytes = _size;
         word n = 0;
@@ -233,7 +231,7 @@ void WCatArea::save_message(int __mode, gmsg* __msg, WCatHdr& __hdr)
     if(_txt)
     {
         write(data->fhdat, _txt, __hdr.msgbytes);
-        throw_free(_txt);
+        free(_txt);
     }
 
     if(not _was_locked)

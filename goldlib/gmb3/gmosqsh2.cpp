@@ -19,13 +19,11 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  Squish msgbase handling and Maximus user functions.
 //  ------------------------------------------------------------------
 
 #include <vector>
-#include <gmemdbg.h>
 #include <gdbgerr.h>
 #include <gdbgtrk.h>
 #include <gstrall.h>
@@ -68,7 +66,7 @@ void SquishArea::refresh()
         uint idxsize=data->base.totalmsgs*sizeof(SqshIdx);
 
         // Read the index file
-        data->idx = (SqshIdx*)throw_realloc(data->idx, idxsize);
+        data->idx = (SqshIdx*)realloc(data->idx, idxsize);
         lseekset(data->fhsqi, 0);
         read(data->fhsqi, data->idx, idxsize);
     }
@@ -299,7 +297,7 @@ void SquishArea::raw_scan(int __keep_index, int __scanpm)
 
     // Free index buffer if just counting
     if(not __keep_index or __scanpm)
-        throw_xrelease(data->idx);
+        free(data->idx);
 
     if(_was_data == NULL)
     {

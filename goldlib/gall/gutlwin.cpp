@@ -31,7 +31,6 @@
 #include <cctype>
 #define __gctype_h // prevent gctype from being included
 #include <gstrall.h>
-#include <gmemdbg.h>
 #include <gutlos.h>
 #include <windows.h>
 #ifndef __NO_MMSYSTEM
@@ -225,7 +224,7 @@ char* g_get_clip_text(void)
             BufferSize = lstrlenW((LPCWSTR)ClipAddr) + 1;
         else
             BufferSize = strlen(ClipAddr) + 1;
-        ClipText = (char *) throw_malloc(BufferSize);
+        ClipText = (char *) malloc(BufferSize);
         if(ClipText != NULL)
             if(Unicode)
                 WideCharToMultiByte(CP_OEMCP, 0, (LPCWSTR)ClipAddr, -1, ClipText, BufferSize, NULL, NULL);

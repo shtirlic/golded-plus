@@ -39,6 +39,7 @@
 #include <gmsgattr.h>
 #include <geall.h>
 
+#define reallox(__ptr, __items, __size, __cache) (((__items % __cache) and __ptr) ? (void*)__ptr : realloc(__ptr, (__items+__cache+1)*__size));
 
 //  ------------------------------------------------------------------
 //  Area types

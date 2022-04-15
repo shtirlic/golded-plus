@@ -31,7 +31,6 @@ set(gall_SOURCES
   gfuzzy.cpp
   ghdrmime.cpp
   glog.cpp
-  gmemdbg.cpp
   gmemutil.cpp
   gmsgattr.cpp
   gprnutil.cpp

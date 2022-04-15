@@ -19,7 +19,6 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  JAM msgbase implementation, initialization.
 //  ------------------------------------------------------------------
@@ -28,7 +27,6 @@
 //  ------------------------------------------------------------------
 
 #include <gdbgerr.h>
-#include <gmemdbg.h>
 #include <gdbgtrk.h>
 #include <gstrall.h>
 #include <gcrcall.h>
@@ -48,8 +46,8 @@ int      jamdatano = 0;
 void JamExit()
 {
 
-    throw_xrelease(jamwide);
-    throw_xrelease(jamdata);
+    free(jamwide);
+    free(jamdata);
 }
 
 
@@ -60,8 +58,8 @@ void JamInit(const char* jampath, int harddelete, int jamsmapihw)
 
     GFTRK("JamInit");
 
-    jamdata = (JamData*)throw_calloc(3, sizeof(JamData));
-    jamwide = (JamWide*)throw_calloc(1, sizeof(JamWide));
+    jamdata = (JamData*)calloc(3, sizeof(JamData));
+    jamwide = (JamWide*)calloc(1, sizeof(JamWide));
 
     jamwide->jampath = jampath;
     jamwide->harddelete = harddelete;

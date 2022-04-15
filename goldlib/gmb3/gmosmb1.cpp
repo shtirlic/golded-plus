@@ -18,7 +18,6 @@
 //  along with this program; if not, write to the Free Software
 //  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  Synchronet message base
 //  ------------------------------------------------------------------
@@ -27,7 +26,6 @@
 #include <gcrcall.h>
 #include <gstrall.h>
 #include <gmemall.h>
-#include <gmemdbg.h>
 #include <gdbgerr.h>
 #include <gdbgtrk.h>
 #include <gmosmb.h>
@@ -44,7 +42,7 @@ int smbdatano = 0;
 void SMBExit()
 {
 
-    throw_release(smbdata);
+    free(smbdata);
 }
 
 
@@ -53,7 +51,7 @@ void SMBExit()
 void SMBInit()
 {
 
-    smbdata = (smb_t *)throw_calloc(3, sizeof(smb_t));
+    smbdata = (smb_t *)calloc(3, sizeof(smb_t));
 }
 
 
@@ -395,13 +393,13 @@ int SMBArea::load_msg(gmsg* msg)
         return false;
     }
 
-    msg->txt = throw_strdup("");
+    msg->txt = strdup("");
 
     if(smsg.from_net.type == NET_INTERNET)
     {
         sprintf(buf, "\001From: %s (%s)\r", (char *)smsg.from_net.addr, smsg.from);
         outlen = strlen(buf);
-        msg->txt = (char *)throw_realloc(msg->txt, txt_len+outlen);
+        msg->txt = (char *)realloc(msg->txt, txt_len+outlen);
         strcpy(msg->txt+txt_len-1, buf);
         txt_len+=outlen;
     }
@@ -409,7 +407,7 @@ int SMBArea::load_msg(gmsg* msg)
     {
         sprintf(buf, "\001To: %s (%s)\r", (char *)smsg.to_net.addr, smsg.to);
         outlen = strlen(buf);
-        msg->txt = (char *)throw_realloc(msg->txt, txt_len+outlen);
+        msg->txt = (char *)realloc(msg->txt, txt_len+outlen);
         strcpy(msg->txt+txt_len-1, buf);
         txt_len+=outlen;
     }
@@ -448,7 +446,7 @@ int SMBArea::load_msg(gmsg* msg)
             sprintf(buf, "\001%s\r", (char *)smsg.hfield_dat[i]);
 add:
             outlen = strlen(buf);
-            msg->txt = (char *)throw_realloc(msg->txt, txt_len+outlen);
+            msg->txt = (char *)realloc(msg->txt, txt_len+outlen);
             strcpy(msg->txt+txt_len-1, buf);
             txt_len+=outlen;
             break;
@@ -485,17 +483,17 @@ common:
                 continue;
             if(lzh)
             {
-                inbuf = (uint8_t *)throw_xmalloc(smsg.dfield[i].length);
+                inbuf = (uint8_t *)malloc(smsg.dfield[i].length);
                 fread(inbuf, smsg.dfield[i].length - l, 1, data->sdt_fp);
                 outlen = *(int32_t *)inbuf;
-                msg->txt = (char *)throw_realloc(msg->txt, txt_len+outlen);
+                msg->txt = (char *)realloc(msg->txt, txt_len+outlen);
                 lzh_decode(inbuf, smsg.dfield[i].length - l, (uint8_t *)(msg->txt+txt_len-1));
-                throw_xfree(inbuf);
+                free(inbuf);
             }
             else if(l < smsg.dfield[i].length)
             {
                 outlen = smsg.dfield[i].length - l;
-                msg->txt = (char *)throw_realloc(msg->txt, txt_len+outlen);
+                msg->txt = (char *)realloc(msg->txt, txt_len+outlen);
                 fread(msg->txt+txt_len-1, smsg.dfield[i].length - l, 1, data->sdt_fp);
             }
             else
@@ -520,7 +518,7 @@ common:
             sprintf(buf, "\r\001%s", (char *)smsg.hfield_dat[i]);
 add2:
             outlen = strlen(buf);
-            msg->txt = (char *)throw_realloc(msg->txt, txt_len+outlen);
+            msg->txt = (char *)realloc(msg->txt, txt_len+outlen);
             strcpy(msg->txt+txt_len-1, buf);
             txt_len+=outlen;
             break;
@@ -704,8 +702,8 @@ void SMBArea::save_hdr(int mode, gmsg* msg)
     l += 2; // reserve 2 bytes for the encoding type
 
     fbuf = msg->txt;
-    sbody = (char *)throw_malloc(SDT_BLOCK_LEN*smb_datblocks(l))+2;
-    stail = (char *)throw_malloc(SDT_BLOCK_LEN*smb_datblocks(l))+2;
+    sbody = (char *)malloc(SDT_BLOCK_LEN*smb_datblocks(l))+2;
+    stail = (char *)malloc(SDT_BLOCK_LEN*smb_datblocks(l))+2;
 
     for(l = bodylen = taillen = done = 0, cr = true; (ch = fbuf[l]) != NUL; l++)
     {
@@ -895,8 +893,8 @@ void SMBArea::save_hdr(int mode, gmsg* msg)
             smb_unlocksmbhdr(data);
         }
     }
-    throw_xfree(sbody-2);
-    throw_xfree(stail-2);
+    free(sbody-2);
+    free(stail-2);
     smb_freemsgmem(&smsg);
 
     GFTRK(0);
@@ -1149,7 +1147,7 @@ Line* SMBArea::make_dump_msg(Line*& lin, gmsg* msg, char* lng_head)
     uint32_t l;
     uint32_t txt_len = 1;
 
-    msg->txt = throw_strdup("");
+    msg->txt = strdup("");
 
     for(i = 0; i < smsg.hdr.total_dfields; i++)
         switch(smsg.dfield[i].type)
@@ -1180,17 +1178,17 @@ common:
                 continue;
             if(lzh)
             {
-                inbuf = (uint8_t *)throw_xmalloc(smsg.dfield[i].length);
+                inbuf = (uint8_t *)malloc(smsg.dfield[i].length);
                 fread(inbuf, smsg.dfield[i].length - l, 1, data->sdt_fp);
                 outlen = *(int32_t *)inbuf;
-                msg->txt = (char *)throw_realloc(msg->txt, txt_len+outlen);
+                msg->txt = (char *)realloc(msg->txt, txt_len+outlen);
                 lzh_decode(inbuf, smsg.dfield[i].length - l, (uint8_t *)(msg->txt+txt_len-1));
-                throw_xfree(inbuf);
+                free(inbuf);
             }
             else if(l < smsg.dfield[i].length)
             {
                 outlen = smsg.dfield[i].length - l;
-                msg->txt = (char *)throw_realloc(msg->txt, txt_len+outlen);
+                msg->txt = (char *)realloc(msg->txt, txt_len+outlen);
                 fread(msg->txt+txt_len-1, smsg.dfield[i].length - l, 1, data->sdt_fp);
             }
             else

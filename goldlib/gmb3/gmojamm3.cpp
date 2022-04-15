@@ -29,7 +29,6 @@
 
 #include <stdlib.h>
 #include <errno.h>
-#include <gmemdbg.h>
 #include <gdbgtrk.h>
 #include <gstrall.h>
 
@@ -134,14 +133,14 @@ int JamArea::load_message(int __mode, gmsg* __msg, JamHdr& __hdr)
 
     // Allocate space for the subfields
     __msg->jam.subfieldlen = __hdr.subfieldlen;
-    byte* _subfield = (byte*)throw_malloc((uint)(__hdr.subfieldlen+1));
+    byte* _subfield = (byte*)malloc((uint)(__hdr.subfieldlen+1));
 
     // Allocate space for kludge versions of the subfields
-    char* _kludges = (char*)throw_malloc((uint)(__hdr.subfieldlen*2)+1);
+    char* _kludges = (char*)malloc((uint)(__hdr.subfieldlen*2)+1);
     *_kludges = NUL;
 
     // Allocate space for seenby/paths
-    char* _kludges2 = (char*)throw_malloc((uint)(__hdr.subfieldlen*2)+1);
+    char* _kludges2 = (char*)malloc((uint)(__hdr.subfieldlen*2)+1);
     *_kludges2 = NUL;
 
     // Read the subfields
@@ -154,9 +153,9 @@ int JamArea::load_message(int __mode, gmsg* __msg, JamHdr& __hdr)
             WideLog->printf("! JamArea::load_message: can't read Jam subfield");
         WideLog->printf(": Info: Your msgbase is corrupted.");
         WideLog->printf("+ Advice: Run a msgbase index rebuild/recover utility.");
-        throw_free(_subfield);
-        throw_free(_kludges);
-        throw_free(_kludges2);
+        free(_subfield);
+        free(_kludges);
+        free(_kludges2);
         GFTRK(0);
         return false;
     }
@@ -359,7 +358,7 @@ add_intl_topt_fmpt:
     }
 
     // Free subfield buffer
-    throw_free(_subfield);
+    free(_subfield);
 
     // Get reply numbers in chain
     if (wide->lookreplies and __msg->link.first())
@@ -390,7 +389,7 @@ add_intl_topt_fmpt:
         uint32_t _msgsize = __hdr.txtlen;
 
         // Allocate memory for the message text
-        __msg->txt = (char*)throw_realloc(_kludges, (uint)(_msgsize+_kludgelen+256));
+        __msg->txt = (char*)realloc(_kludges, (uint)(_msgsize+_kludgelen+256));
 
         // Read the message text
         lseekset(data->fhjdt, __hdr.offset);
@@ -403,9 +402,9 @@ add_intl_topt_fmpt:
                 WideLog->printf("! JamArea::load_message: can't read Jam msgtext");
             WideLog->printf(": Info: Your msgbase is corrupted.");
             WideLog->printf("+ Advice: Run a msgbase index rebuild/recover utility.");
-            throw_free(_subfield);
-            throw_free(_kludges);
-            throw_free(_kludges2);
+            free(_subfield);
+            free(_kludges);
+            free(_kludges2);
             GFTRK(0);
             return false;
         }
@@ -431,10 +430,10 @@ add_intl_topt_fmpt:
     {
 
         // Free kludge buffer
-        throw_free(_kludges);
+        free(_kludges);
     }
 
-    throw_free(_kludges2);
+    free(_kludges2);
 
     GFTRK(0);
 

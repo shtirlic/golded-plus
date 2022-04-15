@@ -21,7 +21,6 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  GCUI: Golded+ Character-oriented User Interface.
 //  Device-independent video functions. Initialise class GVid.
@@ -32,7 +31,6 @@
 #include <cstdlib>
 #include <cstdarg>
 #include <gmemall.h>
-#include <gmemdbg.h>
 #include <gstrall.h>
 #include <gvidall.h>
 
@@ -106,9 +104,9 @@ GVid::~GVid()
     gvid_printf("\033<\033[?5l\033[0m");
 
 #endif
-    throw_xfree(bufwrd);
-    throw_xfree(bufchr);
-    throw_xfree(bufansi);
+    free(bufwrd);
+    free(bufchr);
+    free(bufansi);
 }
 
 
@@ -146,7 +144,7 @@ void GVid::init()
 #elif defined(__WIN32__)
     dmaptr = dmadir = NULL;
 #elif defined(__UNIX__)
-    dmaptr = (gdma)throw_xcalloc((orig.screen.rows+1)*orig.screen.columns, sizeof(word));
+    dmaptr = (gdma)calloc((orig.screen.rows+1)*orig.screen.columns, sizeof(word));
     dmadir = NULL;
 #else
     dmaptr = dmadir = (gdma)MK_FP(videoseg, 0);
@@ -399,13 +397,13 @@ void GVid::resetcurr()
     numrows = curr.screen.rows;
     numcols = curr.screen.columns;
 
-    throw_xfree(bufchr);
-    throw_xfree(bufwrd);
-    throw_xfree(bufansi);
+    free(bufchr);
+    free(bufwrd);
+    free(bufansi);
 
-    bufchr = (vchar*)throw_xcalloc(sizeof(vchar), numcols+1);
-    bufwrd = (vatch*)throw_xcalloc(sizeof(vatch), numcols+1);
-    bufansi = (vchar*)throw_xcalloc(sizeof(vchar), (11*numcols)+1);
+    bufchr = (vchar*)calloc(sizeof(vchar), numcols+1);
+    bufwrd = (vatch*)calloc(sizeof(vatch), numcols+1);
+    bufansi = (vchar*)calloc(sizeof(vchar), (11*numcols)+1);
 
     setdevice(device);
 }
@@ -543,12 +541,12 @@ void GVid::resize_screen(int columns, int rows)
     numcols = curr.screen.columns = columns;
     numrows = curr.screen.rows    = rows;
 
-    bufchr = (vchar*)throw_xrealloc(bufchr, numcols+1);
-    bufwrd = (vatch*)throw_xrealloc(bufwrd, (numcols+1)*sizeof(vatch));
-    bufansi = (vchar*)throw_xrealloc(bufansi, 1+(11*numcols));
+    bufchr = (vchar*)realloc(bufchr, numcols+1);
+    bufwrd = (vatch*)realloc(bufwrd, (numcols+1)*sizeof(vatch));
+    bufansi = (vchar*)realloc(bufansi, 1+(11*numcols));
 
 #if defined(__UNIX__) && !defined(__USE_NCURSES__)
-    dmaptr = (gdma)throw_xrealloc(dmaptr, (rows+1)*columns*sizeof(word));
+    dmaptr = (gdma)realloc(dmaptr, (rows+1)*columns*sizeof(word));
 #endif
 }
 

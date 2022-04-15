@@ -1,7 +1,7 @@
 ﻿/.vs
 /windows/bin
 /windows/obj
-/golded3/mygolded.h
+/golded/mygolded.h
 *.user
 /obj
 /lib
@@ -10,7 +10,7 @@
 *.bz2
 *.diz
 /goldlib/*/*inc
-/golded3/*inc
+/golded/*inc
 /goldnode/*inc
 /rddt/*inc
 /bin/*lnx

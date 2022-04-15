@@ -19,7 +19,6 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  Ezycom msgbase handling
 //  ------------------------------------------------------------------
@@ -27,7 +26,6 @@
 
 //  ------------------------------------------------------------------
 
-#include <gmemdbg.h>
 #include <gdbgtrk.h>
 #include <gstrall.h>
 #include <gutlmisc.h>
@@ -97,7 +95,7 @@ int EzycomArea::load_message(int __mode, gmsg* __msg, EzycHdr& __hdr)
     if(__mode & GMSG_TXT)
     {
 
-        __msg->txt = (char*)throw_calloc(1, (uint)(__hdr.messagelength+256));
+        __msg->txt = (char*)calloc(1, (uint)(__hdr.messagelength+256));
         lseekset(data->fhtxt, __hdr.startposition);
         read(data->fhtxt, __msg->txt, (uint)__hdr.messagelength);
     }

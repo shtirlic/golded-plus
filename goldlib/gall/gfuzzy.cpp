@@ -19,7 +19,6 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  Fuzzy string search.
 //  ------------------------------------------------------------------
@@ -51,7 +50,6 @@
 
 #include <gctype.h>
 #include <gstrall.h>
-#include <gmemdbg.h>
 #include <gfuzzy.h>
 
 
@@ -69,7 +67,7 @@ gfuzzy::gfuzzy()
 gfuzzy::~gfuzzy()
 {
 
-    throw_deletearray(ldiffs);
+    delete[](ldiffs);
 }
 
 
@@ -85,7 +83,6 @@ void gfuzzy::init(const char* pat, int fuzzydegree, bool case_sensitive)
     plen = strlen(pattern);
 
     ldiffs = new int [(plen+1)*4];
-    throw_new(ldiffs);
 }
 
 

@@ -19,12 +19,10 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  Search with different methods.
 //  ------------------------------------------------------------------
 
-#include <gmemdbg.h>
 #include <gsearch.h>
 #include <gwildmat.h>
 #include <gregex.h>
@@ -121,7 +119,6 @@ bool gsearch::search(const char* str, int& result)
         if(regexp == NULL)
         {
             regexp = new gregex;
-            throw_new(regexp);
             regexp->compile(pattern.c_str(), gregex::extended | (case_sensitive ? 0 : gregex::icase));
         }
         found = regexp->match(str);
@@ -135,7 +132,6 @@ bool gsearch::search(const char* str, int& result)
         if(fuzzyp == NULL)
         {
             fuzzyp = new gfuzzy;
-            throw_new(fuzzyp);
             fuzzyp->init(pattern.c_str(), fuzzydegree, case_sensitive);
         }
         found = fuzzyp->findfirst(str);
@@ -145,7 +141,6 @@ bool gsearch::search(const char* str, int& result)
         if(plainp == NULL)
         {
             plainp = new gbmh;
-            throw_new(plainp);
             plainp->init(pattern.c_str(), not case_sensitive);
         }
         found = plainp->find(str);

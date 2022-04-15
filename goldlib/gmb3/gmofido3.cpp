@@ -19,14 +19,12 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  Fido/Opus/FTSC (*.MSG) type handling
 //  ------------------------------------------------------------------
 
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <gmemdbg.h>
 #include <gdbgtrk.h>
 #include <gstrall.h>
 #include <gmofido.h>
@@ -149,7 +147,7 @@ int FidoArea::load_message(int __mode, gmsg* __msg, FidoHdr& __hdr)
         uint _txtlen = (uint) ((_fillen >= sizeof(FidoHdr)) ? (_fillen - sizeof(FidoHdr)) : 0);
 
         // Allocate space for the message text
-        __msg->txt = (char*)throw_calloc(1, _txtlen+256);
+        __msg->txt = (char*)calloc(1, _txtlen+256);
 
         // Read the message text
         read(_fh, __msg->txt, (uint)_txtlen);

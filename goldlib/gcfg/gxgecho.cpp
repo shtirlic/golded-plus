@@ -19,13 +19,11 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  Read areas from GEcho
 //  ------------------------------------------------------------------
 
 #include <cstdlib>
-#include <gmemdbg.h>
 #include <gstrall.h>
 #if defined(__GOLD_GUI__)
     #include <gvidall.h>
@@ -89,7 +87,7 @@ void gareafile::ReadGEcho(char* tag)
 
     MakePathname(file, gepath, "setup.ge");
 
-    gesetup = (SETUP_GE*)throw_calloc(1, sizeof(SETUP_GE));
+    gesetup = (SETUP_GE*)calloc(1, sizeof(SETUP_GE));
     if(gesetup)
     {
 
@@ -373,7 +371,7 @@ void gareafile::ReadGEcho(char* tag)
 
                     fseek(fp, (long)ahdr.hdrsize, SEEK_SET);  // Allow for changed struct
 
-                    area = (AREAFILE_GE*)throw_malloc(arearecsize);
+                    area = (AREAFILE_GE*)malloc(arearecsize);
 
                     if(area)
                     {
@@ -453,7 +451,7 @@ void gareafile::ReadGEcho(char* tag)
                                 AddNewArea(aa);
                             }
                         }
-                        throw_free(area);
+                        free(area);
                     }
 
                     fclose(fp);
@@ -462,7 +460,7 @@ void gareafile::ReadGEcho(char* tag)
             else
                 STD_PRINTNL("* Error: GEcho system file revision level " << sysrev << " is not supported - Skipping.");
         }
-        throw_free(gesetup);
+        free(gesetup);
     }
 }
 

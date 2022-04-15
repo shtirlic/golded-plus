@@ -19,14 +19,12 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  Read areas from Ezycom
 //  ------------------------------------------------------------------
 
 #include <cstdlib>
 #include <gstrall.h>
-#include <gmemdbg.h>
 #if defined(__GOLD_GUI__)
     #include <gvidall.h>
     #include <gvidgui.h>
@@ -45,11 +43,8 @@ void gareafile::ReadEzycom110(gfile &fp, char* path, char* file, char* options)
     char abuf[40];
 
     CONFIGRECORD* config = new CONFIGRECORD;
-    throw_new(config);
     CONSTANTRECORD* constant = new CONSTANTRECORD;
-    throw_new(constant);
     MESSAGERECORD* messages = new MESSAGERECORD;
-    throw_new(messages);
 
     fp.Fread(config, sizeof(CONFIGRECORD));
     fp.Fclose();
@@ -285,9 +280,9 @@ void gareafile::ReadEzycom110(gfile &fp, char* path, char* file, char* options)
         }
     }
 
-    throw_delete(messages);
-    throw_delete(constant);
-    throw_delete(config);
+    delete(messages);
+    delete(constant);
+    delete(config);
 }
 
 

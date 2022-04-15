@@ -20,7 +20,6 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  Boyer-Moore-Horspool pattern match.
 //  ------------------------------------------------------------------
@@ -32,7 +31,6 @@
 
 #include <climits>
 #include <gstrall.h>
-#include <gmemdbg.h>
 #include <gbmh.h>
 
 
@@ -50,7 +48,7 @@ gbmh::gbmh()
 gbmh::~gbmh()
 {
 
-    throw_deletearray(pat);
+    delete[](pat);
 }
 
 
@@ -63,7 +61,6 @@ void gbmh::init(const char* pattern, bool ignorecase)
     patlen = strlen(pattern);
 
     pat = new char [patlen+1];
-    throw_new(pat);
 
     // Copy pattern
     strcpy(pat, pattern);

@@ -20,7 +20,6 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  GCUI: Golded+ Character-oriented User Interface.
 //  Help functions.
@@ -50,7 +49,6 @@
 #include <cstdio>
 #include <cstdlib>
 #include <gfile.h>
-#include <gmemdbg.h>
 #include <gkbdcode.h>
 #include <gkbdbase.h>
 #include <gmoubase.h>
@@ -372,14 +370,14 @@ static void disp_cat()
 
                     // free menu item strings
                     for(i=0; i<arraycnt; i++)
-                        throw_release(catarray[i]);
+                        free(catarray[i]);
                     arraycnt=0;
                     continue;
                 }
 
                 // free menu item strings
                 for(i=0; i<arraycnt; i++)
-                    throw_release(catarray[i]);
+                    free(catarray[i]);
                 arraycnt=0;
                 if(kbmhit())
                 {
@@ -450,7 +448,7 @@ static void disp_cat()
                     wprints(wrow, wcol, gwin.active->attr, q);
                     if((not itemopen) and (arraycnt<MAXXREF))
                     {
-                        if((catarray[arraycnt]=(char*)throw_malloc(strlen(q)+1))!=NULL)
+                        if((catarray[arraycnt]=(char*)malloc(strlen(q)+1))!=NULL)
                         {
                             strcpy(catarray[arraycnt],q);
                             if(not menuopen)
@@ -556,7 +554,6 @@ static void help_handler()
         {
             whelpclosefile = true;
             whelp.fp = new gfile;
-            throw_new(whelp.fp);
             whelp.fp->Fopen(whelp.file,"rb");
             if (!whelp.fp->isopen())
             {

@@ -28,7 +28,6 @@
 #include <gstrall.h>
 #include <gutlmisc.h>
 #include <gutlclip.h>
-#include <gmemdbg.h>
 #include <gutlos.h>
 
 
@@ -44,7 +43,7 @@ void fake_clipboard_destroy()
 {
 
     if(fake_clipboard)
-        throw_free(fake_clipboard);
+        free(fake_clipboard);
 }
 
 
@@ -64,7 +63,7 @@ gclipbrd::gclipbrd()
 #endif
     if(not clipboard_available and not fake_clipboard)
     {
-        fake_clipboard = throw_strdup("");
+        fake_clipboard = strdup("");
         atexit(fake_clipboard_destroy);
     }
 }
@@ -109,8 +108,8 @@ bool gclipbrd::writeclipbrd(const char* buf)
     if(not clipboard_available)
     {
         if(fake_clipboard)
-            throw_free(fake_clipboard);
-        fake_clipboard = throw_strdup(buf);
+            free(fake_clipboard);
+        fake_clipboard = strdup(buf);
         return (fake_clipboard != NULL);
     }
 
@@ -173,7 +172,7 @@ void gclipbrd::close()
     if(len>=0)
     {
         if (cliphdl != NULL)
-            throw_free(cliphdl);
+            free(cliphdl);
         len = -1;
         cliphdl = clipdata = NULL;
     }

@@ -21,14 +21,12 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  GCUI: Golded+ Character-oriented User Interface.
 //  Keyboard functions.
 //  ------------------------------------------------------------------
 
 #include <gctype.h>
-#include <gmemdbg.h>
 #include <gkbdcode.h>
 #include <gkbdbase.h>
 #include <gmemall.h>
@@ -1731,7 +1729,7 @@ void kbclear()
     {
 
         KBuf *kbuf = gkbd.kbuf->next;
-        throw_free(gkbd.kbuf);
+        free(gkbd.kbuf);
         gkbd.kbuf = kbuf;
     }
 }
@@ -1767,7 +1765,7 @@ int kbput(gkey xch)
     KBuf* temp;
 
     // allocate space for another keypress record
-    kbuf=(KBuf*)throw_malloc(sizeof(KBuf));
+    kbuf=(KBuf*)malloc(sizeof(KBuf));
 
     // find last record in linked list
     if((temp=gkbd.kbuf)!=NULL)
@@ -1840,7 +1838,7 @@ void freonkey()
     while(gkbd.onkey!=NULL)
     {
         temp = gkbd.onkey->prev;
-        throw_free(gkbd.onkey);
+        free(gkbd.onkey);
         gkbd.onkey = temp;
     }
 }
@@ -1880,7 +1878,7 @@ int setonkey(gkey keycode, VfvCP func, gkey pass)
             gkbd.onkey = prev;
 
         // free memory allocated for deleted record
-        throw_free(onkey);
+        free(onkey);
     }
     else
     {
@@ -1893,7 +1891,7 @@ int setonkey(gkey keycode, VfvCP func, gkey pass)
         {
 
             // allocate memory for new record
-            onkey = (KBnd*)throw_malloc(sizeof(KBnd));
+            onkey = (KBnd*)malloc(sizeof(KBnd));
             if(onkey == NULL)
                 return 1;
 

@@ -127,7 +127,7 @@ char* g_get_clip_text(void)
 
     if(size != -1)
     {
-        char *text = (char *)throw_malloc(size+1);
+        char *text = (char *)malloc(size+1);
         *text = NUL;
 
         FILE *f = fopen(clipfile.c_str(), "rt");

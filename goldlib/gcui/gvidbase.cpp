@@ -21,7 +21,6 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  GCUI: Golded+ Character-oriented User Interface.
 //  Device-independent video functions.
@@ -31,7 +30,6 @@
 #include <cstdlib>
 #include <cstdarg>
 #include <gmemall.h>
-#include <gmemdbg.h>
 #include <gstrall.h>
 #include <gvidall.h>
 
@@ -995,7 +993,7 @@ void vscroll(int srow, int scol, int erow, int ecol, vattr atr, int lines)
         {
             vsavebuf *buf = vsave(srow + lines, scol, erow, ecol);
             vrestore(buf, srow, scol, erow - lines, ecol);
-            throw_xfree(buf);
+            free(buf);
         }
         else
             lines = 1 + erow - srow;
@@ -1011,7 +1009,7 @@ void vscroll(int srow, int scol, int erow, int ecol, vattr atr, int lines)
         {
             vsavebuf *buf = vsave(srow, scol, erow - lines, ecol);
             vrestore(buf, srow + lines, scol, erow, ecol);
-            throw_xfree(buf);
+            free(buf);
         }
         else
             lines = 1 + erow - srow;
@@ -1207,7 +1205,7 @@ vsavebuf* vsave(int srow, int scol, int erow, int ecol)
     if(erow == -1)  erow = gvid->numrows-1;
     if(ecol == -1)  ecol = gvid->numcols-1;
 
-    vsavebuf* sbuf = (vsavebuf*)throw_xmalloc(sizeof(vsavebuf) + (erow - srow + 1) * (ecol - scol + 1) * sizeof(vatch));
+    vsavebuf* sbuf = (vsavebuf*)malloc(sizeof(vsavebuf) + (erow - srow + 1) * (ecol - scol + 1) * sizeof(vatch));
 
     if(sbuf)
     {

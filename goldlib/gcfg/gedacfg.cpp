@@ -20,13 +20,11 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  GoldED areafile helper classes.
 //  ------------------------------------------------------------------
 
 #include <cstdlib>
-#include <gmemdbg.h>
 #include <gstrall.h>
 #if defined(__GOLD_GUI__)
     #include <gvidall.h>
@@ -197,13 +195,13 @@ void EchoListClass::FreeAll()
     int n;
 
     for(n=0; n<echos; n++)
-        throw_release(echolist[n]);
-    throw_xrelease(echolist);
+        free(echolist[n]);
+    free(echolist);
     echos = 0;
 
     for(n=0; n<descs; n++)
-        throw_release(echolist[n]);
-    throw_xrelease(desclist);
+        free(echolist[n]);
+    free(desclist);
     descs = 0;
 }
 
@@ -237,8 +235,8 @@ void EchoListClass::SortEchos()
 void EchoListClass::AddDesc(char* echoid, char* desc)
 {
 
-    desclist = (DescList**)throw_reallox(desclist, (descs+1), sizeof(DescList*), 50);
-    desclist[descs] = (DescList*)throw_calloc(1, sizeof(DescList));
+    desclist = (DescList**)reallox(desclist, (descs+1), sizeof(DescList*), 50);
+    desclist[descs] = (DescList*)calloc(1, sizeof(DescList));
     strxcpy(desclist[descs]->echoid, echoid, sizeof(Echo));
     strxcpy(desclist[descs]->desc, desc, sizeof(Desc));
     descs++;
@@ -270,8 +268,8 @@ int EchoListClass::FindDesc(char* echoid, char** desc)
 void EchoListClass::AddEcho(char* echoid, char* path, char* desc)
 {
 
-    echolist = (EchoList**)throw_reallox(echolist, (echos+1), sizeof(EchoList*), 50);
-    echolist[echos] = (EchoList*)throw_calloc(1, sizeof(EchoList));
+    echolist = (EchoList**)reallox(echolist, (echos+1), sizeof(EchoList*), 50);
+    echolist[echos] = (EchoList*)calloc(1, sizeof(EchoList));
     strxcpy(echolist[echos]->echoid, echoid, sizeof(Echo));
     if(atoi(path))            // QBBS
         sprintf(echolist[echos]->path, "%u", atoi(path));

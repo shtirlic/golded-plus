@@ -19,7 +19,6 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  Read areas from FastEcho 1.42 (config revision level 6)
 //  ------------------------------------------------------------------
@@ -27,7 +26,6 @@
 #include <cstring>
 #include <cstdlib>
 #include <gfilutil.h>
-#include <gmemdbg.h>
 #if defined(__GOLD_GUI__)
     #include <gvidall.h>
     #include <gvidgui.h>
@@ -45,16 +43,16 @@ void gareafile::ReadFastecho142(int fh)
 
     AreaCfg aa;
 
-    CONFIG6* cfg = (CONFIG6*)throw_calloc(1, sizeof(CONFIG6));
-    FeArea6* area = (FeArea6*)throw_calloc(1, sizeof(FeArea6));
+    CONFIG6* cfg = (CONFIG6*)calloc(1, sizeof(CONFIG6));
+    FeArea6* area = (FeArea6*)calloc(1, sizeof(FeArea6));
 
     // Read main config record
     read(fh, cfg, sizeof(CONFIG6));
 
 
     // Setup aka and origin lists
-    SysAddress* aka = (SysAddress*)throw_calloc(cfg->AkaCnt, sizeof(SysAddress));
-    OriginLines* origin = (OriginLines*)throw_calloc(cfg->OriginCnt, sizeof(OriginLines));
+    SysAddress* aka = (SysAddress*)calloc(cfg->AkaCnt, sizeof(SysAddress));
+    OriginLines* origin = (OriginLines*)calloc(cfg->OriginCnt, sizeof(OriginLines));
 
     // Process extended headers
     uint32_t offset = 0;
@@ -158,10 +156,10 @@ void gareafile::ReadFastecho142(int fh)
         }
     }
 
-    throw_free(origin);
-    throw_free(aka);
-    throw_free(area);
-    throw_free(cfg);
+    free(origin);
+    free(aka);
+    free(area);
+    free(cfg);
 }
 
 

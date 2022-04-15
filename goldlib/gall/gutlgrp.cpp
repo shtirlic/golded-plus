@@ -19,7 +19,6 @@
 //  along with this program; if not, write to the Free Software
 //  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  Group/Random System.
 //  ------------------------------------------------------------------
@@ -29,7 +28,6 @@
 #endif
 
 #include <cstdlib>
-#include <gmemdbg.h>
 #include <string>
 #include <gwildmat.h>
 #include <gutlgrp.h>
@@ -57,9 +55,9 @@ Grp::~Grp()
         for(i = currgrp->second.begin(); i != currgrp->second.end(); i++)
         {
             if(i->second.type == grp_stock::TYPE_OBJECT)
-                throw_free(i->second.data.object_item);
+                free(i->second.data.object_item);
             else if(i->second.type == grp_stock::TYPE_STRING)
-                throw_delete(i->second.data.string_item);
+                delete(i->second.data.string_item);
         }
 }
 
@@ -145,7 +143,7 @@ void Grp::AddItm(int __type, const std::string& __data)
 void Grp::AddItm(int __type, void* __data, size_t __size)
 {
 
-    void *data = throw_malloc(__size+sizeof(int));
+    void *data = malloc(__size+sizeof(int));
     *((int *)data) = __size;
     std::memcpy((char *)data+sizeof(int), __data, __size);
     currgrp->second.insert(std::pair<int, grp_stock>(__type, data));

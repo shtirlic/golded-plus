@@ -25,7 +25,6 @@
 //  ------------------------------------------------------------------
 
 #include <gstrall.h>
-#include <gmemdbg.h>
 #if defined(__GOLD_GUI__)
     #include <gvidall.h>
     #include <gvidgui.h>
@@ -44,11 +43,8 @@ void gareafile::ReadEzycom102(gfile &fp, char* path, char* file, char* options)
     char abuf[40];
 
     CONFIGRECORD* config = new CONFIGRECORD;
-    throw_new(config);
     CONSTANTRECORD* constant = new CONSTANTRECORD;
-    throw_new(constant);
     MESSAGERECORD* messages = new MESSAGERECORD;
-    throw_new(messages);
 
     fp.Fread(config, sizeof(CONFIGRECORD));
     fp.Fclose();
@@ -288,9 +284,9 @@ void gareafile::ReadEzycom102(gfile &fp, char* path, char* file, char* options)
         }
     }
 
-    throw_delete(messages);
-    throw_delete(constant);
-    throw_delete(config);
+    delete(messages);
+    delete(constant);
+    delete(config);
 }
 
 

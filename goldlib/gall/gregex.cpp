@@ -19,7 +19,6 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  Regular expressions C++ wrapper class.
 //  ------------------------------------------------------------------
@@ -27,7 +26,6 @@
 #include <sys/types.h>
 #include <cstddef>
 #include <gregex.h>
-#include <gmemdbg.h>
 
 
 //  ------------------------------------------------------------------
@@ -56,7 +54,7 @@ void gregex::reset()
     if(preg)
     {
         regfree(preg);
-        throw_delete(preg);
+        delete(preg);
     }
 }
 
@@ -74,7 +72,6 @@ bool gregex::compile(const char* pattern, int cflags)
     if(not preg)
     {
         preg = new regex_t;
-        throw_new(preg);
     }
 
     return make_bool(regcomp(preg, pattern, cflgs));

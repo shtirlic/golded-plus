@@ -19,7 +19,6 @@
 //  along with this program; if not, write to the Free Software
 //  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  GoldNODE - A nodelist compiler for GoldED.
 //  ------------------------------------------------------------------
@@ -55,7 +54,6 @@
 #endif
 
 #include <golded3.h>
-#include <gmemdbg.h>
 
 //  ------------------------------------------------------------------
 //  Config versions
@@ -1746,8 +1744,6 @@ static void run_gn(int argc, char* argv[])
 int main(int argc, char *argv[])
 {
 
-    throw_init();
-
     // set locale
     setlocale(LC_CTYPE, "");
 #if defined(GUTLOS_FUNCS)
@@ -1764,7 +1760,6 @@ int main(int argc, char *argv[])
     g_deinit_os();
 #endif
 
-    THROW_CHECK();
 
     return errorlevel;
 }

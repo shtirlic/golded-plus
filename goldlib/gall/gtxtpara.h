@@ -19,7 +19,6 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  Text -> Paragraph conversion.
 //  ------------------------------------------------------------------
@@ -29,8 +28,6 @@
 
 
 //  ------------------------------------------------------------------
-
-#include <gmemdbg.h>
 
 
 //  ------------------------------------------------------------------
@@ -150,7 +147,7 @@ inline GParagraph::GParagraph()
 inline GParagraph::~GParagraph()
 {
 
-    throw_free(paraidx);
+    free(paraidx);
 }
 
 
@@ -159,7 +156,7 @@ inline GParagraph::~GParagraph()
 inline void GParagraph::AddParagraph(char* __text, uint __length)
 {
 
-    paraidx = (GParaData*)throw_realloc(paraidx, (lines+1)*sizeof(GParaData));
+    paraidx = (GParaData*)realloc(paraidx, (lines+1)*sizeof(GParaData));
     GParaData* _para = paraidx + lines++;
     _para->text = __text;
     _para->length = __length;

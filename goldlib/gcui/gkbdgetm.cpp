@@ -19,7 +19,6 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  GCUI: Golded+ Character-oriented User Interface.
 //  Keyboard functions.
@@ -27,7 +26,6 @@
 
 #include <gkbdcode.h>
 #include <gkbdbase.h>
-#include <gmemdbg.h>
 #include <gwinall.h>
 #include <gutlmtsk.h>
 #ifdef GOLD_MOUSE
@@ -271,7 +269,7 @@ gkey getxch(int __tick)
             gkbd.source = GEVT_BUFFER;
             k = gkbd.kbuf->xch;
             KBuf* _kbuf = gkbd.kbuf->next;
-            throw_free(gkbd.kbuf);
+            free(gkbd.kbuf);
             gkbd.kbuf = _kbuf;
             if(gkbd.kbuf)
                 gkbd.kbuf->prev = NULL;

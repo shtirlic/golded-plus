@@ -19,7 +19,6 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  JAM msgbase implementation, utilities.
 //  ------------------------------------------------------------------
@@ -27,7 +26,6 @@
 
 //  ------------------------------------------------------------------
 
-#include <gmemdbg.h>
 #include <gdbgtrk.h>
 #include <gutlmisc.h>
 
@@ -61,7 +59,7 @@ Line* JamArea::make_dump_msg(Line*& lin, gmsg* __msg, char* lng_head)
     GFTRK("JamArea::make_dump_msg");
 
     // Read base header
-    JamHdrInfo* _base = (JamHdrInfo*)throw_calloc(1, sizeof(JamHdrInfo));
+    JamHdrInfo* _base = (JamHdrInfo*)calloc(1, sizeof(JamHdrInfo));
     lseekset(data->fhjhr, 0);
     read(data->fhjhr, _base, sizeof(JamHdrInfo));
 
@@ -71,21 +69,21 @@ Line* JamArea::make_dump_msg(Line*& lin, gmsg* __msg, char* lng_head)
     read(data->fhjdx, &_idx, sizeof(JamIndex));
 
     // Allocate space for the header
-    JamHdr* _hdr = (JamHdr*)throw_calloc(1, (uint)(sizeof(JamHdr)+17));
+    JamHdr* _hdr = (JamHdr*)calloc(1, (uint)(sizeof(JamHdr)+17));
 
     // Read message header
     lseekset(data->fhjhr, _idx.hdroffset);
     read(data->fhjhr, _hdr, sizeof(JamHdr));
 
     // Allocate space for the subfields
-    byte* _subfield = (byte*)throw_calloc(1, (uint)(_hdr->subfieldlen+17));
+    byte* _subfield = (byte*)calloc(1, (uint)(_hdr->subfieldlen+17));
 
     // Read the subfields
     read(data->fhjhr, _subfield, (uint)_hdr->subfieldlen);
 
     // Allocate memory for the raw message text
-    throw_free(__msg->txt);
-    __msg->txt = (char*)throw_calloc(1, (uint)_hdr->txtlen+16);
+    free(__msg->txt);
+    __msg->txt = (char*)calloc(1, (uint)_hdr->txtlen+16);
 
     // Read the message text
     lseekset(data->fhjdt, _hdr->offset);
@@ -179,7 +177,7 @@ Line* JamArea::make_dump_msg(Line*& lin, gmsg* __msg, char* lng_head)
     }
 
     // Free subfield buffer
-    throw_free(_subfield);
+    free(_subfield);
 
     line = AddLine(line, "");
     AddLineF(line, lng_head);
@@ -188,8 +186,8 @@ Line* JamArea::make_dump_msg(Line*& lin, gmsg* __msg, char* lng_head)
     AddHexdump(line, _hdr, sizeof(JamHdr));
 
     // Free header and base
-    throw_free(_hdr);
-    throw_free(_base);
+    free(_hdr);
+    free(_base);
 
     GFTRK(0);
 

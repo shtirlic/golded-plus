@@ -19,12 +19,10 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  JAM msgbase implementation, save/delete.
 //  ------------------------------------------------------------------
 
-#include <gmemdbg.h>
 #include <gdbgtrk.h>
 #include <gdbgerr.h>
 #include <gcrcall.h>
@@ -119,7 +117,7 @@ void JamArea::add_subfield(JamHdr& __hdr, byte*& __subfield, word __loid, word _
 {
 
     uint32_t _datlen = strlen(__data);
-    __subfield = (byte*)throw_realloc(__subfield, (uint)__hdr.subfieldlen+sizeof(JamSubFieldHdr)+_datlen);
+    __subfield = (byte*)realloc(__subfield, (uint)__hdr.subfieldlen+sizeof(JamSubFieldHdr)+_datlen);
     JamSubField* _subfieldptr = (JamSubField*)(__subfield + (uint)__hdr.subfieldlen);
     _subfieldptr->loid = __loid;
     _subfieldptr->hiid = __hiid;
@@ -156,7 +154,7 @@ void JamArea::save_message(int __mode, gmsg* __msg, JamHdr& __hdr)
     {
 
         // Work on a copy of the original msg text
-        _txtcpy = throw_strdup(__msg->txt);
+        _txtcpy = strdup(__msg->txt);
 
         // Convert message text to a paragraph list
         _para.ConvertText(_txtcpy, strlen(_txtcpy));
@@ -411,7 +409,7 @@ void JamArea::save_message(int __mode, gmsg* __msg, JamHdr& __hdr)
         write(data->fhjdx, &_idx, sizeof(JamIndex));
 
         // Free subfield buffer
-        throw_release(_subfield);
+        free(_subfield);
 
         // Update the header info
         if((__mode & GMSG_NEW) or (was_deleted and not __msg->attr.del()))
@@ -424,7 +422,7 @@ void JamArea::save_message(int __mode, gmsg* __msg, JamHdr& __hdr)
         if(__mode & GMSG_TXT)
         {
 
-            char* _txt = (char*)throw_malloc((uint)(__hdr.txtlen+256));
+            char* _txt = (char*)malloc((uint)(__hdr.txtlen+256));
 
             // Copy text paragraphs, excluding kludges
             int _line = 0;
@@ -450,8 +448,8 @@ void JamArea::save_message(int __mode, gmsg* __msg, JamHdr& __hdr)
             write(data->fhjdt, _txt, (uint)__hdr.txtlen);
 
             // Release the memory we have used
-            throw_free(_txtcpy);
-            throw_free(_txt);
+            free(_txtcpy);
+            free(_txt);
         }
 
         // Update internals if new

@@ -21,7 +21,6 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  GCUI: Golded+ Character-oriented User Interface.
 //  Windowing kernel.
@@ -32,7 +31,6 @@
 #include <cstdarg>
 #include <cstdlib>
 #include <cstring>
-#include <gmemdbg.h>
 #include <gutlmisc.h>
 #include <gwinall.h>
 #include <gkbdcode.h>
@@ -157,7 +155,7 @@ int wopen(int srow, int scol, int erow, int ecol, int btype, vattr battr, vattr 
     }
 
     // allocate memory for new record
-    _wrec_t* wrec = (_wrec_t*)throw_xmalloc(sizeof(_wrec_t));
+    _wrec_t* wrec = (_wrec_t*)malloc(sizeof(_wrec_t));
     if(wrec==NULL)
     {
         gwin.werrno=W_ALLOCERR;
@@ -168,7 +166,7 @@ int wopen(int srow, int scol, int erow, int ecol, int btype, vattr battr, vattr 
     vsavebuf* wbuf = vsave(srow,scol,erow,ecol);
     if(wbuf==NULL)
     {
-        throw_xrelease(wrec);
+        free(wrec);
         gwin.werrno=W_ALLOCERR;
         return 0;
     }
@@ -243,14 +241,14 @@ int wclose()
 
     // restore contents of and free memory held by window
     vrestore(gwin.active->wbuf);
-    throw_xrelease(gwin.active->wbuf);
+    free(gwin.active->wbuf);
 
     // decrement total number of open windows
     gwin.total--;
 
     // free memory held by window's record and update linked list
     _wrec_t *wrec = gwin.active->prev;
-    throw_xrelease(gwin.active);
+    free(gwin.active);
     gwin.active=wrec;
     if(gwin.active!=NULL)
         gwin.active->next=NULL;
@@ -286,8 +284,8 @@ int wcloseall()
     while(gwin.hidden!=NULL)
     {
         prev = gwin.hidden->prev;
-        throw_xfree(gwin.hidden->wbuf);
-        throw_xfree(gwin.hidden);
+        free(gwin.hidden->wbuf);
+        free(gwin.hidden);
         gwin.hidden = prev;
     }
 
@@ -316,7 +314,7 @@ int wshadow(vattr attr)
     const int &ecol = gwin.active->ecol;
 
     // allocate buffer to hold shadow's contents
-    vatch* wsbuf = (vatch*)throw_xmalloc((((erow-srow)*sizeof(vatch))+ecol-scol+1)*sizeof(vatch));
+    vatch* wsbuf = (vatch*)malloc((((erow-srow)*sizeof(vatch))+ecol-scol+1)*sizeof(vatch));
 
     if(wsbuf == NULL)
         return gwin.werrno=W_ALLOCERR;
@@ -429,7 +427,7 @@ int wshadoff()
         vputw(crow,ccol++,*q++);
 
     // free memory held by shadow
-    throw_xrelease(gwin.active->wsbuf);
+    free(gwin.active->wsbuf);
 
     // update window's record
     gwin.active->wsattr = WHITE_|_WHITE;
@@ -1009,7 +1007,7 @@ int wputy(int wrow, int wcol, vattr attr, vchar chr, uint len)
 
 int wprintns(int wrow, int wcol, vattr attr,  const std::string &str, uint len, vchar fill, vattr fill_attr)
 {
-    char* istr = throw_xstrdup(str.c_str());
+    char* istr = strdup(str.c_str());
     char* ostr = istr;
     char och = *ostr;
     uint olen = strlen(istr);
@@ -1024,7 +1022,7 @@ int wprintns(int wrow, int wcol, vattr attr,  const std::string &str, uint len, 
         *ostr = och;
     else if(len > olen)
         retval = wputx(wrow, wcol+olen, (fill_attr != DEFATTR) ? fill_attr : attr, fill, len-olen);
-    throw_xfree(istr);
+    free(istr);
     return retval;
 }
 
@@ -1127,7 +1125,7 @@ int whide()
 
     // restore contents of active window's buffer
     vrestore(gwin.active->wbuf);
-    throw_xfree(gwin.active->wbuf);
+    free(gwin.active->wbuf);
     gwin.active->wbuf = p;
 
     // update visible window record linked list
@@ -1201,7 +1199,7 @@ int wunhide(int whandle)
 
     // restore contents of hidden window back to screen
     vrestore(found->wbuf);
-    throw_xfree(found->wbuf);
+    free(found->wbuf);
     found->wbuf=p;
 
     // update hidden window record linked list
@@ -1256,10 +1254,10 @@ int wunlink(int w)
 
     // free memory held by shadow's buffer (if shadow exists)
     if(found->wsbuf!=NULL)
-        throw_xrelease(found->wsbuf);
+        free(found->wsbuf);
 
     // free memory held by window's buffer
-    throw_xrelease(found->wbuf);
+    free(found->wbuf);
 
     // decrement total number of open windows
     gwin.total--;
@@ -1273,7 +1271,7 @@ int wunlink(int w)
         next->prev=prev;
 
     // free memory held by window record
-    throw_xfree(found);
+    free(found);
 
     // see if active window has changed
     if(next==NULL)
@@ -2138,7 +2136,7 @@ int wtitle(const char* str, int tpos, vattr tattr)
             }
 
             // allocate space for window title string, and copy it there
-            char* p = (char*)throw_xmalloc(((width>len) ? width : len)+1);
+            char* p = (char*)malloc(((width>len) ? width : len)+1);
             if(p==NULL)
                 return gwin.werrno=W_ALLOCERR;
             strcpy(p, str);
@@ -2148,7 +2146,7 @@ int wtitle(const char* str, int tpos, vattr tattr)
             vputs((tpos&TBOTTOM)?gwin.active->erow:gwin.active->srow, start, tattr, p);
 
             // free allocated space
-            throw_xfree(p);
+            free(p);
 
         }
     }

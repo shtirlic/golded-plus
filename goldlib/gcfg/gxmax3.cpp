@@ -19,7 +19,6 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  Read areas from Maximus 3.xx
 //  ------------------------------------------------------------------
@@ -27,7 +26,6 @@
 #include <cstdio>
 #include <cstdlib>
 #include <gfilutil.h>
-#include <gmemdbg.h>
 #include <gstrall.h>
 #if defined(__GOLD_GUI__)
     #include <gvidall.h>
@@ -56,11 +54,11 @@ void gareafile::ReadMaximus3(char* mxpath, char* areafile, char* options)
         if (not quiet)
             STD_PRINTNL("* Reading " << areafile);
 
-        m_pointers* prmp = (m_pointers*)throw_calloc(1, sizeof(m_pointers));
+        m_pointers* prmp = (m_pointers*)calloc(1, sizeof(m_pointers));
         m_pointers& prm = *prmp;
         fread(prmp, sizeof(m_pointers), 1, fp);
         long heapsz = fsize(fp) - prm.heap_offset;
-        char* offsets = (char*)throw_calloc(1, (uint)heapsz);
+        char* offsets = (char*)calloc(1, (uint)heapsz);
         fseek(fp, prm.heap_offset, SEEK_SET);
         fread(offsets, (uint)heapsz, 1, fp);
         fclose(fp);
@@ -88,7 +86,7 @@ void gareafile::ReadMaximus3(char* mxpath, char* areafile, char* options)
             {
 
                 int arearecsize = 1024;
-                char* arearec = (char*)throw_malloc(arearecsize);
+                char* arearec = (char*)malloc(arearecsize);
                 _msgarea* area = (_msgarea*)arearec;
 
                 while(areasize > 0)
@@ -102,7 +100,7 @@ void gareafile::ReadMaximus3(char* mxpath, char* areafile, char* options)
                     if(needsize > arearecsize)
                     {
                         arearecsize = needsize;
-                        arearec = (char*)throw_realloc(arearec, arearecsize);
+                        arearec = (char*)realloc(arearec, arearecsize);
                         area = (_msgarea*)arearec;
                     }
 
@@ -163,14 +161,14 @@ void gareafile::ReadMaximus3(char* mxpath, char* areafile, char* options)
                     AddNewArea(aa);
                 }
 
-                throw_free(arearec);
+                free(arearec);
 
                 fclose(fp);
             }
         }
 
-        throw_free(offsets);
-        throw_free(prmp);
+        free(offsets);
+        free(prmp);
     }
 }
 

@@ -19,7 +19,6 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  Squish msgbase handling and Maximus user functions.
 //  ------------------------------------------------------------------
@@ -28,7 +27,6 @@
 //  ------------------------------------------------------------------
 
 #include <gdbgerr.h>
-#include <gmemdbg.h>
 #include <gdbgtrk.h>
 #include <gstrall.h>
 #include <gcrcall.h>
@@ -307,7 +305,7 @@ char* CopyToControlBuf(char* txt, char** newtext, uint* length)
     uint ctlsize = CopyToBuf(txt, NULL, NULL);
 
     // Allocate memory for it
-    char* cbuf = (char*)throw_calloc(1, ctlsize+20);
+    char* cbuf = (char*)calloc(1, ctlsize+20);
 
     // Now copy the text itself
     char* end;
@@ -653,7 +651,7 @@ void SquishArea::save_message(int __mode, gmsg* __msg)
             write(_fhsqd, &__hdr, sizeof(SqshHdr));
             write(_fhsqd, _ctl, (uint)_ctlsize);
             write(_fhsqd, _txt, (uint)_txtsize);
-            throw_free(_ctl);
+            free(_ctl);
 
             // Update internal arrays if new
             if(__mode & GMSG_NEW)
@@ -662,7 +660,7 @@ void SquishArea::save_message(int __mode, gmsg* __msg)
                 _reln = (uint)(_base.totalmsgs++);
                 __msg->msgno = _base.nextmsgno++;
                 Msgn->Append(__msg->msgno);
-                data->idx = _idx = (SqshIdx*)throw_realloc(data->idx, (uint)(_base.totalmsgs*sizeof(SqshIdx)));
+                data->idx = _idx = (SqshIdx*)realloc(data->idx, (uint)(_base.totalmsgs*sizeof(SqshIdx)));
             }
 
             // Update index

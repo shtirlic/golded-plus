@@ -27,7 +27,6 @@
 #include <cstdlib>
 #include <cerrno>
 #include <gdbgerr.h>
-#include <gmemdbg.h>
 #include <gdbgtrk.h>
 #include <gstrall.h>
 #include <gmofido.h>
@@ -124,8 +123,8 @@ void FidoExit()
 
     if(fidowide)
         delete fidowide->user;
-    throw_release(fidowide);
-    throw_release(fidodata);
+    free(fidowide);
+    free(fidodata);
 }
 
 
@@ -134,8 +133,8 @@ void FidoExit()
 void FidoInit(const char* fidolastread, int fidohwmarks, int fidonullfix, int fidouserno, const char* squishuserpath)
 {
 
-    fidodata = (FidoData*)throw_calloc(3, sizeof(FidoData));
-    fidowide = (FidoWide*)throw_calloc(1, sizeof(FidoWide));
+    fidodata = (FidoData*)calloc(3, sizeof(FidoData));
+    fidowide = (FidoWide*)calloc(1, sizeof(FidoWide));
 
     fidowide->fidolastread = fidolastread;
     fidowide->fidohwmarks = fidohwmarks;
@@ -144,7 +143,6 @@ void FidoInit(const char* fidolastread, int fidohwmarks, int fidonullfix, int fi
     fidowide->squishuserpath = squishuserpath;
 
     fidowide->user = new MaximusUser;
-    throw_new(fidowide->user);
 
     const char* _username = WideUsername[0];
     if(fidowide->userno == -1)

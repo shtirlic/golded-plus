@@ -19,7 +19,6 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  WildCat! 4.x messagebase engine.
 //  ------------------------------------------------------------------
@@ -27,7 +26,6 @@
 
 //  ------------------------------------------------------------------
 
-#include <gmemdbg.h>
 #include <gdbgtrk.h>
 #include <gstrall.h>
 
@@ -180,7 +178,7 @@ int WCatArea::load_message(int __mode, gmsg* __msg, WCatHdr& __hdr)
         uint _txtlen = __hdr.msgbytes;
 
         // Allocate space for the message text
-        __msg->txt = (char*)throw_calloc(1, _txtlen+256);
+        __msg->txt = (char*)calloc(1, _txtlen+256);
 
         // Read the message text
         read(_fhdat, __msg->txt, _txtlen);

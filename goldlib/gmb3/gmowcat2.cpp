@@ -19,13 +19,11 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  WildCat! 4.x messagebase engine.
 //  ------------------------------------------------------------------
 
 #include <gdbgerr.h>
-#include <gmemdbg.h>
 #include <gdbgtrk.h>
 #include <gmowcat.h>
 
@@ -62,7 +60,7 @@ void WCatArea::refresh()
     {
 
         // Read the index file
-        data->idx = (WCatIdx*)throw_realloc(data->idx, (uint)(ixnum*sizeof(WCatIdx)));
+        data->idx = (WCatIdx*)realloc(data->idx, (uint)(ixnum*sizeof(WCatIdx)));
         lseekset(data->fhix, sizeof(WCatBase));
         read(data->fhix, data->idx, (uint)(ixnum*sizeof(WCatIdx)));
     }
@@ -202,7 +200,7 @@ void WCatArea::raw_scan(int __keep_index, int __scanpm)
 
     // Free index buffer if just counting
     if(not __keep_index or __scanpm)
-        throw_release(data->idx);
+        free(data->idx);
 
     if(_was_data == NULL)
     {

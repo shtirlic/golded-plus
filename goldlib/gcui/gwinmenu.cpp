@@ -35,7 +35,6 @@
 #include <gctype.h>
 #include <cstdio>
 #include <cstdlib>
-#include <gmemdbg.h>
 #include <gkbdcode.h>
 #include <gkbdbase.h>
 #include <gmoubase.h>
@@ -340,7 +339,7 @@ static _item_t * down_item(_item_t *curr)
     // if there wasn't an item downwards, then wrap around
     if(best==NULL)
     {
-        if((temp=(_item_t*)throw_malloc(sizeof(_item_t)))==NULL)
+        if((temp=(_item_t*)malloc(sizeof(_item_t)))==NULL)
         {
             best=curr;
         }
@@ -349,7 +348,7 @@ static _item_t * down_item(_item_t *curr)
             *temp=*curr;
             temp->wrow=-1;
             best=down_item(temp);
-            throw_free(temp);
+            free(temp);
         }
     }
     else
@@ -399,13 +398,13 @@ static void free_menu(_menu_t *wmenu)
     {
         if(wmenu->item->child!=NULL) free_menu((_menu_t*)wmenu->item->child);
         witem=wmenu->item->prev;
-        throw_free(wmenu->item);
+        free(wmenu->item);
         wmenu->item=witem;
         if(wmenu->item!=NULL) wmenu->item->next=NULL;
     }
 
     // free the menu itself
-    throw_free(wmenu);
+    free(wmenu);
 }
 
 
@@ -741,7 +740,7 @@ static _item_t * up_item(_item_t *curr)
     // if there wasn't a item to the left, then wrap around
     if(best==NULL)
     {
-        if((temp=(_item_t*)throw_malloc(sizeof(_item_t)))==NULL)
+        if((temp=(_item_t*)malloc(sizeof(_item_t)))==NULL)
         {
             best=curr;
         }
@@ -750,7 +749,7 @@ static _item_t * up_item(_item_t *curr)
             *temp=*curr;
             temp->wrow=255;
             best=up_item(temp);
-            throw_free(temp);
+            free(temp);
         }
     }
     else
@@ -774,7 +773,7 @@ int wmenubeg(int srow, int scol, int erow, int ecol, int btype, vattr battr, vat
     if(gwin.mlevel>gwin.ilevel) return(gwin.werrno=W_NOITMDEF);
 
     // allocate memory for new menu record
-    if((wmenu=(_menu_t*)throw_malloc(sizeof(_menu_t)))==NULL)
+    if((wmenu=(_menu_t*)malloc(sizeof(_menu_t)))==NULL)
         return(gwin.werrno=W_ALLOCERR);
 
     // if menu is not a submenu, make it a new base menu record
@@ -835,7 +834,7 @@ int wmenuitem(int wrow, int wcol, const char* str, char schar, int tagid, int fm
         return (gwin.werrno=W_NOMNUBEG);
 
     // allocate memory for new item record
-    witem = (_item_t*)throw_malloc(sizeof(_item_t));
+    witem = (_item_t*)malloc(sizeof(_item_t));
     if(witem==NULL)
         return (gwin.werrno=W_ALLOCERR);
 

@@ -84,7 +84,7 @@
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\golded3;..\goldlib;..\goldlib\gall;..\goldlib\gcui;..\goldlib\gcfg;..\goldlib\glibc;..\goldlib\gmb3;..\goldlib\smblib;..\goldlib\uulib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\golded;..\goldlib;..\goldlib\gall;..\goldlib\gcui;..\goldlib\gcfg;..\goldlib\glibc;..\goldlib\gmb3;..\goldlib\smblib;..\goldlib\uulib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_NONSTDC_NO_DEPRECATE;HAVE_SNPRINTF;HAVE_VSNPRINTF;_CRT_SECURE_NO_WARNINGS;_ALLOW_RTCc_IN_STL;NDEBUG;WIN64;_CONSOLE;HAVE_CONFIG_H;__INCLUDE_NEW_KEYWORDS__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <ExceptionHandling>Async</ExceptionHandling>
@@ -128,7 +128,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\golded3;..\goldlib;..\goldlib\gall;..\goldlib\gcui;..\goldlib\gcfg;..\goldlib\glibc;..\goldlib\gmb3;..\goldlib\smblib;..\goldlib\uulib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\golded;..\goldlib;..\goldlib\gall;..\goldlib\gcui;..\goldlib\gcfg;..\goldlib\glibc;..\goldlib\gmb3;..\goldlib\smblib;..\goldlib\uulib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_NONSTDC_NO_DEPRECATE;HAVE_SNPRINTF;HAVE_VSNPRINTF;_CRT_SECURE_NO_WARNINGS;_ALLOW_RTCc_IN_STL;_DEBUG;WIN64;_CONSOLE;HAVE_CONFIG_H;__INCLUDE_NEW_KEYWORDS__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Async</ExceptionHandling>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
@@ -178,7 +178,7 @@
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\golded3;..\goldlib;..\goldlib\gall;..\goldlib\gcui;..\goldlib\gcfg;..\goldlib\glibc;..\goldlib\gmb3;..\goldlib\smblib;..\goldlib\uulib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\golded;..\goldlib;..\goldlib\gall;..\goldlib\gcui;..\goldlib\gcfg;..\goldlib\glibc;..\goldlib\gmb3;..\goldlib\smblib;..\goldlib\uulib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_NONSTDC_NO_DEPRECATE;HAVE_SNPRINTF;HAVE_VSNPRINTF;_CRT_SECURE_NO_WARNINGS;_ALLOW_RTCc_IN_STL;NDEBUG;WIN64;_CONSOLE;HAVE_CONFIG_H;__INCLUDE_NEW_KEYWORDS__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <ExceptionHandling>Async</ExceptionHandling>
@@ -216,98 +216,98 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\golded3\gcalst.cpp" />
-    <ClCompile Include="..\golded3\gcarea.cpp" />
-    <ClCompile Include="..\golded3\gccfgg.cpp" />
-    <ClCompile Include="..\golded3\gccfgg0.cpp" />
-    <ClCompile Include="..\golded3\gccfgg1.cpp" />
-    <ClCompile Include="..\golded3\gccfgg2.cpp" />
-    <ClCompile Include="..\golded3\gccfgg3.cpp" />
-    <ClCompile Include="..\golded3\gccfgg4.cpp" />
-    <ClCompile Include="..\golded3\gccfgg5.cpp" />
-    <ClCompile Include="..\golded3\gccfgg6.cpp" />
-    <ClCompile Include="..\golded3\gccfgg7.cpp" />
-    <ClCompile Include="..\golded3\gccfgg8.cpp" />
-    <ClCompile Include="..\golded3\gckeys.cpp" />
-    <ClCompile Include="..\golded3\gclang.cpp" />
-    <ClCompile Include="..\golded3\gcmisc.cpp" />
-    <ClCompile Include="..\golded3\gealst.cpp" />
-    <ClCompile Include="..\golded3\gearea.cpp" />
-    <ClCompile Include="..\golded3\gecarb.cpp" />
-    <ClCompile Include="..\golded3\gecmfd.cpp" />
-    <ClCompile Include="..\golded3\gectnr.cpp" />
-    <ClCompile Include="..\golded3\gectrl.cpp" />
-    <ClCompile Include="..\golded3\gedoit.cpp" />
-    <ClCompile Include="..\golded3\gedoss.cpp" />
-    <ClCompile Include="..\golded3\geedit.cpp" />
-    <ClCompile Include="..\golded3\geedit2.cpp" />
-    <ClCompile Include="..\golded3\geedit3.cpp" />
-    <ClCompile Include="..\golded3\gefile.cpp" />
-    <ClCompile Include="..\golded3\gefind.cpp" />
-    <ClCompile Include="..\golded3\geglob.cpp" />
-    <ClCompile Include="..\golded3\gehdre.cpp" />
-    <ClCompile Include="..\golded3\gehtml.cpp" />
-    <ClCompile Include="..\golded3\geinit.cpp" />
-    <ClCompile Include="..\golded3\geline.cpp" />
-    <ClCompile Include="..\golded3\gelmsg.cpp" />
-    <ClCompile Include="..\golded3\gemain.cpp" />
-    <ClCompile Include="..\golded3\gemenu.cpp" />
-    <ClCompile Include="..\golded3\gemlst.cpp" />
-    <ClCompile Include="..\golded3\gemnus.cpp" />
-    <ClCompile Include="..\golded3\gemrks.cpp" />
-    <ClCompile Include="..\golded3\gemsgs.cpp" />
-    <ClCompile Include="..\golded3\genode.cpp" />
-    <ClCompile Include="..\golded3\geplay.cpp" />
-    <ClCompile Include="..\golded3\gepost.cpp" />
-    <ClCompile Include="..\golded3\geqwks.cpp" />
-    <ClCompile Include="..\golded3\gerand.cpp" />
-    <ClCompile Include="..\golded3\geread.cpp" />
-    <ClCompile Include="..\golded3\geread2.cpp" />
-    <ClCompile Include="..\golded3\gescan.cpp" />
-    <ClCompile Include="..\golded3\gesoup.cpp" />
-    <ClCompile Include="..\golded3\gesrch.cpp" />
-    <ClCompile Include="..\golded3\getpls.cpp" />
-    <ClCompile Include="..\golded3\geusrbse.cpp" />
-    <ClCompile Include="..\golded3\geutil.cpp" />
-    <ClCompile Include="..\golded3\geutil2.cpp" />
-    <ClCompile Include="..\golded3\geview.cpp" />
-    <ClCompile Include="..\golded3\gmarea.cpp" />
-    <ClCompile Include="..\golded3\golded3.cpp" />
+    <ClCompile Include="..\golded\gcalst.cpp" />
+    <ClCompile Include="..\golded\gcarea.cpp" />
+    <ClCompile Include="..\golded\gccfgg.cpp" />
+    <ClCompile Include="..\golded\gccfgg0.cpp" />
+    <ClCompile Include="..\golded\gccfgg1.cpp" />
+    <ClCompile Include="..\golded\gccfgg2.cpp" />
+    <ClCompile Include="..\golded\gccfgg3.cpp" />
+    <ClCompile Include="..\golded\gccfgg4.cpp" />
+    <ClCompile Include="..\golded\gccfgg5.cpp" />
+    <ClCompile Include="..\golded\gccfgg6.cpp" />
+    <ClCompile Include="..\golded\gccfgg7.cpp" />
+    <ClCompile Include="..\golded\gccfgg8.cpp" />
+    <ClCompile Include="..\golded\gckeys.cpp" />
+    <ClCompile Include="..\golded\gclang.cpp" />
+    <ClCompile Include="..\golded\gcmisc.cpp" />
+    <ClCompile Include="..\golded\gealst.cpp" />
+    <ClCompile Include="..\golded\gearea.cpp" />
+    <ClCompile Include="..\golded\gecarb.cpp" />
+    <ClCompile Include="..\golded\gecmfd.cpp" />
+    <ClCompile Include="..\golded\gectnr.cpp" />
+    <ClCompile Include="..\golded\gectrl.cpp" />
+    <ClCompile Include="..\golded\gedoit.cpp" />
+    <ClCompile Include="..\golded\gedoss.cpp" />
+    <ClCompile Include="..\golded\geedit.cpp" />
+    <ClCompile Include="..\golded\geedit2.cpp" />
+    <ClCompile Include="..\golded\geedit3.cpp" />
+    <ClCompile Include="..\golded\gefile.cpp" />
+    <ClCompile Include="..\golded\gefind.cpp" />
+    <ClCompile Include="..\golded\geglob.cpp" />
+    <ClCompile Include="..\golded\gehdre.cpp" />
+    <ClCompile Include="..\golded\gehtml.cpp" />
+    <ClCompile Include="..\golded\geinit.cpp" />
+    <ClCompile Include="..\golded\geline.cpp" />
+    <ClCompile Include="..\golded\gelmsg.cpp" />
+    <ClCompile Include="..\golded\gemain.cpp" />
+    <ClCompile Include="..\golded\gemenu.cpp" />
+    <ClCompile Include="..\golded\gemlst.cpp" />
+    <ClCompile Include="..\golded\gemnus.cpp" />
+    <ClCompile Include="..\golded\gemrks.cpp" />
+    <ClCompile Include="..\golded\gemsgs.cpp" />
+    <ClCompile Include="..\golded\genode.cpp" />
+    <ClCompile Include="..\golded\geplay.cpp" />
+    <ClCompile Include="..\golded\gepost.cpp" />
+    <ClCompile Include="..\golded\geqwks.cpp" />
+    <ClCompile Include="..\golded\gerand.cpp" />
+    <ClCompile Include="..\golded\geread.cpp" />
+    <ClCompile Include="..\golded\geread2.cpp" />
+    <ClCompile Include="..\golded\gescan.cpp" />
+    <ClCompile Include="..\golded\gesoup.cpp" />
+    <ClCompile Include="..\golded\gesrch.cpp" />
+    <ClCompile Include="..\golded\getpls.cpp" />
+    <ClCompile Include="..\golded\geusrbse.cpp" />
+    <ClCompile Include="..\golded\geutil.cpp" />
+    <ClCompile Include="..\golded\geutil2.cpp" />
+    <ClCompile Include="..\golded\geview.cpp" />
+    <ClCompile Include="..\golded\gmarea.cpp" />
+    <ClCompile Include="..\golded\golded.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\golded3\gccfgg.h" />
-    <ClInclude Include="..\golded3\gckeys.h" />
-    <ClInclude Include="..\golded3\gclang.h" />
-    <ClInclude Include="..\golded3\gcprot.h" />
-    <ClInclude Include="..\golded3\gecfgg.h" />
-    <ClInclude Include="..\golded3\gectnr.h" />
-    <ClInclude Include="..\golded3\geedit.h" />
-    <ClInclude Include="..\golded3\gefn.h" />
-    <ClInclude Include="..\golded3\geglob.h" />
-    <ClInclude Include="..\golded3\gehelp.h" />
-    <ClInclude Include="..\golded3\gekeys.h" />
-    <ClInclude Include="..\golded3\gelang.h" />
-    <ClInclude Include="..\golded3\gemnus.h" />
-    <ClInclude Include="..\golded3\geprot.h" />
-    <ClInclude Include="..\golded3\geqwks.h" />
-    <ClInclude Include="..\golded3\gesrch.h" />
-    <ClInclude Include="..\golded3\geusrbse.h" />
-    <ClInclude Include="..\golded3\geview.h" />
-    <ClInclude Include="..\golded3\gmarea.h" />
-    <ClInclude Include="..\golded3\golded.h" />
-    <ClInclude Include="..\golded3\golded3.h" />
-    <ClInclude Include="..\golded3\goldres.h" />
-    <ClInclude Include="..\golded3\mygolded.h" />
+    <ClInclude Include="..\golded\gccfgg.h" />
+    <ClInclude Include="..\golded\gckeys.h" />
+    <ClInclude Include="..\golded\gclang.h" />
+    <ClInclude Include="..\golded\gcprot.h" />
+    <ClInclude Include="..\golded\gecfgg.h" />
+    <ClInclude Include="..\golded\gectnr.h" />
+    <ClInclude Include="..\golded\geedit.h" />
+    <ClInclude Include="..\golded\gefn.h" />
+    <ClInclude Include="..\golded\geglob.h" />
+    <ClInclude Include="..\golded\gehelp.h" />
+    <ClInclude Include="..\golded\gekeys.h" />
+    <ClInclude Include="..\golded\gelang.h" />
+    <ClInclude Include="..\golded\gemnus.h" />
+    <ClInclude Include="..\golded\geprot.h" />
+    <ClInclude Include="..\golded\geqwks.h" />
+    <ClInclude Include="..\golded\gesrch.h" />
+    <ClInclude Include="..\golded\geusrbse.h" />
+    <ClInclude Include="..\golded\geview.h" />
+    <ClInclude Include="..\golded\gmarea.h" />
+    <ClInclude Include="..\golded\golded.h" />
+    <ClInclude Include="..\golded\golded3.h" />
+    <ClInclude Include="..\golded\goldres.h" />
+    <ClInclude Include="..\golded\mygolded.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\golded3\gedcyg.rc">
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">golded3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release_Static|x64'">golded3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">golded3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    <ResourceCompile Include="..\golded\gedcyg.rc">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">golded;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release_Static|x64'">golded;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">golded;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\golded3\gedw.ico" />
+    <Image Include="..\golded\gedw.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="goldlib.vcxproj">

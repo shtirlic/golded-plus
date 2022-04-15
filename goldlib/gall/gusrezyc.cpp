@@ -19,13 +19,11 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  Ezycom userfile class implementation.
 //  ------------------------------------------------------------------
 
 #include <gfilutil.h>
-#include <gmemdbg.h>
 #include <gstrall.h>
 #include <gusrezyc.h>
 
@@ -42,11 +40,8 @@ EzycomUser::EzycomUser()
     recsize = sizeof(EzycUsers);
 
     record = new EzycUsers;
-    throw_new(record);
     extrec = new EzycUsersExt;
-    throw_new(extrec);
     extrec110 = new EzycUsersExt110;
-    throw_new(extrec110);
 
     recptr = (char*)record;
     name = record->name;
@@ -58,9 +53,9 @@ EzycomUser::EzycomUser()
 EzycomUser::~EzycomUser()
 {
 
-    throw_delete(extrec110);
-    throw_delete(extrec);
-    throw_delete(record);
+    delete(extrec110);
+    delete(extrec);
+    delete(record);
 }
 
 

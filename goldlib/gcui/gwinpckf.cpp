@@ -21,7 +21,6 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  GCUI: Golded+ Character-oriented User Interface.
 //  wpickfile() - Allows user to select a file name.
@@ -32,7 +31,6 @@
 #include <cstdlib>
 #include <cstring>
 #include <algorithm>
-#include <gmemdbg.h>
 #include <gfilutil.h>
 #include <gwildmat.h>
 #include <gwinall.h>

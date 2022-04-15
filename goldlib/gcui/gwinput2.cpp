@@ -20,7 +20,6 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  GCUI: Golded+ Character-oriented User Interface.
 //  Class gwinput: Input form and field editing.
@@ -28,7 +27,6 @@
 
 #include <cstring>
 #include <gkbdcode.h>
-#include <gmemdbg.h>
 #include <gstrall.h>
 #include <gwinall.h>
 #include <gwinhelp.h>
@@ -116,7 +114,6 @@ void gwinput::add_field(int idnum, int wrow, int wcol, int field_width, std::str
 {
 
     field* fld = new field(this, idnum, wrow, wcol, field_width, dest, dest_size, cvt, mode);
-    throw_new(fld);
     if(current)
     {
         current->next = fld;
@@ -829,7 +826,6 @@ gwinput::field::field(gwinput* iform, int idnum, int wrow, int wcol, int field_w
     max_column = wcol + max_pos;
     buf_len = dest_size - 1;
     buf = new char[dest_size];
-    throw_new(buf);
     conversion = cvt;
     entry = entry_mode = mode;
     attr = form->idle_attr;
@@ -1344,7 +1340,7 @@ void gwinput::field::clipboard_paste()
         if(not clipbrd.openread())
             return;
 
-        char *clpbuf = (char *)throw_malloc(buf_len + 1);
+        char *clpbuf = (char *)malloc(buf_len + 1);
 
         if(clipbrd.read(clpbuf, buf_len + 1))
         {
@@ -1392,7 +1388,7 @@ void gwinput::field::clipboard_paste()
             }
         }
 
-        throw_free(clpbuf);
+        free(clpbuf);
 
         clipbrd.close();
     }

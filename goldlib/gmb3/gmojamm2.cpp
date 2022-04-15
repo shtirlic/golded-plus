@@ -19,14 +19,12 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  JAM msgbase implementation, scanning.
 //  ------------------------------------------------------------------
 
 #include <cerrno>
 #include <gdbgerr.h>
-#include <gmemdbg.h>
 #include <gdbgtrk.h>
 #include <gstrall.h>
 #include <gcrcall.h>
@@ -275,7 +273,7 @@ void JamArea::raw_scan(int __keep_index, int __scanpm)
         Msgn->Resize(_jdxtotal);
 
     // Allocate buffer to hold .JDX data
-    JamIndex* _jdxbuf = (JamIndex*)throw_malloc(_jdxsize+1);
+    JamIndex* _jdxbuf = (JamIndex*)malloc(_jdxsize+1);
 
     // Read the entire .JDX file into memory
     lseekset(data->fhjdx, 0);
@@ -335,7 +333,7 @@ void JamArea::raw_scan(int __keep_index, int __scanpm)
     {
         INam uname;
         int umax = (WidePersonalmail & PM_ALLNAMES) ? WideUsernames : 1;
-        uint32_t* ucrc = (uint32_t*)throw_calloc(umax, sizeof(uint32_t));
+        uint32_t* ucrc = (uint32_t*)calloc(umax, sizeof(uint32_t));
         for(int uc=0; uc<umax; uc++)
         {
             jamstrlwr(strcpy(uname, WideUsername[uc]));
@@ -372,7 +370,7 @@ void JamArea::raw_scan(int __keep_index, int __scanpm)
             }
             n++;
         }
-        throw_free(ucrc);
+        free(ucrc);
     }
 
     if(WideDebug)
@@ -390,7 +388,7 @@ void JamArea::raw_scan(int __keep_index, int __scanpm)
     }
 
     // Free the .JDX buffer
-    throw_free(_jdxbuf);
+    free(_jdxbuf);
 
     // Close the msgbase again if we opened it in here
     if(not _was_open)

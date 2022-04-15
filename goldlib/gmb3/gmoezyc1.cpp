@@ -19,14 +19,12 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  Ezycom msgbase handling
 //  ------------------------------------------------------------------
 
 #include <cstdlib>
 #include <gdbgerr.h>
-#include <gmemdbg.h>
 #include <gdbgtrk.h>
 #include <gstrall.h>
 #include <glog.h>
@@ -277,8 +275,8 @@ void EzycomExit()
 
     if(ezycomwide)
         delete ezycomwide->user;
-    throw_xrelease(ezycomwide);
-    throw_xrelease(ezycomdata);
+    free(ezycomwide);
+    free(ezycomdata);
 }
 
 
@@ -287,8 +285,8 @@ void EzycomExit()
 void EzycomInit(const char* msgbasepath, const char* userbasepath, int userno)
 {
 
-    ezycomdata = (EzycData*)throw_calloc(3, sizeof(EzycData));
-    ezycomwide = (EzycWide*)throw_calloc(1, sizeof(EzycWide));
+    ezycomdata = (EzycData*)calloc(3, sizeof(EzycData));
+    ezycomwide = (EzycWide*)calloc(1, sizeof(EzycWide));
 
     ezycomwide->msgbasepath = msgbasepath;
     ezycomwide->userbasepath = userbasepath;
@@ -333,7 +331,6 @@ void EzycomInit(const char* msgbasepath, const char* userbasepath, int userno)
     }
 
     ezycomwide->user = new EzycomUser;
-    throw_new(ezycomwide->user);
 
     const char* _username = WideUsername[0];
     ezycomwide->user->ver = ezycomwide->ver;

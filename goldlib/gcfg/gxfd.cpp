@@ -26,7 +26,6 @@
 
 #include <cstdlib>
 #include <gstrall.h>
-#include <gmemdbg.h>
 #if defined(__GOLD_GUI__)
     #include <gvidall.h>
     #include <gvidgui.h>
@@ -56,11 +55,8 @@ void gareafile::ReadFrontDoor(char* tag)
     *fdpath = NUL;
     *origin = NUL;
     folder = new FD_Folder;
-    throw_new(folder);
     editor = new FD_Editor;
-    throw_new(editor);
     shared = new FD_Shared;
-    throw_new(shared);
 
     ptr = getenv("FD");
     if(ptr)
@@ -166,9 +162,9 @@ void gareafile::ReadFrontDoor(char* tag)
         fclose(fp);
     }
 
-    throw_delete(editor);
-    throw_delete(shared);
-    throw_delete(folder);
+    delete(editor);
+    delete(shared);
+    delete(folder);
 }
 
 

@@ -19,14 +19,12 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  Function tracker.
 //  ------------------------------------------------------------------
 
 #include <gtimall.h>
 #include <gdbgtrk.h>
-#include <gmemdbg.h>
 #include <glog.h>
 #include <stdlib.h>
 
@@ -113,8 +111,6 @@ void __gftrk_track(const char* text)
         {
             __gftrk_indent--;
         }
-        if(__gftrk_statusline)
-            THROW_CHECK();
     }
 }
 

@@ -20,14 +20,12 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  GoldED nodelist indexing.
 //  ------------------------------------------------------------------
 
 #include <gcrcall.h>
 #include <gfilutil.h>
-#include <gmemdbg.h>
 #include <gstrall.h>
 #include <gftnnlge.h>
 #include <stdlib.h>
@@ -375,7 +373,7 @@ bool ftn_golded_nodelist_index::open()
     nodelists = 0;
     while(fgets(buf, sizeof(buf), fp))
     {
-        nodelist = (fstamp*)throw_realloc(nodelist, (nodelists+1)*sizeof(fstamp));
+        nodelist = (fstamp*)realloc(nodelist, (nodelists+1)*sizeof(fstamp));
         char* key;
         char* val=buf;
         getkeyval(&key, &val);
@@ -406,7 +404,7 @@ bool ftn_golded_nodelist_index::open()
 void ftn_golded_nodelist_index::close()
 {
 
-    throw_release(nodelist);
+    free(nodelist);
     nodelists = 0;
 
     lastfileno = -1;

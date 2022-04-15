@@ -20,12 +20,10 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  String bag class.
 //  ------------------------------------------------------------------
 
-#include <gmemdbg.h>
 #include <gstrall.h>
 #include <gstrbags.h>
 
@@ -117,7 +115,7 @@ void GStrSet3::Put(const char* s1, const char* s2, const char* s3)
     int len2 = strlen(s2 ? s2 : "")+1;
     int len3 = strlen(s3 ? s3 : "")+1;
     cfg.size = len1 + len2 + len3;
-    set = (char *)throw_xmalloc(cfg.size);
+    set = (char *)malloc(cfg.size);
     cfg.pos2 = len1;
     cfg.pos3 = len1 + len2;
     std::memcpy(set, s1 ? s1 : "", len1);
@@ -133,7 +131,7 @@ void GStrSet3::Change(const char* s1, const char* s2, const char* s3)
 
     char* oldset = set;
     Put(s1, s2, s3);
-    throw_xfree(oldset);
+    free(oldset);
 }
 
 

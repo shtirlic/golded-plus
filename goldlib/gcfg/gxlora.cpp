@@ -19,13 +19,11 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  Read areas from LoraBBS (2.33 and 2.40).
 //  ------------------------------------------------------------------
 
 #include <cstdlib>
-#include <gmemdbg.h>
 #include <gstrall.h>
 #if defined(__GOLD_GUI__)
     #include <gvidall.h>
@@ -77,7 +75,7 @@ void gareafile::ReadLoraBBS(char* tag)
         if (not quiet)
             STD_PRINTNL("* Reading " << _file);
 
-        _configuration* cfg = (_configuration*)throw_calloc(1, sizeof(_configuration));
+        _configuration* cfg = (_configuration*)calloc(1, sizeof(_configuration));
         fp.Fread(cfg, sizeof(_configuration));
         fp.Fclose();
 
@@ -145,7 +143,7 @@ void gareafile::ReadLoraBBS(char* tag)
             if (not quiet)
                 STD_PRINTNL("* Reading " << _file);
 
-            _sysmsg* sysmsg = (_sysmsg*)throw_calloc(1, sizeof(_sysmsg));
+            _sysmsg* sysmsg = (_sysmsg*)calloc(1, sizeof(_sysmsg));
 
             while (fp.Fread(sysmsg, sizeof(_sysmsg)) == 1)
             {
@@ -196,10 +194,10 @@ void gareafile::ReadLoraBBS(char* tag)
 
                 AddNewArea(aa);
             }
-            throw_free(sysmsg);
+            free(sysmsg);
             fp.Fclose();
         }
-        throw_free(cfg);
+        free(cfg);
     }
 }
 

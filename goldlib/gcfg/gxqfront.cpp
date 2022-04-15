@@ -19,13 +19,11 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  Read areas from QFront.
 //  ------------------------------------------------------------------
 
 #include <cstdlib>
-#include <gmemdbg.h>
 #include <gstrall.h>
 #if defined(__GOLD_GUI__)
     #include <gvidall.h>
@@ -67,7 +65,7 @@ void gareafile::ReadQFront(char* tag)
     if(*path == NUL)
         strcpy(path, areapath);
 
-    OriginLineRecord* origin = (OriginLineRecord*)throw_calloc(1, sizeof(OriginLineRecord));
+    OriginLineRecord* origin = (OriginLineRecord*)calloc(1, sizeof(OriginLineRecord));
     MakePathname(file, path, "qorigin.dat");
     fp = fsopen(file, "rb", sharemode);
     if (fp)
@@ -81,7 +79,7 @@ void gareafile::ReadQFront(char* tag)
         fclose(fp);
     }
 
-    EchoMailConferenceRecord* area = (EchoMailConferenceRecord*)throw_calloc(1, sizeof(EchoMailConferenceRecord));
+    EchoMailConferenceRecord* area = (EchoMailConferenceRecord*)calloc(1, sizeof(EchoMailConferenceRecord));
     MakePathname(file, path, "qechos.dat");
     fp = fsopen(file, "rb", sharemode);
     if (fp)
@@ -110,8 +108,8 @@ void gareafile::ReadQFront(char* tag)
         fclose(fp);
     }
 
-    throw_free(origin);
-    throw_free(area);
+    free(origin);
+    free(area);
 }
 
 

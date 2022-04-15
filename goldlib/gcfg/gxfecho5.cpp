@@ -24,7 +24,6 @@
 #include <cstring>
 #include <cstdlib>
 #include <gfilutil.h>
-#include <gmemdbg.h>
 #undef GCFG_NOFE
 #include <gedacfg.h>
 #include <gs_fech5.h>
@@ -38,8 +37,8 @@ void gareafile::ReadFastecho141(int fh)
 
     AreaCfg aa;
 
-    CONFIG5* cfg = (CONFIG5*)throw_calloc(1, sizeof(CONFIG5));
-    FeArea5* area = (FeArea5*)throw_calloc(1, sizeof(FeArea5));
+    CONFIG5* cfg = (CONFIG5*)calloc(1, sizeof(CONFIG5));
+    FeArea5* area = (FeArea5*)calloc(1, sizeof(FeArea5));
 
     // Read main config record
     read(fh, cfg, sizeof(CONFIG5));
@@ -50,7 +49,7 @@ void gareafile::ReadFastecho141(int fh)
 
 
     // Setup aka list
-    SysAddress* aka = (SysAddress*)throw_calloc(cfg->AkaCnt, sizeof(SysAddress));
+    SysAddress* aka = (SysAddress*)calloc(cfg->AkaCnt, sizeof(SysAddress));
     for(int c=0; c<11; c++)
         aka[c].main = cfg->oldakas[c].main;
 
@@ -153,9 +152,9 @@ void gareafile::ReadFastecho141(int fh)
         }
     }
 
-    throw_free(aka);
-    throw_free(area);
-    throw_free(cfg);
+    free(aka);
+    free(area);
+    free(cfg);
 }
 
 

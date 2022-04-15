@@ -20,7 +20,6 @@
 //  ------------------------------------------------------------------
 //  Designed to work with the Goldware library. May need some work..
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 
 
@@ -35,7 +34,6 @@
 #include <gstrall.h>
 #include <gftnall.h>
 #include <golded3.h>
-#include <gmemdbg.h>
 
 int debug = false;
 
@@ -387,8 +385,6 @@ void nodetree::print()
 
 int main(int argc, char** argv)
 {
-
-    throw_init();
 
     // set locale
     setlocale(LC_CTYPE, "");

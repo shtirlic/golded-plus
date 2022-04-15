@@ -19,14 +19,12 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  Tag number types and set class.
 //  ------------------------------------------------------------------
 
 #include <cstdlib>
 #include <cstring>
-#include <gmemdbg.h>
 #include <gutltag.h>
 
 
@@ -59,7 +57,7 @@ GTag::~GTag()
 void GTag::Reset()
 {
 
-    throw_xrelease(tag);
+    free(tag);
     allocated = tags = 0;
     // NOTE: Does and must NOT reset the count!
 }
@@ -84,7 +82,7 @@ uint32_t* GTag::Resize(uint __tags)
 
     if(newsize)
     {
-        tag = (uint32_t*)throw_realloc(tag, newsize*sizeof(uint32_t));
+        tag = (uint32_t*)realloc(tag, newsize*sizeof(uint32_t));
         allocated = newsize;
     }
 

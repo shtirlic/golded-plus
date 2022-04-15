@@ -19,13 +19,11 @@
 //  Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 //  MA 02111-1307, USA
 //  ------------------------------------------------------------------
-//  $Id$
 //  ------------------------------------------------------------------
 //  Squish msgbase handling and Maximus user functions.
 //  ------------------------------------------------------------------
 
 #include <gdbgerr.h>
-#include <gmemdbg.h>
 #include <gdbgtrk.h>
 #include <gstrall.h>
 #include <gmosqsh.h>
@@ -68,8 +66,8 @@ void SquishExit()
 
     if(squishwide)
         delete squishwide->user;
-    throw_release(squishwide);
-    throw_release(squishdata);
+    free(squishwide);
+    free(squishdata);
 }
 
 
@@ -78,8 +76,8 @@ void SquishExit()
 void SquishInit(const char* userpath, int userno, int direct, int recycle, int squishscan)
 {
 
-    squishdata = (SqshData*)throw_calloc(3, sizeof(SqshData));
-    squishwide = (SqshWide*)throw_calloc(1, sizeof(SqshWide));
+    squishdata = (SqshData*)calloc(3, sizeof(SqshData));
+    squishwide = (SqshWide*)calloc(1, sizeof(SqshWide));
 
     squishwide->userpath = userpath;
     squishwide->userno = userno;
@@ -88,7 +86,6 @@ void SquishInit(const char* userpath, int userno, int direct, int recycle, int s
     squishwide->squishscan = squishscan;
 
     squishwide->user = new MaximusUser;
-    throw_new(squishwide->user);
 
     Path userfile;
     strxcpy(userfile, AddPath(userpath, "USER.BBS"), sizeof(Path));
@@ -258,7 +255,7 @@ void SquishArea::close()
             save_lastread();
             raw_close();
             Msgn->Reset();
-            throw_xrelease(data->idx);
+            free(data->idx);
             data_close();
             if(ispacked())
             {
