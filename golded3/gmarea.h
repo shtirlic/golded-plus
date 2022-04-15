@@ -375,9 +375,6 @@ struct AreaData
         memset(quotechars, 0, sizeof(quotechars));
         memset(quotestring, 0, sizeof(quotestring));
         memset(quotestops, 0, sizeof(quotestops));
-#if defined(GCFG_SPELL_INCLUDED)
-        memset(scheckerdeflang, 0, sizeof(scheckerdeflang));
-#endif
         memset(tagline, 0, sizeof(tagline));
         memset(areacopyto, 0, sizeof(areacopyto));
         memset(areafreqto, 0, sizeof(areafreqto));
@@ -449,9 +446,6 @@ struct AreaData
     bool     quotewraphard;
     GPlay    play;
     int      replyre;
-#if defined(GCFG_SPELL_INCLUDED)
-    char     scheckerdeflang[10240];
-#endif
     char     tagline[76];
     char     taglinechar;
     bool     taglinesupport;

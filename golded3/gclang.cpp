@@ -403,7 +403,6 @@ static LangCrc LangCrcs[] =
     { CRC_IL_FOUNDPERSONAL, NULL, " Found %u personal mail%s in %u area%s " },
     { CRC_IL_NOPERSONAL, NULL, " No personal mail found " },
     { CRC_ST_ESCORCONTINUE, NULL, "ESC exits. Other keys: Tries to continue" },
-    { CRC_MS_SPELLCHECKER, NULL, "SpellChecker: %s" },
     { CRC_WT_INS, NULL, " Ins " },
     { CRC_WT_DRAWSL, NULL, " DL1 " },
     { CRC_WT_DRAWDL, NULL, " DL2 " },

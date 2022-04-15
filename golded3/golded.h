@@ -77,7 +77,7 @@
     #include <gwinall.h>
     #include <gwinhelp.h>
     #include <gwinpick.h>
-    #include <gespell.h>
+    
 
 
     //  ------------------------------------------------------------------

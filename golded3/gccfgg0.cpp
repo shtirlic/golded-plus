@@ -608,9 +608,6 @@ SwitchE:
     case CRC_EDITSOFTCRXLAT   :
         CfgEditsoftcrxlat   ();
         break;
-    case CRC_EDITSPELLCHECK   :
-        CfgEditspellcheck   ();
-        break;
     case CRC_EDITUNDELETE     :
         CfgEditundelete     ();
         break;
@@ -1038,20 +1035,6 @@ SwitchR:
 SwitchS:
     switch(crc)
     {
-#if defined(GCFG_SPELL_INCLUDED)
-    case CRC_SCHECKERENABLED  :
-        CfgScheckerenabled  ();
-        break;
-    case CRC_SCHECKERDEFLANG  :
-        CfgScheckerdeflang  ();
-        break;
-    case CRC_SCHECKERUSERDIC  :
-        CfgScheckeruserdic  ();
-        break;
-    case CRC_SCHECKERDICPATH  :
-        CfgScheckerdicpath  ();
-        break;
-#endif
     case CRC_SCREENBLANKER    :
         CfgScreenblanker    ();
         break;
@@ -1396,11 +1379,7 @@ static int do_if(char* val)
     }
     else if (strieql(val, "SPELL"))
     {
-#ifdef GCFG_SPELL_INCLUDED
-        return true;
-#else
         return false;
-#endif
     }
     else if(strieql(val, "FIREBIRD"))
         return true;

@@ -334,15 +334,4 @@ public:
 
 //  ------------------------------------------------------------------
 
-#if defined(GCFG_SPELL_INCLUDED)
-class GMenuSChecker : public GMnu
-{
-public:
-    int Run(CSpellChecker &schecker, const char *word);
-};
-#endif
-
-
-//  ------------------------------------------------------------------
-
 #endif

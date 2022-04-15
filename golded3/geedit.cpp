@@ -97,16 +97,6 @@ void IEclass::debugtest(char* __test, int __a, int __b, char* __file, int __line
 
 
 //  ------------------------------------------------------------------
-
-#if defined(GCFG_SPELL_INCLUDED)
-inline bool isscchar(int c)
-{
-    return isxalnum(c) || (c == '-') || (c == '\'') || (c == '.') ;
-}
-#endif
-
-
-//  ------------------------------------------------------------------
 //  Make sure line type is correct
 
 void IEclass::setlinetype(Line* __line)
@@ -266,236 +256,6 @@ void IEclass::gotorowcol(uint __col, uint __row)
 }
 
 
-//  ------------------------------------------------------------------
-
-#if defined(GCFG_SPELL_INCLUDED)
-void IEclass::dispstringsc(char *__buf, uint __beg, uint __end, uint __row, uint __col, char endchar)
-{
-    char scbuf[EDIT_BUFLEN];
-
-    uint bbeg = __beg;
-    uint bend = __beg;
-    uint bpos = __beg;
-
-    if ((bbeg > 0) && isscchar(__buf[bbeg]) && isscchar(__buf[bbeg-1]))
-    {
-        for (; (bpos < __end) && isscchar(__buf[bpos]); bpos++);
-        bend = bpos;
-    }
-
-    while (bpos < __end)
-    {
-        for (; (bpos < __end) && !isscchar(__buf[bpos]); bpos++);
-        bend = bpos;
-
-        uint scpos = 0;
-        for (; (bpos < __end) && isscchar(__buf[bpos]); bpos++, scpos++)
-            scbuf[scpos] = __buf[bpos];
-
-        if ((scpos == 0) || ((bpos == __end) && isscchar(endchar)))
-        {
-            bend = bpos;
-            break;
-        }
-
-        scbuf[scpos] = NUL;
-
-        if (schecker.Check(scbuf))
-            bend = bpos;
-        else
-        {
-            char savechar = __buf[bend];
-            __buf[bend] = NUL;
-            StyleCodeHighlight(__buf+bbeg, __row, __col+bbeg-__beg, false, DEFATTR);
-            __buf[bend] = savechar;
-
-            bbeg = bend;
-            bend += scpos;
-
-            bool oldusestylies = AA->adat->usestylies;
-            bool oldhighlighturls = CFG->highlighturls;
-            AA->adat->usestylies = false;
-            CFG->highlighturls = false;
-
-            savechar = __buf[bend];
-            __buf[bend] = NUL;
-            StyleCodeHighlight(__buf+bbeg, __row, __col+bbeg-__beg, false, C_SCERROR);
-            __buf[bend] = savechar;
-
-            AA->adat->usestylies = oldusestylies;
-            CFG->highlighturls = oldhighlighturls;
-
-            bbeg = bend;
-        }
-    }
-
-    if (bbeg < bend)
-        StyleCodeHighlight(__buf+bbeg, __row, __col+bbeg-__beg, false, DEFATTR);
-}
-
-
-//  ------------------------------------------------------------------
-
-void IEclass::dispstring(Line* line, uint __row)
-{
-    GFTRK("Editdispstring");
-
-    // Get string length
-    uint _length = strlen(line->txt.c_str());
-
-    // String longer than window width?
-    _test_haltab(_length > (maxcol+1), _length, (maxcol+1));
-    _length = MinV(_length, (maxcol+1));
-
-    // Buffer for translation to visual representation
-    char _buf[EDIT_BUFLEN];
-
-    // Space-pad and nul-terminate the buffer
-    memset(_buf, ' ', maxcol+1);
-    _buf[maxcol+1] = NUL;
-
-    // Copy/translate string into buffer
-    for (uint _pos = 0; _pos < _length; _pos++)
-    {
-        char chr = line->txt[_pos];
-        switch (chr)
-        {
-        case ' ':
-            _buf[_pos] = EDIT->CharSpace();
-            break;
-        case '\n':
-            _buf[_pos] = EDIT->CharPara();
-            break;
-        default:
-            _buf[_pos] = chr;
-        }
-    }
-
-    int  selected = 0;
-    uint begblock = 0;
-    uint endblock = 0;
-    Line *fbline = NULL;
-    Line *lbline = NULL;
-
-    if (blockcol != -1)
-    {
-        for (Line *ln = findfirstline(); ln; ln = ln->next)
-        {
-            if (ln == currline)
-            {
-                if (selected)
-                {
-                    lbline = ln;
-                    selected ^= 1;
-                    endblock = col;
-                }
-                else
-                {
-                    fbline = ln;
-                    selected ^= 1;
-                    begblock = col;
-                }
-            }
-
-            if (ln->type & GLINE_BLOK)
-            {
-                if (selected)
-                {
-                    lbline = ln;
-                    selected ^= 1;
-                    endblock = blockcol;
-                }
-                else
-                {
-                    fbline = ln;
-                    selected ^= 1;
-                    begblock = blockcol;
-                }
-            }
-
-            if (ln == line)
-            {
-                if (ln == lbline) selected = 1;
-                break;
-            }
-            if (lbline) break;
-        }
-
-        if (selected)
-        {
-            if (fbline == lbline)
-            {
-                if (begblock > endblock)
-                {
-                    int temp = begblock;
-                    begblock = endblock;
-                    endblock = temp;
-                }
-                else if (begblock == endblock)
-                    begblock = endblock = 0;
-            }
-            else if (line == fbline)
-                endblock = maxcol+1;
-            else if (line == lbline)
-                begblock = 0;
-            else
-            {
-                begblock = 0;
-                endblock = maxcol+1;
-            }
-        }
-        else
-            begblock = endblock = 0;
-    }
-
-
-    if (0 < begblock)
-    {
-        char savechar = _buf[begblock];
-        _buf[begblock] = NUL;
-
-        if ((CFG->scheckerenabled == GAUTO) && schecker.IsLoaded() &&
-                !(line->type & (GLINE_TAGL|GLINE_QUOT|GLINE_KLUD|GLINE_TEAR|GLINE_ORIG|GLINE_HIDD)))
-        {
-            dispstringsc(_buf, 0, begblock, __row, mincol, savechar);
-        }
-        else
-            StyleCodeHighlight(_buf, __row, mincol, false, DEFATTR);
-
-        _buf[begblock] = savechar;
-    }
-
-    if (begblock < endblock)
-    {
-        bool oldusestylies = AA->adat->usestylies;
-        bool oldhighlighturls = CFG->highlighturls;
-        AA->adat->usestylies = false;
-        CFG->highlighturls = false;
-
-        char savechar = _buf[endblock];
-        _buf[endblock] = NUL;
-        StyleCodeHighlight(_buf+begblock, __row, mincol+begblock, false, C_READA);
-        _buf[endblock] = savechar;
-
-        AA->adat->usestylies = oldusestylies;
-        CFG->highlighturls = oldhighlighturls;
-    }
-
-    if (endblock < (maxcol+1))
-    {
-        if ((CFG->scheckerenabled == GAUTO) && schecker.IsLoaded() &&
-                !(line->type & (GLINE_TAGL|GLINE_QUOT|GLINE_KLUD|GLINE_TEAR|GLINE_ORIG|GLINE_HIDD)))
-        {
-            dispstringsc(_buf, endblock, maxcol+1, __row, mincol+endblock, 0);
-        }
-        else
-            StyleCodeHighlight(_buf+endblock, __row, mincol+endblock, false, DEFATTR);
-    }
-
-    GFTRK(0);
-}
-#else // #if defined(GCFG_SPELL_INCLUDED)
-
 
 //  ------------------------------------------------------------------
 
@@ -628,7 +388,6 @@ void IEclass::dispstring(const char* __string, uint __row, int attr, Line* line)
 
     GFTRK(0);
 }
-#endif  // #if defined(GCFG_SPELL_INCLUDED)
 
 
 //  ------------------------------------------------------------------
@@ -2302,69 +2061,6 @@ void IEclass::SaveMsg()
 
 //  ------------------------------------------------------------------
 
-#if defined(GCFG_SPELL_INCLUDED)
-void IEclass::SCheckerMenu()
-{
-    if (!schecker.IsInited())
-        return;
-
-    const char *txt = currline->txt.c_str();
-    GMenuSChecker menu;
-    int finaltag;
-
-    if (!isscchar(txt[col]))
-        finaltag = menu.Run(schecker, "");
-    else
-    {
-        char buff[EDIT_BUFLEN];
-        size_t beg = col;
-        size_t end = col;
-
-        for (; (beg > 0) && isscchar(txt[beg-1]); beg--);
-        for (; isscchar(txt[end]); end++);
-        size_t len = end - beg;
-
-        memcpy(buff, &txt[beg], len);
-        buff[len] = 0;
-
-        finaltag = menu.Run(schecker, buff);
-        if (finaltag >= 0)
-        {
-            std::string &str = schecker.GetSuggest()[finaltag].second;
-            size_t len2 = str.length() - 3;
-            txt = &str.c_str()[2];
-
-            if ((buff[len-1] == '.') && (txt[len2-1] != '.')) len--;
-            if (col > (beg + len2 - 1)) col = beg + len2 - 1;
-
-            Undo->PushItem(EDIT_UNDO_DEL_TEXT, currline, beg, len);
-            currline->txt.erase(beg, len);
-
-            Undo->PushItem(EDIT_UNDO_INS_TEXT|BATCH_MODE, currline, beg, len2);
-            currline->txt.insert(beg, txt, len2);
-            wrapit(&currline, &col, &row);
-        }
-    }
-
-    if (finaltag == -2)
-    {
-        Line *line = currline;
-        uint32_t _row = row;
-
-        while (line->prev && (_row > minrow))
-        {
-            line = line->prev;
-            _row--;
-        }
-
-        refresh(line, _row);
-    }
-}
-#endif
-
-
-//  ------------------------------------------------------------------
-
 int IEclass::isempty(Line* __line)
 {
 
@@ -3162,16 +2858,8 @@ noselecting:
     case KK_EditSaveMsg:
         SaveMsg();
         break;
-#if defined(GCFG_SPELL_INCLUDED)
-    case KK_EditSCheckerMenu:
-        SCheckerMenu();
-        break;
-#endif
-    case KK_EditSoundkill:
+   case KK_EditSoundkill:
         Soundkill();
-        break;
-    case KK_EditSpellCheck:
-        SpellCheck();
         break;
     case KK_EditTab:
         Tab();
@@ -3256,28 +2944,6 @@ int IEclass::Start(int __mode, uint* __position, GMsg* __msg)
     msgptr = __msg;
     msgmode = __mode;
     currline = __msg->lin;
-
-#if defined(GCFG_SPELL_INCLUDED)
-    if (CFG->scheckerenabled)
-    {
-        int save_chartableno = LoadCharset(NULL,NULL,1); // Workaround: internal for LoadCharset() charset table number changed in the schecker.Load()
-        schecker.Init(CFG->xlatlocalset, CFG->scheckerdicpath);
-        char *str = strdup(AA->adat->scheckerdeflang);
-        char *token = strtok(str, " ");
-        while(token != NULL)
-        {
-            schecker.Load(token, CFG->scheckeruserdic);
-            /* Get next token: */
-            token = strtok(NULL, " ");
-        }
-        free(str);
-
-        if(save_chartableno != -1) // restore value of the default chaset table // workaround: internal for LoadCharset() charset table number changed in the schecker.Load()
-            LoadCharset(CFG->xlatcharset[save_chartableno].imp, CFG->xlatcharset[save_chartableno].exp);
-        else
-            LoadCharset("N/A","N/A");
-    }
-#endif
 
     if(AA->isinternet() and (CFG->soupexportmargin <= CFG->dispmargin))
         margintext = CFG->soupexportmargin;

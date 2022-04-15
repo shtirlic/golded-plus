@@ -121,7 +121,6 @@ CmdKey DefaultKeyset[] =
     { Key_A_S, KK_EditSaveMsg, KT_E },
     { Key_C_Z, KK_EditSaveMsg, KT_E },
     { Key_F2, KK_EditSaveMsg, KT_E },
-    { Key_F9, KK_EditSpellCheck, KT_E },
     { Key_Tab, KK_EditTab, KT_E },
     { Key_S_Tab, KK_EditTabReverse, KT_E },
     { Key_A_3, KK_EditToggleCase, KT_E },
@@ -677,9 +676,6 @@ tglobalkey globalkeys[] =
     { CRC_READSHOWDEL, KK_ReadShowDel, KT_R },                       // 0x8615
     { CRC_K_ENTER, Key_Ent,    0 },                                  // 0x87BD
     { CRC_EDITGOTOPLINE, KK_EditGoTopLine, KT_E },                   // 0x87C2
-#if defined(GCFG_SPELL_INCLUDED)
-    { CRC_EDITSCHECKERMENU, KK_EditSCheckerMenu, KT_E },             // 0x881F
-#endif
     { CRC_HEADERTOGGLEARCSENT, KK_HeaderToggleArcsent, KT_H },       // 0x88A7
     { CRC_EDITBLOCKPGDN, KK_EditBlockPgDn, KT_E },                   // 0x895B
     { CRC_EDITASKEXIT, KK_EditAskExit, KT_E },                       // 0x89AF
@@ -827,7 +823,6 @@ tglobalkey globalkeys[] =
     { CRC_EDITBLOCKUP, KK_EditBlockUp, KT_E },                       // 0xE004
     { CRC_EDITGOBEGLINE, KK_EditGoBegLine, KT_E },                   // 0xE045
     { CRC_READGOTONEXTMSG, KK_ReadGotoNextMsg, KT_R },               // 0xE0F1
-    { CRC_EDITSPELLCHECK, KK_EditSpellCheck, KT_E },                 // 0xE167
     { CRC_AREASCAN, KK_AreaScan, KT_A },                             // 0xE440
     { CRC_EDITGOWORDLEFT, KK_EditGoWordLeft, KT_E },                 // 0xE48C
     { CRC_EDITSCODENORMAL, KK_EditSCodeNormal, KT_E },               // 0xE4CE

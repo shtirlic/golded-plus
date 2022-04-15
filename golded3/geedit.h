@@ -305,13 +305,6 @@ protected:
     int  selecting;
 
     //  ----------------------------------------------------------------
-    //  Speller (DLL)
-
-#if defined(GCFG_SPELL_INCLUDED)
-    CSpellChecker schecker;
-#endif
-
-    //  ----------------------------------------------------------------
     //  Internal helper functions
 
     void  clreol          (int __col=-1, int __row=-1);
@@ -322,12 +315,7 @@ protected:
     void  dispins         ();
     void  dispdl          ();
     void  displine        (Line* __line, uint __row);
-#if defined(GCFG_SPELL_INCLUDED)
-    void  dispstringsc    (char *__buf, uint __beg, uint __end, uint __row, uint __col, char endchar);
-    void  dispstring      (Line* line, uint __row);
-#else
     void  dispstring      (const char* __string, uint __row, int attr=-1, Line* line=NULL);
-#endif
     int   downoneline     (uint __row);
     void  editexport      (Line* __exportline, int __endat);
     Line* findanchor      ();
@@ -432,12 +420,7 @@ public:
     void ReTab          ();
     void SaveFile       ();
     void SaveMsg        ();
-#if defined(GCFG_SPELL_INCLUDED)
-    void SCheckerMenu   ();
-#endif
     void Soundkill      ();
-    // External spell check tool
-    void SpellCheck     ();
     void Tab            ();
     void ToggleCase     ();
     void ToggleCaseBlock(gkey key);

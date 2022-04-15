@@ -163,7 +163,6 @@
     void CfgEditsavemenu     ();
     void CfgEditsaveutil     ();
     void CfgEditsoftcrxlat   ();
-    void CfgEditspellcheck   ();
     void CfgEditundelete     ();
     void CfgEmptytearline    ();
     void CfgEncodeemailheaders();
@@ -295,12 +294,6 @@
     void CfgReplylinkshowalways();
     void CfgReplyto          ();
     void CfgRobotname        ();
-    #if defined(GCFG_SPELL_INCLUDED)
-        void CfgScheckerenabled  ();
-        void CfgScheckerdeflang  ();
-        void CfgScheckeruserdic  ();
-        void CfgScheckerdicpath  ();
-    #endif
     void CfgScreenblanker    ();
     void CfgScreenmaxcol     ();
     void CfgScreenmaxrow     ();

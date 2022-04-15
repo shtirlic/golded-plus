@@ -626,10 +626,6 @@ struct UrlHandler
 #define GC_CFGB_    CFG->color[11]
 #define GC_STYLE_   CFG->color[12]
 #define GC_SHAD_    CFG->color[13]
-#if defined(GCFG_SPELL_INCLUDED)
-    #define GC_SPELL_   CFG->color[14]
-#endif
-
 
 //  ------------------------------------------------------------------
 //  Window parts

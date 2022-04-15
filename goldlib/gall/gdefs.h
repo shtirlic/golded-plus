@@ -167,17 +167,6 @@
 #endif
 
 /*  ------------------------------------------------------------------
-//  Spellchecker */
-#if !defined(__WIN32__) && !defined(GCFG_NO_MSSPELL)
-    #define GCFG_NO_MSSPELL
-#endif
-
-#if !(defined(GCFG_NO_MSSPELL) && defined(GCFG_NO_MYSPELL))
-    #define GCFG_SPELL_INCLUDED
-#endif
-
-
-/*  ------------------------------------------------------------------
 //  Special character constants */
 
 #define CTRL_A '\x01'   /* FidoNet kludge line char  */

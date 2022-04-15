@@ -155,7 +155,6 @@
     <ClCompile Include="..\goldlib\gall\gdbgexit.cpp" />
     <ClCompile Include="..\goldlib\gall\gdbgtrk.cpp" />
     <ClCompile Include="..\goldlib\gall\gdirposx.cpp" />
-    <ClCompile Include="..\goldlib\gall\gespell.cpp" />
     <ClCompile Include="..\goldlib\gall\geval.cpp" />
     <ClCompile Include="..\goldlib\gall\gevalhum.cpp" />
     <ClCompile Include="..\goldlib\gall\gevalrpn.cpp" />
@@ -310,18 +309,6 @@
     <ClCompile Include="..\goldlib\gmb3\gmowcat3.cpp" />
     <ClCompile Include="..\goldlib\gmb3\gmowcat4.cpp" />
     <ClCompile Include="..\goldlib\gmb3\gmowcat5.cpp" />
-    <ClCompile Include="..\goldlib\hunspell\affentry.cxx" />
-    <ClCompile Include="..\goldlib\hunspell\affixmgr.cxx" />
-    <ClCompile Include="..\goldlib\hunspell\csutil.cxx" />
-    <ClCompile Include="..\goldlib\hunspell\dictmgr.cxx" />
-    <ClCompile Include="..\goldlib\hunspell\hashmgr.cxx" />
-    <ClCompile Include="..\goldlib\hunspell\hunspell.cxx" />
-    <ClCompile Include="..\goldlib\hunspell\suggmgr.cxx" />
-    <ClCompile Include="..\goldlib\hunspell\utf_info.cxx">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_Static|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\goldlib\smblib\lzh.cpp" />
     <ClCompile Include="..\goldlib\smblib\smblib.cpp" />
     <ClCompile Include="..\goldlib\uulib\fptools.cpp" />
@@ -345,7 +332,6 @@
     <ClInclude Include="..\goldlib\gall\gdefs.h" />
     <ClInclude Include="..\goldlib\gall\gdirposx.h" />
     <ClInclude Include="..\goldlib\gall\geall.h" />
-    <ClInclude Include="..\goldlib\gall\gespell.h" />
     <ClInclude Include="..\goldlib\gall\geval.h" />
     <ClInclude Include="..\goldlib\gall\gfile.h" />
     <ClInclude Include="..\goldlib\gall\gfilutil.h" />
@@ -430,17 +416,6 @@
     <ClInclude Include="..\goldlib\gmb3\gmosqsh.h" />
     <ClInclude Include="..\goldlib\gmb3\gmowcat.h" />
     <ClInclude Include="..\goldlib\gmb3\gmo_msg.h" />
-    <ClInclude Include="..\goldlib\hunspell\affentry.hxx" />
-    <ClInclude Include="..\goldlib\hunspell\affixmgr.hxx" />
-    <ClInclude Include="..\goldlib\hunspell\atypes.hxx" />
-    <ClInclude Include="..\goldlib\hunspell\baseaffi.hxx" />
-    <ClInclude Include="..\goldlib\hunspell\csutil.hxx" />
-    <ClInclude Include="..\goldlib\hunspell\dictmgr.hxx" />
-    <ClInclude Include="..\goldlib\hunspell\hashmgr.hxx" />
-    <ClInclude Include="..\goldlib\hunspell\htypes.hxx" />
-    <ClInclude Include="..\goldlib\hunspell\hunspell.hxx" />
-    <ClInclude Include="..\goldlib\hunspell\langnum.hxx" />
-    <ClInclude Include="..\goldlib\hunspell\suggmgr.hxx" />
     <ClInclude Include="..\goldlib\smblib\filewrap.h" />
     <ClInclude Include="..\goldlib\smblib\genwrap.h" />
     <ClInclude Include="..\goldlib\smblib\lzh.h" />
@@ -452,10 +427,6 @@
     <ClInclude Include="..\goldlib\uulib\uudeview.h" />
     <ClInclude Include="..\goldlib\uulib\uuint.h" />
     <ClInclude Include="..\goldlib\uulib\uustring.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\goldlib\hunspell\license.hun" />
-    <None Include="..\goldlib\hunspell\license.mys" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

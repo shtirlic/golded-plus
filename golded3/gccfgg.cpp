@@ -544,7 +544,6 @@ GoldedCfgEdit::GoldedCfgEdit()
     str.push_back("<<");
     cfg.hardline = str.size()-1;
     str.push_back("");
-    cfg.spellchecker = str.size()-1;
 }
 
 
@@ -760,12 +759,6 @@ CfgGed::CfgGed()
     replylinkfloat = true;
     replylinklist = 0;
     replylinkshowalways = true;
-#if defined(GCFG_SPELL_INCLUDED)
-    scheckerenabled = NO;
-    strcpy(scheckerdeflang, "65535");
-    strcpy(scheckeruserdic, "user.dic");
-    strcpy(scheckerdicpath, "dicts");
-#endif
     screenblanker = 180;
     screenblankertype = BLANK_SLIDEWIN;
     screenmaxcol = 0;

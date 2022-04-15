@@ -241,39 +241,6 @@ void CfgRobotname()
 
 //  ------------------------------------------------------------------
 
-#if defined(GCFG_SPELL_INCLUDED)
-void CfgScheckerenabled()
-{
-    CFG->scheckerenabled = GetYesno(val);
-}
-
-//  ------------------------------------------------------------------
-
-void CfgScheckerdeflang()
-{
-    if(cfgingroup)
-        CFG->grp.AddItm(GRP_SCHECKERDEFLANG, val, strlen(val)+1);
-    else
-        strcpy(CFG->scheckerdeflang, val);
-}
-
-//  ------------------------------------------------------------------
-
-void CfgScheckeruserdic()
-{
-    strcpy(CFG->scheckeruserdic, StripQuotes(val));
-}
-
-//  ------------------------------------------------------------------
-
-void CfgScheckerdicpath()
-{
-    strcpy(CFG->scheckerdicpath, StripQuotes(val));
-}
-#endif  //#if defined(GCFG_SPELL_INCLUDED)
-
-//  ------------------------------------------------------------------
-
 void CfgScreenblanker()
 {
 

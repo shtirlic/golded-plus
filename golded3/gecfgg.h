@@ -416,12 +416,6 @@ public:
     int         replylinklist;
     bool        replylinkshowalways;
     gstrarray   robotname;
-#if defined(GCFG_SPELL_INCLUDED)
-    int         scheckerenabled;
-    char        scheckerdeflang[10240];
-    Path        scheckeruserdic;
-    Path        scheckerdicpath;
-#endif
     int         screenblanker;        // blanktime;
     int         screenblankertype;
     int         screenmaxcol;         // maxcols;
@@ -607,7 +601,6 @@ protected:
         int external;
         int file;
         int hardline;
-        int spellchecker;
     } cfg;
 
     // -----------------------------------------------------------------
@@ -733,10 +726,6 @@ public:
     {
         return cfg.softcrxlat;
     }
-    const char* SpellChecker()
-    {
-        return str[cfg.spellchecker].c_str();
-    }
     int UnDelete()
     {
         return cfg.undelete;
@@ -844,10 +833,6 @@ public:
     void SoftCrXlat(char s)
     {
         cfg.softcrxlat = s;
-    }
-    void SpellChecker(char* s)
-    {
-        str[cfg.spellchecker] = s;
     }
     void UnDelete(int s)
     {

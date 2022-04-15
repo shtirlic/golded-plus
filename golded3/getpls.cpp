@@ -117,7 +117,6 @@ int TemplateToText(int mode, GMsg* msg, GMsg* oldmsg, const char* tpl, int origa
         TPLTOKEN_COMMENT,
         TPLTOKEN_QUOTEBUF,
         TPLTOKEN_ATTRIB,
-        TPLTOKEN_SPELLCHECKER,
         TPLTOKEN_SETSUBJ,
         TPLTOKEN_SETFROM,
         TPLTOKEN_SETTO,
@@ -158,7 +157,6 @@ int TemplateToText(int mode, GMsg* msg, GMsg* oldmsg, const char* tpl, int origa
         { CSTR_COMMA_SIZEOF_CSTR("comment")      },
         { CSTR_COMMA_SIZEOF_CSTR("quotebuf")     },
         { CSTR_COMMA_SIZEOF_CSTR("attrib")       },
-        { CSTR_COMMA_SIZEOF_CSTR("spellchecker") },
         { CSTR_COMMA_SIZEOF_CSTR("setsubj")      },
         { CSTR_COMMA_SIZEOF_CSTR("setfrom")      },
         { CSTR_COMMA_SIZEOF_CSTR("setto")        },
@@ -541,11 +539,6 @@ int TemplateToText(int mode, GMsg* msg, GMsg* oldmsg, const char* tpl, int origa
                         GetAttribstr(&msg->attr, ptr);
                         disphdr = YES;
                     }
-                    continue;
-
-                case TPLTOKEN_SPELLCHECKER:
-                    if(mode != MODE_QUOTEBUF)
-                        EDIT->SpellChecker(strskip_wht(ptr));
                     continue;
 
                 case TPLTOKEN_SETSUBJ:

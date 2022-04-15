@@ -1279,11 +1279,7 @@ static int do_if(char* val)
     }
     else if (strieql(val, "SPELL"))
     {
-#ifdef GCFG_SPELL_INCLUDED
-        return true;
-#else
         return false;
-#endif
     }
     else if(strieql(val, "FIREBIRD"))
         return true;

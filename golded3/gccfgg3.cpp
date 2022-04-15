@@ -358,14 +358,6 @@ void CfgEditsoftcrxlat()
 
 //  ------------------------------------------------------------------
 
-void CfgEditspellcheck()
-{
-
-    EDIT->SpellChecker(val);
-}
-
-//  ------------------------------------------------------------------
-
 void CfgEditundelete()
 {
 
