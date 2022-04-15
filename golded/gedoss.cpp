@@ -43,7 +43,7 @@
 
 extern GPickArealist* PickArealist;
 extern bool in_arealist;
-extern uint* areanumbers;
+extern std::vector<uint> areanumbers;
 extern GMsg* reader_msg;
 
 //  ------------------------------------------------------------------
@@ -143,7 +143,6 @@ void Cleanup(void)
         if(in_arealist)
         {
             PickArealist->close_all();      // Unlink hidden area windows
-            free(areanumbers);
         }
         whelpundef();                     // Disengage the help system
         kbclear();                        // Clear CXL keyboard buffer

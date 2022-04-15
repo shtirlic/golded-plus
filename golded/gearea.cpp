@@ -38,7 +38,7 @@ GPickArealist* PickArealist;
 
 Echo area_maybe;
 int areaswithgroupid = 0;
-uint* areanumbers = NULL;
+std::vector<uint> areanumbers;
 
 //            111111111122222222223333333333444444444455555555556666666666777777777
 //  0123456789012345678901234567890123456789012345678901234567890123456789012345678
@@ -1024,12 +1024,10 @@ int GPickArealist::Run(const char* _title, int wpos, int& idx)
 
     goldmark = ' ';
 
-    areanumbers = (uint*)calloc(AL.size(), sizeof(uint));
+    areanumbers.resize(AL.size(), 0);
     AreasRenumber();
 
     run_picker();
-
-    free(areanumbers);
 
     if(not aborted)
         return AL[index]->areaid();
