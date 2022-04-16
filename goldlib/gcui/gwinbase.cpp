@@ -1803,8 +1803,7 @@ int wwprints(int whandle, int wrow, int wcol, vattr attr, const char* str)
 
     // save current cursor position
     int oldrow, oldcol;
-    if(gvid->isbios())
-        vposget(&oldrow,&oldcol);
+
 
     // do while not end-of-string and not end-of-window
     while(__ccol <= ecol and *__p)
@@ -1863,10 +1862,6 @@ int wwprints(int whandle, int wrow, int wcol, vattr attr, const char* str)
         __ccol++;
         __p++;
     }
-
-    // restore old cursor position
-    if(gvid->isbios())
-        vposset(oldrow,oldcol);
 
     // return to caller
     return gwin.werrno = *__p ? W_STRLONG : W_NOERROR;

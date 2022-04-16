@@ -287,18 +287,6 @@ public:
     void getpalette     (int* _palette);
     void setpalette     (int* _palette);
 
-    bool isdma()
-    {
-        return device == GVID_DMA;
-    }
-    bool iscga()
-    {
-        return device == GVID_CGA;
-    }
-    bool isbios()
-    {
-        return device == GVID_BIO;
-    }
 
     void restore_cursor();
 
