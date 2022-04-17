@@ -3328,7 +3328,7 @@ static bool CheckLevel(const char* imp, const char* imp2, int n, int &current_ta
     gfile fp(AddPath(CFG->goldpath, CFG->xlatged), "rb", CFG->sharemode);
     if (fp.isopen())
     {
-        if (!CharTable) CharTable = (Chs*)calloc(1, sizeof(Chs));
+        CharTable = new Chs();
         fp.FseekSet(n, sizeof(Chs));
         fp.Fread(CharTable, sizeof(Chs));
 
@@ -3401,7 +3401,7 @@ int LoadCharset(const char* imp, const char* exp, int query)
     }
 
     // No matching table found
-    free(CharTable);
+    delete(CharTable);
     ChsTP = NULL;
     current_table = -1;
     return 0;

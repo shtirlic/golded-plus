@@ -861,15 +861,16 @@ struct UrlHandler
 
 typedef byte ChsTab[4];
 
-struct Chs
+class Chs
 {
-    long   id;
-    int    version;
-    int    level;
-    int    displaylevel;
-    XlatName imp;   // From Charset
-    XlatName exp;   // To Charset
-    ChsTab t[256];       // The Translation Table
+public:
+    long   id = {};
+    int    version = {};
+    int    level = {};
+    int    displaylevel = {};
+    XlatName imp = {};   // From Charset
+    XlatName exp = {};   // To Charset
+    ChsTab t[256] = {};       // The Translation Table
 };
 
 

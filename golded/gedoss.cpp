@@ -120,7 +120,7 @@ void Cleanup(void)
         CFG->unpacker.clear();
 
         // Free misc data
-        free(CharTable);
+        delete(CharTable);
         free(CompTable);
         free(MNETable);
         free(I51Table);
