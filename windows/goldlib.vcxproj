@@ -191,11 +191,6 @@
     <ClCompile Include="..\goldlib\gall\gsndwrap.cpp" />
     <ClCompile Include="..\goldlib\gall\gstrbags.cpp" />
     <ClCompile Include="..\goldlib\gall\gstrctyp.cpp" />
-    <ClCompile Include="..\goldlib\gall\gstring.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_Static|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\goldlib\gall\gstrmail.cpp" />
     <ClCompile Include="..\goldlib\gall\gstrname.cpp" />
     <ClCompile Include="..\goldlib\gall\gstrutil.cpp" />
@@ -220,11 +215,6 @@
     <ClCompile Include="..\goldlib\gall\gutlwin.cpp" />
     <ClCompile Include="..\goldlib\gall\gutlwinm.cpp" />
     <ClCompile Include="..\goldlib\gall\gwildmat.cpp" />
-    <ClCompile Include="..\goldlib\gall\memleak.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_Static|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\goldlib\gcfg\gedacfg.cpp" />
     <ClCompile Include="..\goldlib\gcfg\gxareas.cpp" />
     <ClCompile Include="..\goldlib\gcfg\gxcrash.cpp" />
@@ -346,7 +336,6 @@
     <ClInclude Include="..\goldlib\gall\gkbdunix.h" />
     <ClInclude Include="..\goldlib\gall\glog.h" />
     <ClInclude Include="..\goldlib\gall\gmemall.h" />
-    <ClInclude Include="..\goldlib\gall\gmiscdef.h" />
     <ClInclude Include="..\goldlib\gall\gmsgattr.h" />
     <ClInclude Include="..\goldlib\gall\gprnall.h" />
     <ClInclude Include="..\goldlib\gall\gregex.h" />
@@ -355,10 +344,8 @@
     <ClInclude Include="..\goldlib\gall\gsigunix.h" />
     <ClInclude Include="..\goldlib\gall\gsndall.h" />
     <ClInclude Include="..\goldlib\gall\gsndsapi.h" />
-    <ClInclude Include="..\goldlib\gall\gstl_inc.h" />
     <ClInclude Include="..\goldlib\gall\gstrall.h" />
     <ClInclude Include="..\goldlib\gall\gstrbags.h" />
-    <ClInclude Include="..\goldlib\gall\gstring.h" />
     <ClInclude Include="..\goldlib\gall\gstrmail.h" />
     <ClInclude Include="..\goldlib\gall\gtimall.h" />
     <ClInclude Include="..\goldlib\gall\gtxtpara.h" />
@@ -375,7 +362,6 @@
     <ClInclude Include="..\goldlib\gall\gutltag.h" />
     <ClInclude Include="..\goldlib\gall\gutlunix.h" />
     <ClInclude Include="..\goldlib\gall\gwildmat.h" />
-    <ClInclude Include="..\goldlib\gall\memleak.h" />
     <ClInclude Include="..\goldlib\gcfg\gedacfg.h" />
     <ClInclude Include="..\goldlib\gcfg\gs_ez102.h" />
     <ClInclude Include="..\goldlib\gcfg\gs_ez110.h" />
@@ -415,13 +401,10 @@
     <ClInclude Include="..\goldlib\gmb3\gmosqsh.h" />
     <ClInclude Include="..\goldlib\gmb3\gmowcat.h" />
     <ClInclude Include="..\goldlib\gmb3\gmo_msg.h" />
-    <ClInclude Include="..\goldlib\smblib\filewrap.h" />
-    <ClInclude Include="..\goldlib\smblib\genwrap.h" />
     <ClInclude Include="..\goldlib\smblib\lzh.h" />
     <ClInclude Include="..\goldlib\smblib\smbdefs.h" />
     <ClInclude Include="..\goldlib\smblib\smblib.h" />
     <ClInclude Include="..\goldlib\uulib\config.h" />
-    <ClInclude Include="..\goldlib\uulib\crc32.h" />
     <ClInclude Include="..\goldlib\uulib\fptools.h" />
     <ClInclude Include="..\goldlib\uulib\uudeview.h" />
     <ClInclude Include="..\goldlib\uulib\uuint.h" />
