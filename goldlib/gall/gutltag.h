@@ -59,11 +59,11 @@ public:
     //  ----------------------------------------------------------------
     //  Internal data
 
-    std::vector <uint32_t> tag = {};              // tag array
-    uint  tags = {};               // tags in array
-    uint  count = {};              // fake tags count
-    uint  allocated = {};          // actual allocated tags
-    uint  granularity= {};        // memory allocation optimization
+    std::vector <uint32_t> tag = {};    // tag array
+    uint  tags = {};                    // tags in array
+    uint  count = {};                   // fake tags count
+    uint  allocated = {};               // actual allocated tags
+    uint  granularity= {};              // memory allocation optimization
 
     //  ----------------------------------------------------------------
     //  Constructor and destructor
@@ -116,20 +116,20 @@ public:
 
     void  Set(uint n, uint32_t t)
     {
-        tag[n] = t;
+        tag.at(n) = t;
     }
     uint32_t Get(uint n)
     {
-        return (tags and (n<tags)) ? tag[n] : TAGN_INVALID;
+        return (tags and (n<tags)) ? tag.at(n) : TAGN_INVALID;
     }
 
     uint32_t& operator[](uint n)
     {
-        return tag[n];
+        return tag.at(n);
     }
     uint32_t& at(uint n)
     {
-        return tag[n];
+        return tag.at(n);
     }
 
     void Load(gfile& fp);

@@ -43,58 +43,58 @@ class GMsg : public gmsg
 
 public:
 
-    IAdr        iorig;            // Internet "From:" header address
-    IAdr        idest;            // Internet "To:" header address
-    IAdr        ireplyto;         // Internet "Reply-To:" header address
-    IAdr        iaddr;            // Internet destination address           (from ^aREPLYADDR)
-    IAdr        igate;            // Internet gate FTN-address and gatename (from ^aREPLYTO)
-    INam        ifrom;            // Internet "From:" header
-    char        ito[512];         // Internet "To:" header
-    char        icc[512];         // Internet "Cc:"  header
-    char        ibcc[512];        // Internet "Bcc:"  header
-    INam        organization;     // Internet "Organization:" header
+    IAdr        iorig = {};            // Internet "From:" header address
+    IAdr        idest = {};            // Internet "To:" header address
+    IAdr        ireplyto = {};         // Internet "Reply-To:" header address
+    IAdr        iaddr = {};            // Internet destination address           (from ^aREPLYADDR)
+    IAdr        igate = {};            // Internet gate FTN-address and gatename (from ^aREPLYTO)
+    INam        ifrom = {};            // Internet "From:" header
+    char        ito[512] = {};         // Internet "To:" header
+    char        icc[512] = {};         // Internet "Cc:"  header
+    char        ibcc[512] = {};        // Internet "Bcc:"  header
+    INam        organization = {};     // Internet "Organization:" header
 
-    INam        realby;           // Real from-name
-    INam        realto;           // Real to-name
-    INam        pseudoto;         // Pseudo to-name
-    INam        pseudofrom;       // Pseudo from-name
-    uint        you_and_I;        // Mail was to/from me/you
+    INam        realby = {};           // Real from-name
+    INam        realto = {};           // Real to-name
+    INam        pseudoto = {};         // Pseudo to-name
+    INam        pseudofrom = {};       // Pseudo from-name
+    uint        you_and_I = {};        // Mail was to/from me/you
 
-    INam        fwdfrom;          // FWDFROM kludge
-    ftn_addr    fwdorig;          // FWDORIG kludge
-    INam        fwdto;            // FWDTO kludge
-    ftn_addr    fwddest;          // FWDDEST kludge
-    Subj        fwdsubj;          // FWDSUBJ kludge
-    Echo        fwdarea;          // FWDAREA kludge
-    char        fwdmsgid[201];    // FWDMSGID kludge
+    INam        fwdfrom = {};          // FWDFROM kludge
+    ftn_addr    fwdorig = {};          // FWDORIG kludge
+    INam        fwdto = {};            // FWDTO kludge
+    ftn_addr    fwddest = {};          // FWDDEST kludge
+    Subj        fwdsubj = {};          // FWDSUBJ kludge
+    Echo        fwdarea = {};          // FWDAREA kludge
+    char        fwdmsgid[201] = {};    // FWDMSGID kludge
 
-    bool        i51;              // true if I51 kludge was found
-    char        charset[100];     // Charset type
-    int         charsetlevel;     // Charset level
-    int         charsetencoding;  // Charset encoding format (GCHENC_*)
+    bool        i51 = {};              // true if I51 kludge was found
+    char        charset[100] = {};     // Charset type
+    int         charsetlevel = {};     // Charset level
+    int         charsetencoding = {};  // Charset encoding format (GCHENC_*)
 
-    int         tzutc;            // TZUTC kludge
+    int         tzutc = {};            // TZUTC kludge
 
-    char        tagline[80];      // Tagline for msg
-    char        tearline[80];     // Tearline for msg
-    char        origin[160];      // Origin for msg
+    char        tagline[80] = {};      // Tagline for msg
+    char        tearline[80] = {};     // Tearline for msg
+    char        origin[160] = {};      // Origin for msg
 
-    Line*       lin;              // Index of the lines
-    Line**      line;             // Index of the viewable lines
-    int         lines;            // Total number of lines
+    Line*       lin = {};              // Index of the lines
+    Line**      line = {};             // Index of the viewable lines
+    int         lines = {};            // Total number of lines
 
-    int         quotepct;         // Quote/text percentage
+    int         quotepct = {};         // Quote/text percentage
 
-    uint        foundwhere;       // Where searched string was found (GFIND_*)
-    int         foundtopline;     // First line where a searched string was found
+    uint        foundwhere = {};       // Where searched string was found (GFIND_*)
+    int         foundtopline = {};     // First line where a searched string was found
 
-    uint        orig_timesread;
+    uint        orig_timesread = {};
 
-    char*       messageid;        // Internet Message-ID (allocated)
-    char*       inreplyto;        // Internet In-Reply-To (allocated)
-    char*       references;       // Internet References (allocated)
+    char*       messageid = {};        // Internet Message-ID (allocated)
+    char*       inreplyto = {};        // Internet In-Reply-To (allocated)
+    char*       references = {};       // Internet References (allocated)
 
-    const char* areakludgeid;     // Echoid from AREA: kludge or NULL
+    const char* areakludgeid = {};     // Echoid from AREA: kludge or NULL
 
     char* By()
     {
@@ -138,8 +138,8 @@ class GAreaListScan
 
 private:
 
-    std::vector< std::pair<std::string, std::string> > container;
-    std::vector< std::pair<std::string, std::string> >::iterator currposn;
+    std::vector< std::pair<std::string, std::string> > container = {};
+    std::vector< std::pair<std::string, std::string> >::iterator currposn = {};
 
 public:
 
@@ -234,8 +234,8 @@ class AreaList
 
 private:
 
-    Desc        alistselections[16];
-    byte        mask;
+    Desc        alistselections[16] = {};
+    byte        mask = {};
 
     friend class Area;
     friend class SelMaskPick;
@@ -243,19 +243,19 @@ private:
 public:
 
     // Index of areas in the list
-    std::vector<Area *> idx;
+    std::vector<Area *> idx = {};
 
     // Area pointer
-    area_iterator item;
+    area_iterator item = {};
 
     // Sort specs (for external compare func)
-    char sortspec[AREALISTSORTSIZE];
+    char sortspec[AREALISTSORTSIZE] = {};
 
     // Active msgbases (bitmap of MT_* contants)
-    std::vector<std::string> basetypes;
+    std::vector<std::string> basetypes = {};
 
     // Additional items to the area scan menu
-    GAreaListScan ListScan;
+    GAreaListScan ListScan = {};
 
 //  void Set_Mask(word value = 1) { mask = value; }
     void Select_Mask(void);
@@ -490,9 +490,9 @@ class Area
 
 private:
 
-    bool findfirst;
-    uint findtype;  //1 - FindAll, 2 - FindHdr
-    word marks;     // storing 16 different marks
+    bool findfirst = {};
+    uint findtype = {};  //1 - FindAll, 2 - FindHdr
+    word marks = {};     // storing 16 different marks
 
     friend class AreaList;
 
@@ -501,8 +501,8 @@ public:
     //  ----------------------------------------------------------------
     //  Config data
 
-    gmo_area* area;
-    AreaData* adat;
+    gmo_area* area = {};
+    AreaData* adat = {};
 
 
     //  ----------------------------------------------------------------
@@ -515,14 +515,14 @@ public:
     //  ----------------------------------------------------------------
     //  Data members
 
-    GTag    Msgn;               // Message numbers
-    GTag    Mark;               // Message marks
-    GTag    PMrk;               // Personal mail marks
-    GTag    Expo;               // Messages to be exported
+    GTag    Msgn = {};               // Message numbers
+    GTag    Mark = {};               // Message marks
+    GTag    PMrk = {};               // Personal mail marks
+    GTag    Expo = {};               // Messages to be exported
 
-    uint32_t bookmark;          // Current bookmark message number
+    uint32_t bookmark = {};          // Current bookmark message number
 
-    uint    unread;             // Number of unread messages at last scan
+    uint    unread = {};             // Number of unread messages at last scan
 
     uint     lastread() const;        // Number of last message read
     uint32_t lastreadentry() const;   // Lastread message number at entry to area
@@ -1285,17 +1285,17 @@ class GPickArealist : public gwinpick
 
 private:
 
-    int  areawin;
-    int  tempwin;
-    int  tempwin1;
-    int  areawin1;
-    int  areawin2;
-    int  tempwin2;
-    uint area_fuzidx;
+    int  areawin = {};
+    int  tempwin = {};
+    int  tempwin1 = {};
+    int  areawin1 = {};
+    int  areawin2 = {};
+    int  tempwin2 = {};
+    uint area_fuzidx = {};
 
-    int  pmails;
-    int  pmareas;
-    bool pmscan;
+    int  pmails = {};
+    int  pmareas = {};
+    bool pmscan = {};
 
     void jump_to();
     void jumpmatch();
@@ -1309,8 +1309,8 @@ protected:
 
 public:
 
-    uint area_maxfuz;
-    bool esc_abort;
+    uint area_maxfuz = {};
+    bool esc_abort = {};
 
     void open();                        // Called after window is opened
     void close();                       // Called after window is closed

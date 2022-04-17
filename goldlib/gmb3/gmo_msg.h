@@ -145,24 +145,18 @@ class Line
 
 public:
 
-    vattr color;            // Line color
-    uint  type;             // GLINE_*
-    uint  kludge;           // GKLUD_*
-    std::string txt;             // The line text
-    Line* prev;             // Pointer to previous line
-    Line* next;             // Pointer to next line
+    vattr color = BLACK_ | _BLACK;            // Line color
+    uint  type = {};             // GLINE_*
+    uint  kludge = {};           // GKLUD_*
+    std::string txt = {};             // The line text
+    Line* prev = {};             // Pointer to previous line
+    Line* next = {};             // Pointer to next line
 
     Line() : txt ("")
     {
-        color = BLACK_|_BLACK;
-        type = kludge = 0;
-        prev = next = NULL;
     }
     Line(const char *str) : txt (str)
     {
-        color = BLACK_|_BLACK;
-        type = kludge = 0;
-        prev = next = NULL;
     }
     ~Line()              {}
 
@@ -238,11 +232,11 @@ Line* AddHexdump(Line*& line, void* data, size_t datalen);
 class gmsg_links
 {
 private:
-    uint32_t reply_to;
-    uint32_t reply_first;
-    uint32_t reply_next;
+    uint32_t reply_to = {};
+    uint32_t reply_first = {};
+    uint32_t reply_next = {};
 
-    std::vector<uint32_t> reply_list;
+    std::vector<uint32_t> reply_list = {};
 
 public:
 
@@ -350,46 +344,46 @@ class gmsg
 
 public:
 
-    uint        board;            // Board number (if applicable)
+    uint        board = {};            // Board number (if applicable)
 
-    uint32_t    msgno;            // Message number
-    gmsg_links  link;             // Message reply links
+    uint32_t    msgno = {};            // Message number
+    gmsg_links  link = {};             // Message reply links
 
-    ftn_addr    oorig;            // Original origination address
-    ftn_addr    orig;             // Origination address
-    ftn_domain  odom;             // Originating domain
+    ftn_addr    oorig = {};            // Original origination address
+    ftn_addr    orig = {};             // Origination address
+    ftn_domain  odom = {};             // Originating domain
 
-    ftn_addr    odest;            // Original destination address
-    ftn_addr    dest;             // Destination address
-    ftn_domain  ddom;             // Destination domain
+    ftn_addr    odest = {};            // Original destination address
+    ftn_addr    dest = {};             // Destination address
+    ftn_domain  ddom = {};             // Destination domain
 
-    INam        by;               // Who from
-    INam        to;               // Who to
-    ISub        re;               // Subject
+    INam        by = {};               // Who from
+    INam        to = {};               // Who to
+    ISub        re = {};               // Subject
 
-    time32_t      written;          // Timestamp
-    time32_t      arrived;          // Timestamp
-    time32_t      received;         // Timestamp
+    time32_t      written = {};          // Timestamp
+    time32_t      arrived = {};          // Timestamp
+    time32_t      received = {};         // Timestamp
 
-    Attr        attr;             // Message attributes
-    uint        cost;             // Cost of msg if Netmail
-    uint        timesread;        // Number of times read
+    Attr        attr = {};             // Message attributes
+    uint        cost = {};             // Cost of msg if Netmail
+    uint        timesread = {};        // Number of times read
 
-    ftn_addr    msgid;            // MSGID kludge address
-    char        msgids[201];      // MSGID kludge string
-    char        replys[201];      // REPLY kludge string
+    ftn_addr    msgid = {};            // MSGID kludge address
+    char        msgids[201] = {};      // MSGID kludge string
+    char        replys[201] = {};      // REPLY kludge string
 
-    char        pid[80];          // PID kludge string
+    char        pid[80] = {};          // PID kludge string
 
-    int32_t        txtstart;         // Text starting position or record
-    int32_t        txtlength;        // Text length or number of records
-    uint        txtblocks;        // Number of msg text blocks
+    int32_t        txtstart = {};         // Text starting position or record
+    int32_t        txtlength = {};        // Text length or number of records
+    uint        txtblocks = {};        // Number of msg text blocks
 
-    char*       txt;              // Message text
+    char*       txt = {};              // Message text
 
-    gmsg_jam_fields       jam;
-    gmsg_wildcat_fields   wildcat;
-    gmsg_ezycom_fields    ezycom;
+    gmsg_jam_fields       jam = {};
+    gmsg_wildcat_fields   wildcat = {};
+    gmsg_ezycom_fields    ezycom = {};
 
 };
 
